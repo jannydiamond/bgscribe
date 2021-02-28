@@ -1,11 +1,17 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
-import counterReducer from 'Redux/Counter/counterSlice'
+import CounterReducer from 'Redux/Counter/counterSlice'
+import GamesReducer from 'Redux/Games'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    Counter: CounterReducer,
+    Games: GamesReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 export type RootState = ReturnType<typeof store.getState>
