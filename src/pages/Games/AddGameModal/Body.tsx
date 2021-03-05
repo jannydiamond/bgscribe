@@ -4,7 +4,7 @@ import shortid from 'shortid'
 
 import * as types from 'types'
 
-import { addGame } from 'Redux/Games'
+import { addGame } from 'Redux/Games/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'

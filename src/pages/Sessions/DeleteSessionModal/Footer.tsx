@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
-import { removeSessionFromGame } from 'Redux/Games'
-import { deleteSession } from 'Redux/Sessions'
+import { removeSessionFromGame } from 'Redux/Games/sideEffects'
+import { deleteSession } from 'Redux/Sessions/sideEffects'
 
 import Button from 'components/__styled__/Button'
 

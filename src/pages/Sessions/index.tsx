@@ -7,7 +7,10 @@ import * as types from 'types'
 
 import { RootState } from 'Redux/store'
 import { selectGames } from 'Redux/Games/index'
-import { selectSessions, selectSessionsByGameId } from 'Redux/Sessions'
+import {
+  selectSessions,
+  selectSessionsArraySortedByDatePlayed,
+} from 'Redux/Sessions'
 
 import { useModal } from 'hooks/useModal'
 
@@ -41,7 +44,7 @@ const Sessions = () => {
   const [session, setSession] = useState<types.Session | {}>({})
   const sessions = useSelector(selectSessions)
   const sessionsArray: types.Session[] = useSelector((state: RootState) =>
-    selectSessionsByGameId(state, gameId)
+    selectSessionsArraySortedByDatePlayed(state, gameId)
   )
 
   const addSessionModal = useModal()
@@ -109,13 +112,25 @@ const Sessions = () => {
   return (
     <>
       {sessionsArray.length > 0 ? (
-        <Main>
-          <Link to="/">
-            <Icon icon="chevron_left" />
-            Back to game overview
-          </Link>
-          <TileList>{renderSessions(sessionsArray)}</TileList>
-        </Main>
+        <>
+          <Main>
+            <Link to="/">
+              <Icon icon="chevron_left" />
+              Back to game overview
+            </Link>
+            <TileList>{renderSessions(sessionsArray)}</TileList>
+          </Main>
+          <AddSessionModal modal={addSessionModal} game={games[gameId]} />
+          <EditSessionModal
+            modal={editSessionModal}
+            session={session as types.Session}
+          />
+          <DeleteSessionModal
+            modal={deleteSessionModal}
+            session={session as types.Session}
+            game={games[gameId]}
+          />
+        </>
       ) : (
         <Main>
           <Link to="/">Back to game overview</Link>
@@ -127,16 +142,6 @@ const Sessions = () => {
         icon="add"
         variant="secondary"
         onClick={() => addSessionModal.show()}
-      />
-      <AddSessionModal modal={addSessionModal} game={games[gameId]} />
-      <EditSessionModal
-        modal={editSessionModal}
-        session={session as types.Session}
-      />
-      <DeleteSessionModal
-        modal={deleteSessionModal}
-        session={session as types.Session}
-        game={games[gameId]}
       />
     </>
   )

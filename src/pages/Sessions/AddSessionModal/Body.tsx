@@ -5,8 +5,8 @@ import shortid from 'shortid'
 
 import * as types from 'types'
 
-import { addSession } from 'Redux/Sessions'
-import { addSessionToGame } from 'Redux/Games'
+import { addSessionToGame } from 'Redux/Games/sideEffects'
+import { addSession } from 'Redux/Sessions/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
@@ -21,7 +21,6 @@ type Props = {
   gameId: string
 }
 
-// ToDo
 const Body = ({ modal, gameId }: Props) => {
   const [datePlayed, setDatePlayed] = useState<string>(
     format(new Date(), 'yyyy-MM-dd')

@@ -1,8 +1,19 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { compareDesc } from 'date-fns'
 
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
+import { selectLatestSessionDateByGameId } from 'Redux/Sessions'
+
+import {
+  fetchGames,
+  addGame,
+  editGame,
+  deleteGame,
+  addSessionToGame,
+  removeSessionFromGame,
+} from './sideEffects'
 
 type State = types.Games
 
@@ -11,34 +22,51 @@ const initialState: State = {}
 export const GamesSlice = createSlice({
   name: 'Games',
   initialState,
-  reducers: {
-    addGame: (state: State, action: PayloadAction<types.AddGamePayload>) => {
-      const { id, name } = action.payload
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchGames.fulfilled, (_, action) => {
+      const newState = action.payload
+        ? action.payload.reduce((acc, game) => {
+            return {
+              ...acc,
+              [game.id]: game,
+            }
+          }, {})
+        : {}
+
+      return newState
+    })
+    builder.addCase(fetchGames.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(addGame.fulfilled, (state, action) => {
+      const { id } = action.payload
 
       return {
-        [id]: {
-          id: id,
-          name: name !== '' ? name : id,
-          sessions: [],
-          created: new Date(),
-        },
+        [id]: action.payload,
         ...state,
       }
-    },
-    editGame: (state: State, action: PayloadAction<types.EditGamePayload>) => {
-      const { id, name } = action.payload
+    })
+    builder.addCase(addGame.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(editGame.fulfilled, (state, action) => {
+      const { id } = action.payload
 
       return {
         ...state,
-        [id]: {
-          ...state[id],
-          name: name !== '' ? name : id,
-        },
+        [id]: action.payload,
       }
-    },
-    deleteGame: (state: State, action: PayloadAction<string>) => {
+    })
+    builder.addCase(editGame.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(deleteGame.fulfilled, (state, action) => {
       const newState = Object.values(state).reduce((acc, game) => {
-        if (game.id === action.payload) return acc
+        if (game.id === action.meta.arg) return acc
 
         return {
           ...acc,
@@ -47,58 +75,59 @@ export const GamesSlice = createSlice({
       }, {})
 
       return newState
-    },
-    addSessionToGame: (
-      state: State,
-      action: PayloadAction<types.AddSessionToGamePayload>
-    ) => {
-      const { gameId, sessionId } = action.payload
+    })
+    builder.addCase(deleteGame.rejected, (_, action) => {
+      console.log(action.error)
+    })
 
-      const newSessions = [...state[gameId].sessions, sessionId]
+    builder.addCase(addSessionToGame.fulfilled, (state, action) => {
+      const { id } = action.payload
 
-      const newState = {
+      return {
         ...state,
-        [gameId]: {
-          ...state[gameId],
-          sessions: newSessions,
-        },
+        [id]: action.payload,
       }
+    })
+    builder.addCase(addSessionToGame.rejected, (_, action) => {
+      console.log(action.error)
+    })
 
-      return newState
-    },
-    removeSessionFromGame: (
-      state: State,
-      action: PayloadAction<types.RemoveSessionFromGamePayload>
-    ) => {
-      const { gameId, sessionId } = action.payload
+    builder.addCase(removeSessionFromGame.fulfilled, (state, action) => {
+      const { id } = action.payload
 
-      const newSessions = state[gameId].sessions.filter(
-        (id: string) => id !== sessionId
-      )
-
-      const newState = {
+      return {
         ...state,
-        [gameId]: {
-          ...state[gameId],
-          sessions: newSessions,
-        },
+        [id]: action.payload,
       }
-
-      return newState
-    },
+    })
+    builder.addCase(removeSessionFromGame.rejected, (_, action) => {
+      console.log(action.error)
+    })
   },
 })
-
-export const {
-  addGame,
-  editGame,
-  deleteGame,
-  addSessionToGame,
-  removeSessionFromGame,
-} = GamesSlice.actions
 
 export const selectGames = (state: RootState) => state.Games
 export const selectGameIds = (state: RootState) => Object.keys(state.Games)
 export const selectGamesArray = (state: RootState) => Object.values(state.Games)
+
+export const selectGamesArrayWithLatestPlayedDateSorted = (
+  state: RootState
+) => {
+  const games = Object.values(state.Games)
+
+  const gamesWithLastPlayedDate = games.map((game: types.Game) => {
+    const lastPlayedDate = (state: RootState) =>
+      selectLatestSessionDateByGameId(state, game.id)
+
+    return {
+      ...game,
+      lastPlayed: lastPlayedDate(state),
+    }
+  })
+
+  return gamesWithLastPlayedDate.sort((gameA, gameB) => {
+    return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
+  })
+}
 
 export default GamesSlice.reducer

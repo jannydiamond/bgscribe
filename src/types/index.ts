@@ -13,6 +13,10 @@ export type Game = {
   created: Date
 }
 
+export type GameWithLastPlayedDate = Game & {
+  lastPlayed: Date
+}
+
 export type Games = {
   [id: string]: Game
 }
@@ -63,4 +67,9 @@ export type AddSessionToGamePayload = {
 export type RemoveSessionFromGamePayload = {
   gameId: string
   sessionId: string
+}
+
+export enum TableNames {
+  GAMES = 'Games',
+  SESSIONS = 'Sessions',
 }

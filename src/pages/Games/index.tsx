@@ -4,7 +4,11 @@ import { format } from 'date-fns'
 
 import * as types from 'types'
 
-import { selectGames, selectGamesArray } from 'Redux/Games'
+import {
+  selectGames,
+  selectGamesArray,
+  selectGamesArrayWithLatestPlayedDateSorted,
+} from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
@@ -34,6 +38,9 @@ const Games = () => {
   const [game, setGame] = useState<types.Game | {}>({})
   const games = useSelector(selectGames)
   const gamesArray: types.Game[] = useSelector(selectGamesArray)
+  const gamesArrayWithLastPlayedDate = useSelector(
+    selectGamesArrayWithLatestPlayedDateSorted
+  )
 
   const addSessionModal = useModal()
   const addGameModal = useModal()
@@ -55,8 +62,8 @@ const Games = () => {
     deleteGameModal.show()
   }
 
-  const renderGames = (games: types.Game[]) => {
-    return games.map((game: types.Game) => {
+  const renderGames = (games: types.GameWithLastPlayedDate[]) => {
+    return games.map((game: types.GameWithLastPlayedDate) => {
       return (
         <TileListItem key={game.id}>
           <Card>
@@ -69,7 +76,10 @@ const Games = () => {
                     {game.sessions.length}
                   </KeyValueListItem>
                   <KeyValueListItem>
-                    <KeyValueListKey>Last Played:</KeyValueListKey> -
+                    <KeyValueListKey>Last Played:</KeyValueListKey>{' '}
+                    {game.lastPlayed
+                      ? format(game.lastPlayed, 'dd.MM.yyyy')
+                      : '-'}
                   </KeyValueListItem>
                   <KeyValueListItem>
                     <KeyValueListKey>Date added:</KeyValueListKey>{' '}
@@ -110,9 +120,14 @@ const Games = () => {
   return (
     <>
       {gamesArray.length > 0 ? (
-        <Main>
-          <TileList>{renderGames(gamesArray)}</TileList>
-        </Main>
+        <>
+          <Main>
+            <TileList>{renderGames(gamesArrayWithLastPlayedDate)}</TileList>
+          </Main>
+          <AddSessionModal modal={addSessionModal} game={game as types.Game} />
+          <EditGameModal modal={editGameModal} game={game as types.Game} />
+          <DeleteGameModal modal={deleteGameModal} game={game as types.Game} />
+        </>
       ) : (
         <Main>
           <p>No games added.</p>
@@ -124,10 +139,7 @@ const Games = () => {
         variant="secondary"
         onClick={() => addGameModal.show()}
       />
-      <AddSessionModal modal={addSessionModal} game={game as types.Game} />
       <AddGameModal modal={addGameModal} />
-      <EditGameModal modal={editGameModal} game={game as types.Game} />
-      <DeleteGameModal modal={deleteGameModal} game={game as types.Game} />
     </>
   )
 }

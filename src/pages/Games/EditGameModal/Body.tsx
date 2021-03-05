@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
-import { editGame } from 'Redux/Games'
+import { editGame } from 'Redux/Games/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'

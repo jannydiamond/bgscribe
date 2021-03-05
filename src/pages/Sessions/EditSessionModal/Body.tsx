@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 
 import * as types from 'types'
 
-import { editSession } from 'Redux/Sessions'
+import { editSession } from 'Redux/Sessions/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
