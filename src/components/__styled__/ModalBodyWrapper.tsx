@@ -11,6 +11,7 @@ const ModalBodyWrapper = styled('div')<Props>`
   padding: 24px;
   position: relative;
   overflow-y: auto;
+  overflow-x: hidden;
 
   > *:first-child {
     margin-top: 0;

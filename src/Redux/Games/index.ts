@@ -1,41 +1,42 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import shortid from 'shortid'
 
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
 
-const initialState: types.Games = {}
+type State = types.Games
+
+const initialState: State = {}
 
 export const GamesSlice = createSlice({
   name: 'Games',
   initialState,
   reducers: {
-    addGame: (state, action: PayloadAction<string>) => {
-      const gameId = shortid.generate()
+    addGame: (state: State, action: PayloadAction<types.AddGamePayload>) => {
+      const { id, name } = action.payload
 
       return {
-        [gameId]: {
-          id: gameId,
-          name: action.payload,
+        [id]: {
+          id: id,
+          name: name !== '' ? name : id,
           sessions: [],
           created: new Date(),
         },
         ...state,
       }
     },
-    editGame: (state, action: PayloadAction<types.EditGamePayload>) => {
+    editGame: (state: State, action: PayloadAction<types.EditGamePayload>) => {
       const { id, name } = action.payload
 
       return {
         ...state,
         [id]: {
           ...state[id],
-          name: name,
+          name: name !== '' ? name : id,
         },
       }
     },
-    deleteGame: (state, action: PayloadAction<string>) => {
+    deleteGame: (state: State, action: PayloadAction<string>) => {
       const newState = Object.values(state).reduce((acc, game) => {
         if (game.id === action.payload) return acc
 
@@ -47,10 +48,54 @@ export const GamesSlice = createSlice({
 
       return newState
     },
+    addSessionToGame: (
+      state: State,
+      action: PayloadAction<types.AddSessionToGamePayload>
+    ) => {
+      const { gameId, sessionId } = action.payload
+
+      const newSessions = [...state[gameId].sessions, sessionId]
+
+      const newState = {
+        ...state,
+        [gameId]: {
+          ...state[gameId],
+          sessions: newSessions,
+        },
+      }
+
+      return newState
+    },
+    removeSessionFromGame: (
+      state: State,
+      action: PayloadAction<types.RemoveSessionFromGamePayload>
+    ) => {
+      const { gameId, sessionId } = action.payload
+
+      const newSessions = state[gameId].sessions.filter(
+        (id: string) => id !== sessionId
+      )
+
+      const newState = {
+        ...state,
+        [gameId]: {
+          ...state[gameId],
+          sessions: newSessions,
+        },
+      }
+
+      return newState
+    },
   },
 })
 
-export const { addGame, editGame, deleteGame } = GamesSlice.actions
+export const {
+  addGame,
+  editGame,
+  deleteGame,
+  addSessionToGame,
+  removeSessionFromGame,
+} = GamesSlice.actions
 
 export const selectGames = (state: RootState) => state.Games
 export const selectGameIds = (state: RootState) => Object.keys(state.Games)

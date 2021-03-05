@@ -7,17 +7,18 @@ import Footer from './Footer'
 
 type Props = {
   modal: types.Modal
+  session: types.Session
 }
 
-const AddSessionModal = ({ modal }: Props) => {
+const EditGameModal = ({ modal, session }: Props) => {
   return (
     <modal.RenderModal
-      titleLabel="Add session"
+      titleLabel="Edit Session"
       footer={<Footer modal={modal} />}
     >
-      <Body />
+      <Body modal={modal} session={session} />
     </modal.RenderModal>
   )
 }
 
-export default React.memo(AddSessionModal)
+export default React.memo(EditGameModal)

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import shortid from 'shortid'
 
 import * as types from 'types'
 
@@ -25,7 +26,16 @@ const Body = ({ modal }: Props) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
-    dispatch(addGame(name))
+
+    const gameId = shortid.generate()
+
+    dispatch(
+      addGame({
+        id: gameId,
+        name: name,
+      })
+    )
+
     modal.hide()
   }
 

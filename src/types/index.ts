@@ -17,11 +17,6 @@ export type Games = {
   [id: string]: Game
 }
 
-export type EditGamePayload = {
-  id: string
-  name: string
-}
-
 export type Session = {
   id: string
   gameId: string
@@ -35,7 +30,18 @@ export type Sessions = {
   [id: string]: Session
 }
 
+export type AddGamePayload = {
+  id: string
+  name: string
+}
+
+export type EditGamePayload = {
+  id: string
+  name: string
+}
+
 export type AddSessionPayload = {
+  id: string
   gameId: string
   datePlayed: Date
   amountOfPlayers: number
@@ -47,4 +53,14 @@ export type EditSessionPayload = {
   datePlayed: Date
   amountOfPlayers: number
   note: string
+}
+
+export type AddSessionToGamePayload = {
+  gameId: string
+  sessionId: string
+}
+
+export type RemoveSessionFromGamePayload = {
+  gameId: string
+  sessionId: string
 }

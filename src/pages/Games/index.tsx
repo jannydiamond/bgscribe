@@ -8,6 +8,8 @@ import { selectGames, selectGamesArray } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
+import AddSessionModal from 'pages/Sessions/AddSessionModal'
+
 import Card from 'components/Card'
 import IconButton from 'components/IconButton'
 import FloatingButton from 'components/FloatingButton'
@@ -19,7 +21,6 @@ import KeyValueList from 'components/__styled__/KeyValueList'
 import KeyValueListItem from 'components/__styled__/KeyValueListItem'
 import KeyValueListKey from 'components/__styled__/KeyValueListKey'
 
-import AddSessionModal from './AddSessionModal'
 import AddGameModal from './AddGameModal'
 import EditGameModal from './EditGameModal'
 import DeleteGameModal from './DeleteGameModal'
@@ -27,6 +28,7 @@ import GameDetailsWrapper from './__styled__/GameDetailsWrapper'
 import ControlsWrapper from './__styled__/ControlsWrapper'
 import Content from './__styled__/Content'
 import Title from './__styled__/Title'
+import Main from './__styled__/Main'
 
 const Games = () => {
   const [game, setGame] = useState<types.Game | {}>({})
@@ -37,6 +39,11 @@ const Games = () => {
   const addGameModal = useModal()
   const editGameModal = useModal()
   const deleteGameModal = useModal()
+
+  const handleAddSession = (id: string) => {
+    setGame(games[id])
+    addSessionModal.show()
+  }
 
   const handleEditGame = (id: string) => {
     setGame(games[id])
@@ -79,7 +86,7 @@ const Games = () => {
                 <IconButton
                   title="Add Session"
                   icon="add"
-                  onClick={() => addSessionModal.show()}
+                  onClick={() => handleAddSession(game.id)}
                 />
                 <IconButton
                   title="Edit Game"
@@ -103,9 +110,13 @@ const Games = () => {
   return (
     <>
       {gamesArray.length > 0 ? (
-        <TileList>{renderGames(gamesArray)}</TileList>
+        <Main>
+          <TileList>{renderGames(gamesArray)}</TileList>
+        </Main>
       ) : (
-        <p>No games added.</p>
+        <Main>
+          <p>No games added.</p>
+        </Main>
       )}
       <FloatingButton
         title="Add Game"
@@ -113,7 +124,7 @@ const Games = () => {
         variant="secondary"
         onClick={() => addGameModal.show()}
       />
-      <AddSessionModal modal={addSessionModal} />
+      <AddSessionModal modal={addSessionModal} game={game as types.Game} />
       <AddGameModal modal={addGameModal} />
       <EditGameModal modal={editGameModal} game={game as types.Game} />
       <DeleteGameModal modal={deleteGameModal} game={game as types.Game} />

@@ -3,22 +3,30 @@ import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
-import { deleteGame } from 'Redux/Games'
-import { deleteAllGameSessions } from 'Redux/Sessions'
+import { removeSessionFromGame } from 'Redux/Games'
+import { deleteSession } from 'Redux/Sessions'
 
 import Button from 'components/__styled__/Button'
 
 type Props = {
   modal: types.Modal
-  game: types.Game
+  session: types.Session
+  gameId: string
 }
 
-const Footer = ({ modal, game }: Props) => {
+const Footer = ({ modal, session, gameId }: Props) => {
   const dispatch = useDispatch()
 
-  const handleDeleteGame = () => {
-    dispatch(deleteAllGameSessions(game.sessions))
-    dispatch(deleteGame(game.id))
+  const handleDeleteSession = () => {
+    dispatch(
+      removeSessionFromGame({
+        gameId: gameId,
+        sessionId: session.id,
+      })
+    )
+
+    dispatch(deleteSession(session.id))
+
     modal.hide()
   }
 
@@ -31,8 +39,8 @@ const Footer = ({ modal, game }: Props) => {
       <Button onClick={handleCancel} variant="secondary" size="small">
         Cancel
       </Button>
-      <Button onClick={handleDeleteGame} size="small">
-        Delete game
+      <Button onClick={handleDeleteSession} size="small">
+        Delete session
       </Button>
     </>
   )
