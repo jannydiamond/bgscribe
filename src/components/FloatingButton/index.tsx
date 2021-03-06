@@ -20,4 +20,4 @@ const FloatingButton = ({ title, icon, solid, variant, onClick }: Props) => {
   )
 }
 
-export default FloatingButton
+export default React.memo(FloatingButton)

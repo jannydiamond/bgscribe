@@ -20,4 +20,4 @@ const IconButton = ({ title, icon, solid, variant, onClick }: Props) => {
   )
 }
 
-export default IconButton
+export default React.memo(IconButton)

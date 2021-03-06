@@ -22,4 +22,4 @@ const Card = ({ to, children }: Props) => {
   )
 }
 
-export default Card
+export default React.memo(Card)
