@@ -17,8 +17,7 @@ import AddSessionModal from 'pages/Sessions/AddSessionModal'
 import Card from 'components/Card'
 import IconButton from 'components/IconButton'
 import FloatingButton from 'components/FloatingButton'
-import Icon from 'components/Icon'
-import Link from 'components/__styled__/Link'
+import IconLink from 'components/IconLink'
 import TileList from 'components/__styled__/TileList'
 import TileListItem from 'components/__styled__/TileListItem'
 import KeyValueList from 'components/__styled__/KeyValueList'
@@ -87,10 +86,9 @@ const Games = () => {
                   </KeyValueListItem>
                 </KeyValueList>
                 <br />
-                <Link to={`/${game.id}`}>
-                  <Icon icon="visibility" />
+                <IconLink to={`/${game.id}`} icon="visibility">
                   Show Details
-                </Link>
+                </IconLink>
               </GameDetailsWrapper>
               <ControlsWrapper>
                 <IconButton
