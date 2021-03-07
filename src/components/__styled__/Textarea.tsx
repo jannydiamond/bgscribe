@@ -1,7 +1,8 @@
 import styled from 'styled-components/macro'
 
 const Input = styled('textarea')`
-  min-height: 80px;
+  min-height: 120px;
+  width: 100%;
   border-radius: 4px;
   border: 1px solid ${(props) => props.theme.colors.gray.main};
   transition: border-color 0.2s ease-in-out;

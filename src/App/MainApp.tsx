@@ -35,17 +35,20 @@ const MainApp = () => {
 
   return (
     <Wrapper>
-      <Header />
-      <Content>
-        <Switch>
-          <Route path="/:gameId">
+      <Switch>
+        <Route path="/:gameId">
+          <Header />
+          <Content>
             <Sessions />
-          </Route>
-          <Route path="/">
+          </Content>
+        </Route>
+        <Route path="/">
+          <Header />
+          <Content>
             <Games />
-          </Route>
-        </Switch>
-      </Content>
+          </Content>
+        </Route>
+      </Switch>
 
       <div id="modal-root" />
     </Wrapper>

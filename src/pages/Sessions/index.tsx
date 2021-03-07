@@ -15,15 +15,14 @@ import {
 import { useModal } from 'hooks/useModal'
 
 import Card from 'components/Card'
-import Icon from 'components/Icon'
 import IconButton from 'components/IconButton'
 import FloatingButton from 'components/FloatingButton'
+import BackLink from 'components/BackLink'
 import TileList from 'components/__styled__/TileList'
 import TileListItem from 'components/__styled__/TileListItem'
 import KeyValueList from 'components/__styled__/KeyValueList'
 import KeyValueListItem from 'components/__styled__/KeyValueListItem'
 import KeyValueListKey from 'components/__styled__/KeyValueListKey'
-import Link from 'components/__styled__/Link'
 
 import AddSessionModal from './AddSessionModal'
 import EditSessionModal from './EditSessionModal'
@@ -114,10 +113,7 @@ const Sessions = () => {
       {sessionsArray.length > 0 ? (
         <>
           <Main>
-            <Link to="/">
-              <Icon icon="chevron_left" />
-              Back to game overview
-            </Link>
+            <BackLink to="/">Back to game overview</BackLink>
             <TileList>{renderSessions(sessionsArray)}</TileList>
           </Main>
           <AddSessionModal modal={addSessionModal} game={games[gameId]} />
@@ -133,7 +129,7 @@ const Sessions = () => {
         </>
       ) : (
         <Main>
-          <Link to="/">Back to game overview</Link>
+          <BackLink to="/">Back to game overview</BackLink>
           <p>No sessions added.</p>
         </Main>
       )}

@@ -9,13 +9,6 @@ const Link = styled(RouterLink)`
   &:hover {
     color: ${(props) => props.theme.colors.secondary.dark};
   }
-
-  .material-icons,
-  .material-icons-outlined {
-    font-size: 20px;
-    vertical-align: bottom;
-    padding-right: 4px;
-  }
 `
 
 export default Link

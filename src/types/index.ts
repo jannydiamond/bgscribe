@@ -14,7 +14,7 @@ export type Game = {
 }
 
 export type GameWithLastPlayedDate = Game & {
-  lastPlayed: Date
+  lastPlayed: Date | null
 }
 
 export type Games = {

@@ -121,13 +121,22 @@ export const selectGamesArrayWithLatestPlayedDateSorted = (
 
     return {
       ...game,
-      lastPlayed: lastPlayedDate(state),
+      lastPlayed: lastPlayedDate(state) ?? null,
     }
   })
 
-  return gamesWithLastPlayedDate.sort((gameA, gameB) => {
+  const gamesWithNoSessions = gamesWithLastPlayedDate.filter(
+    (game: types.GameWithLastPlayedDate) => game.lastPlayed === null
+  )
+  const gamesWithSessions = gamesWithLastPlayedDate.filter(
+    (game: types.GameWithLastPlayedDate) => game.lastPlayed !== null
+  )
+
+  const gamesWithSessionsSorted = gamesWithSessions.sort((gameA, gameB) => {
     return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
   })
+
+  return [...gamesWithSessionsSorted, ...gamesWithNoSessions]
 }
 
 export default GamesSlice.reducer
