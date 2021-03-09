@@ -17,6 +17,7 @@ import { useModal } from 'hooks/useModal'
 import Card from 'components/Card'
 import IconButton from 'components/IconButton'
 import FloatingButton from 'components/FloatingButton'
+import IconLink from 'components/IconLink'
 import BackLink from 'components/BackLink'
 import TileList from 'components/__styled__/TileList'
 import TileListItem from 'components/__styled__/TileListItem'
@@ -32,7 +33,6 @@ import ControlsWrapper from './__styled__/ControlsWrapper'
 import Content from './__styled__/Content'
 import Title from './__styled__/Title'
 import Main from './__styled__/Main'
-import Note from './__styled__/Note'
 
 const Sessions = () => {
   // @ts-ignore
@@ -73,9 +73,7 @@ const Sessions = () => {
                 <KeyValueList>
                   <KeyValueListItem>
                     <KeyValueListKey>Amount of players:</KeyValueListKey>{' '}
-                    {session.amountOfPlayers !== 0
-                      ? session.amountOfPlayers
-                      : '-'}
+                    {session.amountOfPlayers}
                   </KeyValueListItem>
                   <KeyValueListItem>
                     <KeyValueListKey>Date played:</KeyValueListKey>{' '}
@@ -86,7 +84,14 @@ const Sessions = () => {
                     {format(session.created, 'dd.MM.yyyy')}
                   </KeyValueListItem>
                 </KeyValueList>
-                {session.note && <Note>{session.note}</Note>}
+                {session.note && (
+                  <>
+                    <br />
+                    <IconLink to={`/${gameId}/${session.id}`} icon="visibility">
+                      Show Details
+                    </IconLink>
+                  </>
+                )}
               </SessionDetailsWrapper>
               <ControlsWrapper>
                 <IconButton

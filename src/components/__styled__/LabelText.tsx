@@ -5,7 +5,7 @@ const LabelText = styled('span')`
   display: block;
   font-size: 12px;
 
-  + ${Input} {
+  + ${Input}, + .w-md-editor {
     margin-top: 4px;
   }
 `

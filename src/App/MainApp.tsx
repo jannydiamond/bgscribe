@@ -12,7 +12,9 @@ import { fetchSessions } from 'Redux/Sessions/sideEffects'
 
 import Games from 'pages/Games'
 import Sessions from 'pages/Sessions'
+import SessionDetails from 'pages/SessionDetails'
 import Header from 'components/Header'
+
 import Wrapper from './__styled__/Wrapper'
 import Content from './__styled__/Content'
 
@@ -36,6 +38,12 @@ const MainApp = () => {
   return (
     <Wrapper>
       <Switch>
+        <Route path="/:gameId/:sessionId">
+          <Header />
+          <Content>
+            <SessionDetails />
+          </Content>
+        </Route>
         <Route path="/:gameId">
           <Header />
           <Content>
