@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import MDEditor from '@uiw/react-md-editor'
 import { useDispatch } from 'react-redux'
 import { format } from 'date-fns'
 import shortid from 'shortid'
@@ -14,7 +15,6 @@ import Fieldset from 'components/__styled__/Fieldset'
 import Label from 'components/__styled__/Label'
 import LabelText from 'components/__styled__/LabelText'
 import Input from 'components/__styled__/Input'
-import Textarea from 'components/__styled__/Textarea'
 
 type Props = {
   modal: types.Modal
@@ -34,7 +34,9 @@ const Body = ({ modal, gameId }: Props) => {
     setDatePlayed(event.target.value)
   const handleAmountOfPlayersChange = (event: any) =>
     setAmountOfPlayers(event.target.value)
-  const handleNoteChange = (event: any) => setNote(event.target.value)
+  const handleNoteChange = (value: any) => {
+    setNote(value)
+  }
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -88,8 +90,14 @@ const Body = ({ modal, gameId }: Props) => {
         </Fieldset>
         <Fieldset>
           <Label htmlFor="sessionNote">
-            <LabelText>Note</LabelText>
-            <Textarea id="sessionNote" onChange={handleNoteChange} />
+            <LabelText>Note (with markdown support)</LabelText>
+            <MDEditor
+              id="sessionNote"
+              value={note}
+              onChange={handleNoteChange}
+              hideToolbar={true}
+              preview="edit"
+            />
           </Label>
         </Fieldset>
       </Form>

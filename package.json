@@ -23,6 +23,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/shortid": "^0.0.29",
     "@types/styled-components": "^5.1.7",
+    "@uiw/react-md-editor": "^3.0.0-beta.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.17.0",
     "dexie": "^3.0.3",
