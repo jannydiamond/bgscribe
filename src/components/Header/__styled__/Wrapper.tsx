@@ -1,18 +1,17 @@
 import styled from 'styled-components/macro'
 
-const Wrapper = styled('header')`
+type Props = {
+  basic?: boolean
+}
+
+const Wrapper = styled('header')<Props>`
   height: 64px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  background: #009432;
-  color: #fff;
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
-    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
-
-  h1 {
-    font-weight: 300;
-  }
+  justify-content: ${(props) => (props.basic ? 'center' : 'space-between')};
+  padding: 0 24px;
+  background: ${(props) => props.theme.colors.primary.main};
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 `
 
 export default Wrapper

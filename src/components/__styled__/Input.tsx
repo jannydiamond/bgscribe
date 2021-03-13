@@ -8,6 +8,7 @@ const Input = styled('input')`
   transition: border-color 0.2s ease-in-out;
   outline: 0;
   padding: 0 8px;
+  color: ${(props) => props.theme.colors.text.dark};
 
   &:hover,
   &:focus {

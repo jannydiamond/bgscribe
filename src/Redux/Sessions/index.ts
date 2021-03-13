@@ -4,11 +4,14 @@ import { closestTo, compareDesc } from 'date-fns'
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
-
 import {
-  editSession,
-} from './sideEffects'
-import {addSession, deleteGame, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
+  addSession,
+  deleteGame,
+  fetchGamesWithSessions,
+  removeSession,
+} from 'Redux/sideEffects'
+
+import { editSession } from './sideEffects'
 
 type State = types.Sessions
 

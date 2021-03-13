@@ -11,6 +11,7 @@ const CloseButton = styled('button')`
   cursor: pointer;
   transition: color 0.2s ease;
   outline: 0;
+  color: ${(props) => props.theme.colors.text.main};
 
   &:hover {
     color: ${(props) => props.theme.colors.secondary.main};

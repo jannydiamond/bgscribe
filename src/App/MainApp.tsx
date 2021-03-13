@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react'
-import { Switch, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-import Games from 'pages/Games'
-import Sessions from 'pages/Sessions'
-import SessionDetails from 'pages/SessionDetails'
-import Header from 'components/Header'
+import { fetchGamesWithSessions } from 'Redux/sideEffects'
 
+import Routes from './Routes'
 import Wrapper from './__styled__/Wrapper'
-import Content from './__styled__/Content'
-import {fetchGamesWithSessions} from 'Redux/sideEffects'
 
 const MainApp = () => {
   const dispatch = useDispatch()
@@ -21,26 +16,7 @@ const MainApp = () => {
 
   return (
     <Wrapper>
-      <Switch>
-        <Route path="/:gameId/:sessionId">
-          <Header />
-          <Content>
-            <SessionDetails />
-          </Content>
-        </Route>
-        <Route path="/:gameId">
-          <Header />
-          <Content>
-            <Sessions />
-          </Content>
-        </Route>
-        <Route path="/">
-          <Header />
-          <Content>
-            <Games />
-          </Content>
-        </Route>
-      </Switch>
+      <Routes />
 
       <div id="modal-root" />
     </Wrapper>

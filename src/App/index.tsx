@@ -2,6 +2,8 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components/macro'
 import { BrowserRouter as Router } from 'react-router-dom'
 
+import 'rpg-awesome/css/rpg-awesome.min.css'
+
 import GlobalStyles from 'GlobalStyles'
 import mainTheme from 'themes/main'
 
