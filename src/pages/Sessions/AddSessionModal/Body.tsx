@@ -6,13 +6,14 @@ import shortid from 'shortid'
 
 import * as types from 'types'
 
+import { addSession } from 'Redux/sideEffects'
+
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
 import Fieldset from 'components/__styled__/Fieldset'
 import Label from 'components/__styled__/Label'
 import LabelText from 'components/__styled__/LabelText'
 import Input from 'components/__styled__/Input'
-import {addSession} from 'Redux/sideEffects'
 
 type Props = {
   modal: types.Modal
@@ -48,10 +49,11 @@ const Body = ({ modal, gameId }: Props) => {
           id: sessionId,
           gameId: gameId,
           datePlayed: datePlayed !== '' ? new Date(datePlayed) : new Date(),
-          amountOfPlayers: amountOfPlayers !== '' ? parseInt(amountOfPlayers) : 0,
+          amountOfPlayers:
+            amountOfPlayers !== '' ? parseInt(amountOfPlayers) : 0,
           note: note,
           created: new Date(),
-        }
+        },
       })
     )
 
