@@ -1,10 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
+import { deleteGame } from 'Redux/sideEffects'
+
 import Button from 'components/__styled__/Button'
-import {deleteGame} from 'Redux/sideEffects'
 
 type Props = {
   modal: types.Modal
@@ -12,11 +14,13 @@ type Props = {
 }
 
 const Footer = ({ modal, game }: Props) => {
+  const history = useHistory()
   const dispatch = useDispatch()
 
   const handleDeleteGame = () => {
     dispatch(deleteGame(game.id))
     modal.hide()
+    history.push('/games')
   }
 
   const handleCancel = () => {

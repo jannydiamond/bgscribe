@@ -3,12 +3,14 @@ import { createSelector, createSlice } from '@reduxjs/toolkit'
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
-
 import {
-  addGame,
-  editGame,
-} from './sideEffects'
-import {addSession, deleteGame, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
+  addSession,
+  deleteGame,
+  fetchGamesWithSessions,
+  removeSession,
+} from 'Redux/sideEffects'
+
+import { addGame, editGame } from './sideEffects'
 
 type State = types.Games
 
@@ -101,10 +103,10 @@ export const selectGamesArray = (state: RootState) => Object.values(state.Games)
 
 export const selectGamesWithoutSessions = createSelector(
   [selectGamesArray],
-  (games) => games.filter(game => game.sessions.length < 1)
+  (games) => games.filter((game) => game.sessions.length < 1)
 )
 
 export const selectGamesContainingSessions = createSelector(
   [selectGamesArray],
-  (games) => games.filter(game => game.sessions.length > 0)
+  (games) => games.filter((game) => game.sessions.length > 0)
 )

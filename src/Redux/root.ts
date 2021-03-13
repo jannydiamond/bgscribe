@@ -1,18 +1,19 @@
-import {closestTo, compareDesc} from "date-fns";
-import {createSelector} from "reselect";
-import {selectGamesWithoutSessions, selectGamesContainingSessions} from "./Games";
-import {selectSessionsById} from "./Sessions";
+import { closestTo, compareDesc } from 'date-fns'
+import { createSelector } from 'reselect'
+
+import {
+  selectGamesWithoutSessions,
+  selectGamesContainingSessions,
+} from './Games'
+import { selectSessionsById } from './Sessions'
 
 export const selectGamesWithAggregatedSessions = createSelector(
-  [
-    selectGamesContainingSessions,
-    selectSessionsById,
-  ],
+  [selectGamesContainingSessions, selectSessionsById],
   (games, sessionsById) => {
-    return games.map(game => {
+    return games.map((game) => {
       return {
         ...game,
-        aggregatedSessions: game.sessions.map(id => sessionsById[id]),
+        aggregatedSessions: game.sessions.map((id) => sessionsById[id]),
       }
     })
   }
@@ -21,7 +22,7 @@ export const selectGamesWithAggregatedSessions = createSelector(
 export const selectGamesWithLastPlayedDate = createSelector(
   [selectGamesWithAggregatedSessions],
   (games) => {
-    return games.map(game => {
+    return games.map((game) => {
       const sessionDates = game.aggregatedSessions.map(
         (session) => session.datePlayed
       )
@@ -29,7 +30,7 @@ export const selectGamesWithLastPlayedDate = createSelector(
 
       return {
         ...game,
-        lastPlayed: closestTo(currentDate, sessionDates)
+        lastPlayed: closestTo(currentDate, sessionDates),
       }
     })
   }
@@ -37,16 +38,14 @@ export const selectGamesWithLastPlayedDate = createSelector(
 
 export const selectLastPlayedGamesSorted = createSelector(
   [selectGamesWithLastPlayedDate],
-  (lastPlayedGames) => [...lastPlayedGames].sort((gameA, gameB) => {
-    return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
-  })
+  (lastPlayedGames) =>
+    [...lastPlayedGames].sort((gameA, gameB) => {
+      return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
+    })
 )
 
 export const selectGamesArrayWithLatestPlayedDateSorted = createSelector(
-  [
-    selectLastPlayedGamesSorted,
-    selectGamesWithoutSessions
-  ],
+  [selectLastPlayedGamesSorted, selectGamesWithoutSessions],
   (lastPlayedGames, gamesWithoutSessions) => {
     return [...lastPlayedGames, ...gamesWithoutSessions]
   }

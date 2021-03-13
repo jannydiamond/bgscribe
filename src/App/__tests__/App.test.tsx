@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 
 import { store } from 'Redux/store'
 
-import App from '.'
+import App from '..'
 
 test('renders learn react link', () => {
   const { getByText } = render(

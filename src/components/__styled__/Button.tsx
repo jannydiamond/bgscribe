@@ -20,7 +20,9 @@ const Button = styled('button')<Props>`
       : props.variant === 'secondary'
       ? props.theme.colors.secondary.main
       : props.theme.colors.primary.main};
-  color: #fff;
+  color: ${(props) => props.theme.colors.text.light};
+  font-size: 0.75rem;
+  font-weight: 400;
   outline: none;
   transition: background-color 0.2s ease-in-out;
 
