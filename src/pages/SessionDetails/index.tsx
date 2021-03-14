@@ -7,14 +7,15 @@ import { format } from 'date-fns'
 import { selectSessionsById } from 'Redux/Sessions'
 
 import P from 'components/__styled__/P'
+import Main from 'components/__styled__/Main'
 import KeyValueList from 'components/__styled__/KeyValueList'
 import KeyValueListItem from 'components/__styled__/KeyValueListItem'
 import KeyValueListKey from 'components/__styled__/KeyValueListKey'
 
 import Details from './Details'
-import Main from './__styled__/Main'
 import Note from './__styled__/Note'
 import Headline from './__styled__/Headline'
+import SessionDetailsHeader from './SessionDetailsHeader'
 
 const SessionDetails = () => {
   // @ts-ignore
@@ -29,6 +30,7 @@ const SessionDetails = () => {
 
   return (
     <>
+      <SessionDetailsHeader sessionId={currentSession.id} />
       <Main>
         <Details>
           <KeyValueList>

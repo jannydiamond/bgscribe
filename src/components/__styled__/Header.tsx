@@ -4,7 +4,7 @@ type Props = {
   basic?: boolean
 }
 
-const Wrapper = styled('header')<Props>`
+const Header = styled('header')<Props>`
   height: 64px;
   display: flex;
   align-items: center;
@@ -14,4 +14,4 @@ const Wrapper = styled('header')<Props>`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 `
 
-export default Wrapper
+export default Header

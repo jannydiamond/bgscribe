@@ -96,6 +96,10 @@ export const selectSessionIds = (state: RootState) =>
   Object.keys(state.Sessions)
 export const selectSessionsArray = (state: RootState) =>
   Object.values(state.Sessions)
+export const selectSessionById = (
+  state: RootState,
+  ownProps: { sessionId: string }
+) => state.Sessions[ownProps.sessionId]
 
 export const selectSessionsByGameId = (state: RootState, gameId: string) =>
   Object.values(state.Sessions).filter(
