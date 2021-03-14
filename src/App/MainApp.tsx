@@ -1,14 +1,6 @@
 import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-
-import * as types from 'types'
-
-import { selectGamesArray } from 'Redux/Games'
-import { selectSessionsArray } from 'Redux/Sessions'
-
-import { fetchGames } from 'Redux/Games/sideEffects'
-import { fetchSessions } from 'Redux/Sessions/sideEffects'
+import { useDispatch } from 'react-redux'
 
 import Games from 'pages/Games'
 import Sessions from 'pages/Sessions'
@@ -17,21 +9,13 @@ import Header from 'components/Header'
 
 import Wrapper from './__styled__/Wrapper'
 import Content from './__styled__/Content'
+import {fetchGamesWithSessions} from 'Redux/sideEffects'
 
 const MainApp = () => {
   const dispatch = useDispatch()
 
-  const gamesArray: types.Game[] = useSelector(selectGamesArray)
-
-  const sessionsArray: types.Session[] = useSelector(selectSessionsArray)
-
   useEffect(() => {
-    gamesArray.length === 0 && dispatch(fetchGames())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    sessionsArray.length === 0 && dispatch(fetchSessions())
+    dispatch(fetchGamesWithSessions())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

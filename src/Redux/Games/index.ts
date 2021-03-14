@@ -1,19 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { compareDesc } from 'date-fns'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
-import { selectLatestSessionDateByGameId } from 'Redux/Sessions'
 
 import {
-  fetchGames,
   addGame,
   editGame,
   deleteGame,
   addSessionToGame,
   removeSessionFromGame,
 } from './sideEffects'
+import {fetchGamesWithSessions} from 'Redux/sideEffects'
 
 type State = types.Games
 
@@ -24,19 +22,11 @@ export const GamesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchGames.fulfilled, (_, action) => {
-      const newState = action.payload
-        ? action.payload.reduce((acc, game) => {
-            return {
-              ...acc,
-              [game.id]: game,
-            }
-          }, {})
-        : {}
-
-      return newState
+    builder.addCase(fetchGamesWithSessions.fulfilled, (_, action) => {
+      return action.payload.games
     })
-    builder.addCase(fetchGames.rejected, (_, action) => {
+    // TODO handle inside sideEffect
+    builder.addCase(fetchGamesWithSessions.rejected, (_, action) => {
       console.log(action.error)
     })
 
@@ -110,33 +100,12 @@ export const selectGames = (state: RootState) => state.Games
 export const selectGameIds = (state: RootState) => Object.keys(state.Games)
 export const selectGamesArray = (state: RootState) => Object.values(state.Games)
 
-export const selectGamesArrayWithLatestPlayedDateSorted = (
-  state: RootState
-) => {
-  const games = Object.values(state.Games)
+export const selectGamesWithoutSessions = createSelector(
+  [selectGamesArray],
+  (games) => games.filter(game => game.sessions.length < 1)
+)
 
-  const gamesWithLastPlayedDate = games.map((game: types.Game) => {
-    const lastPlayedDate = (state: RootState) =>
-      selectLatestSessionDateByGameId(state, game.id)
-
-    return {
-      ...game,
-      lastPlayed: lastPlayedDate(state) ?? null,
-    }
-  })
-
-  const gamesWithNoSessions = gamesWithLastPlayedDate.filter(
-    (game: types.GameWithLastPlayedDate) => game.lastPlayed === null
-  )
-  const gamesWithSessions = gamesWithLastPlayedDate.filter(
-    (game: types.GameWithLastPlayedDate) => game.lastPlayed !== null
-  )
-
-  const gamesWithSessionsSorted = gamesWithSessions.sort((gameA, gameB) => {
-    return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
-  })
-
-  return [...gamesWithSessionsSorted, ...gamesWithNoSessions]
-}
-
-export default GamesSlice.reducer
+export const selectGamesWithSessions = createSelector(
+  [selectGamesArray],
+  (games) => games.filter(game => game.sessions.length > 0)
+)

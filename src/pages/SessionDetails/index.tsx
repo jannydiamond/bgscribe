@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { format } from 'date-fns'
 
-import { selectSessions, selectSessionsArray } from 'Redux/Sessions'
+import { selectSessionsById, selectSessionsArray } from 'Redux/Sessions'
 
 import BackLink from 'components/BackLink'
 import KeyValueList from 'components/__styled__/KeyValueList'
@@ -20,7 +20,7 @@ const SessionDetails = () => {
   // @ts-ignore
   const { gameId, sessionId } = useParams()
 
-  const sessions = useSelector(selectSessions)
+  const sessions = useSelector(selectSessionsById)
   const sessionsArray = useSelector(selectSessionsArray)
   const currentSession = sessions[sessionId]
 

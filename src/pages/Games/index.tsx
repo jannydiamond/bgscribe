@@ -7,7 +7,6 @@ import * as types from 'types'
 import {
   selectGames,
   selectGamesArray,
-  selectGamesArrayWithLatestPlayedDateSorted,
 } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
@@ -32,6 +31,7 @@ import ControlsWrapper from './__styled__/ControlsWrapper'
 import Content from './__styled__/Content'
 import Title from './__styled__/Title'
 import Main from './__styled__/Main'
+import {selectGamesArrayWithLatestPlayedDateSorted} from 'Redux/root'
 
 const Games = () => {
   const [game, setGame] = useState<types.Game | {}>({})
