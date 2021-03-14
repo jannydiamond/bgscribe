@@ -7,9 +7,8 @@ import { RootState } from 'Redux/store'
 import {
   addGame,
   editGame,
-  deleteGame,
 } from './sideEffects'
-import {addSession, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
+import {addSession, deleteGame, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
 
 type State = types.Games
 

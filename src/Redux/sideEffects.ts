@@ -30,9 +30,11 @@ export const fetchGamesWithSessions = createAsyncThunk(
 export const deleteGame = createAsyncThunk(
   'root/deleteGame',
   async (gameId: string) => {
-    const response = await db.table(TableNames.GAMES).delete(gameId)
-
-    return response
+    await db.table(TableNames.GAMES).delete(gameId)
+    await db
+      .table(TableNames.SESSIONS)
+      .where({ gameId })
+      .delete()
   }
 )
 

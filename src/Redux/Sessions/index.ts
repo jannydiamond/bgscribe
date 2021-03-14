@@ -7,9 +7,8 @@ import { RootState } from 'Redux/store'
 
 import {
   editSession,
-  deleteAllGameSessions,
 } from './sideEffects'
-import {addSession, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
+import {addSession, deleteGame, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
 
 type State = types.Sessions
 
@@ -70,7 +69,7 @@ export const SessionsSlice = createSlice({
       console.log(action.error)
     })
 
-    builder.addCase(deleteAllGameSessions.fulfilled, (state, action) => {
+    builder.addCase(deleteGame.fulfilled, (state, action) => {
       const newState = Object.values(state).reduce((acc, session) => {
         if (session.gameId === action.meta.arg) return acc
 
@@ -82,7 +81,8 @@ export const SessionsSlice = createSlice({
 
       return newState
     })
-    builder.addCase(deleteAllGameSessions.rejected, (_, action) => {
+    // TODO handle inside sideEffect
+    builder.addCase(deleteGame.rejected, (_, action) => {
       console.log(action.error)
     })
   },
