@@ -7,13 +7,14 @@ import db from 'Database'
 export const addGame = createAsyncThunk(
   `${TableNames.GAMES}/addGame`,
   async (game: AddGamePayload) => {
-    const { id, name } = game
+    const { id, name, image } = game
 
     const response = await db
       .table(TableNames.GAMES)
       .add({
         id: id,
         name: name !== '' ? name : id,
+        image: image ? image : '',
         sessions: [],
         created: new Date(),
       })
@@ -28,12 +29,13 @@ export const addGame = createAsyncThunk(
 export const editGame = createAsyncThunk(
   `${TableNames.GAMES}/editGame`,
   async (game: EditGamePayload) => {
-    const { id, name } = game
+    const { id, name, image } = game
 
     const response = await db
       .table(TableNames.GAMES)
       .update(id, {
         name: name !== '' ? name : id,
+        image: image ? image : '',
       })
       .then((updated) => {
         if (updated === 1) {

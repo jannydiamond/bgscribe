@@ -12,6 +12,7 @@ import Fieldset from 'components/__styled__/Fieldset'
 import Label from 'components/__styled__/Label'
 import LabelText from 'components/__styled__/LabelText'
 import Input from 'components/__styled__/Input'
+import FileInput from 'components/__styled__/FileInput'
 
 type Props = {
   modal: types.Modal
@@ -19,10 +20,20 @@ type Props = {
 
 const Body = ({ modal }: Props) => {
   const [name, setName] = useState<string>('')
+  const [image, setImage] = useState<string>('')
 
   const dispatch = useDispatch()
 
-  const handleChange = (event: any) => setName(event.target.value)
+  const handleNameChange = (event: any) => setName(event.target.value)
+  const handleImageChange = (event: any) => {
+    const reader = new FileReader()
+
+    reader.onload = async (event: any) => {
+      setImage(event.target.result)
+    }
+
+    reader.readAsDataURL(event.target.files[0])
+  }
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -33,6 +44,7 @@ const Body = ({ modal }: Props) => {
       addGame({
         id: gameId,
         name: name,
+        image: image,
       })
     )
 
@@ -45,7 +57,18 @@ const Body = ({ modal }: Props) => {
         <Fieldset>
           <Label htmlFor="gameName">
             <LabelText>Name</LabelText>
-            <Input id="gameName" onChange={handleChange} />
+            <Input id="gameName" onChange={handleNameChange} />
+          </Label>
+        </Fieldset>
+        <Fieldset>
+          <Label htmlFor="gameImage">
+            <LabelText>Image</LabelText>
+            <FileInput
+              id="gameImage"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
           </Label>
         </Fieldset>
       </Form>

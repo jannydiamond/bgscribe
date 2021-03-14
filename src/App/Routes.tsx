@@ -1,14 +1,12 @@
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import Games from 'pages/Games'
-import Sessions from 'pages/Sessions'
-import SessionDetails from 'pages/SessionDetails'
-
-import { useSelector } from 'react-redux'
 import { selectContentIsLoading } from 'Redux/ContentLoading'
-import P from 'components/__styled__/P'
+
+import Games from 'pages/Games'
+import GameDetails from 'pages/GameDetails'
+import SessionDetails from 'pages/SessionDetails'
 import SessionTemplates from 'pages/SessionTemplates'
 import SessionTemplateDetails from 'pages/SessionTemplateDetails'
 
@@ -16,7 +14,7 @@ const Routes = () => {
   const contentIsLoading = useSelector(selectContentIsLoading)
 
   if (contentIsLoading) {
-    return <P>"Loading..."</P>
+    return null
   }
 
   return (
@@ -25,16 +23,16 @@ const Routes = () => {
         <SessionDetails />
       </Route>
       <Route path="/games/:gameId">
-        <Sessions />
+        <GameDetails />
       </Route>
       <Route path="/games">
         <Games />
       </Route>
-      <Route exact path="/templates">
-        <SessionTemplates />
-      </Route>
       <Route exact path="/templates/:templateId">
         <SessionTemplateDetails />
+      </Route>
+      <Route exact path="/templates">
+        <SessionTemplates />
       </Route>
       <Route path="/settings">
         Boardgame Tracker {process.env.REACT_APP_VERSION}

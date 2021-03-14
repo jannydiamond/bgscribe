@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { init } from 'Redux/sideEffects'
 
 import Routes from './Routes'
-import Wrapper from './__styled__/Wrapper'
 
 const MainApp = () => {
   const dispatch = useDispatch()
@@ -16,12 +15,12 @@ const MainApp = () => {
   }, [])
 
   return (
-    <Wrapper>
+    <>
       <Routes />
       <BottomNavigation />
 
       <div id="modal-root" />
-    </Wrapper>
+    </>
   )
 }
 
