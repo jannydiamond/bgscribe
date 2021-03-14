@@ -48,12 +48,3 @@ export const editGame = createAsyncThunk(
     return response
   }
 )
-
-export const deleteGame = createAsyncThunk(
-  'Games/deleteGame',
-  async (gameId: string) => {
-    const response = await db.table(TableNames.GAMES).delete(gameId)
-
-    return response
-  }
-)
