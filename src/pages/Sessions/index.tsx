@@ -14,11 +14,12 @@ import { useModal } from 'hooks/useModal'
 import FloatingButton from 'components/FloatingButton'
 import Icon from 'components/Icon'
 import P from 'components/__styled__/P'
+import Main from 'components/__styled__/Main'
 import KeyValueList from 'components/__styled__/KeyValueList'
 
+import SessionsHeader from './SessionsHeader'
 import GameDetails from './GameDetails'
 import AddSessionModal from './AddSessionModal'
-import Main from './__styled__/Main'
 import List from './__styled__/List'
 import ListItem from './__styled__/ListItem'
 import Link from './__styled__/Link'
@@ -47,7 +48,6 @@ const Sessions = () => {
     return null
   }
 
-
   const renderSessions = (sessions: types.Session[]) => {
     return sessions.map((session: types.Session) => {
       return (
@@ -68,6 +68,7 @@ const Sessions = () => {
 
   return (
     <>
+      <SessionsHeader gameId={gameId} />
       <Main>
         <GameDetails>
           <KeyValueList>

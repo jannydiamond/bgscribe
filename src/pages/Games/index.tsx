@@ -12,9 +12,11 @@ import { useModal } from 'hooks/useModal'
 import FloatingButton from 'components/FloatingButton'
 import Avatar from 'components/Avatar'
 import Icon from 'components/Icon'
+import P from 'components/__styled__/P'
+import Main from 'components/__styled__/Main'
 
 import AddGameModal from './AddGameModal'
-import Main from './__styled__/Main'
+import GamesHeader from './GamesHeader'
 import List from './__styled__/List'
 import ListItem from './__styled__/ListItem'
 import Link from './__styled__/Link'
@@ -55,17 +57,15 @@ const Games = () => {
 
   return (
     <>
-      {gamesArray.length > 0 ? (
-        <>
-          <Main>
-            <List>{renderGames(gamesArrayWithLastPlayedDate)}</List>
-          </Main>
-        </>
-      ) : (
-        <Main>
-          <p>No games added.</p>
-        </Main>
-      )}
+      <GamesHeader />
+      <Main>
+        {gamesArray.length > 0 ? (
+          <List>{renderGames(gamesArrayWithLastPlayedDate)}</List>
+        ) : (
+          <P>No games added.</P>
+        )}
+      </Main>
+
       <FloatingButton variant="secondary" onClick={() => addGameModal.show()}>
         Add Game
       </FloatingButton>
