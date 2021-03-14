@@ -19,6 +19,9 @@ const BottomNavigation = () => {
           />
         </LinkListItem>
         <LinkListItem>
+          <Link to="/templates" label="Session Templates" icon="backup_table" />
+        </LinkListItem>
+        <LinkListItem>
           <Link to="/settings" label="Settings" icon="settings" />
         </LinkListItem>
       </LinkList>

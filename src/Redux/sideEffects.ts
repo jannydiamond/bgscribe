@@ -11,24 +11,28 @@ const normalize = (entities: Array<{ id: string }>) =>
     }
   }, {})
 
-export const fetchGamesWithSessions = createAsyncThunk(
-  'root/fetchGamesWithSessions',
-  async () => {
-    const games = await db.table(TableNames.GAMES).orderBy('name').toArray()
-    const sessions = await db
-      .table(TableNames.SESSIONS)
-      .orderBy('datePlayed')
-      .toArray()
+const THUNK_PREFIX = 'root'
 
-    return {
-      games: normalize(games),
-      sessions: normalize(sessions),
-    }
+export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
+  const games = await db.table(TableNames.GAMES).orderBy('name').toArray()
+  const sessions = await db
+    .table(TableNames.SESSIONS)
+    .orderBy('datePlayed')
+    .toArray()
+  const sessionTemplates = await db
+    .table(TableNames.SESSION_TEMPLATES)
+    .orderBy('name')
+    .toArray()
+
+  return {
+    games: normalize(games),
+    sessions: normalize(sessions),
+    sessionTemplates: normalize(sessionTemplates),
   }
-)
+})
 
 export const deleteGame = createAsyncThunk(
-  'root/deleteGame',
+  `${THUNK_PREFIX}/deleteGame`,
   async (gameId: string) => {
     await db.transaction(
       'rw',
@@ -43,7 +47,7 @@ export const deleteGame = createAsyncThunk(
 )
 
 export const addSession = createAsyncThunk(
-  'root/addSession',
+  `${THUNK_PREFIX}/addSession`,
   async (payload: { gameId: string; session: Session }, { getState }) => {
     const { gameId, session } = payload
     const state = getState() as RootState
@@ -80,7 +84,7 @@ export const addSession = createAsyncThunk(
 )
 
 export const removeSession = createAsyncThunk(
-  'root/removeSession',
+  `${THUNK_PREFIX}/removeSession`,
   async (payload: { gameId: string; sessionId: string }, { getState }) => {
     const { gameId, sessionId } = payload
     const state = getState() as RootState

@@ -1,15 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import {
-  TableNames,
-  AddGamePayload,
-  EditGamePayload,
-} from 'types'
+import { TableNames, AddGamePayload, EditGamePayload } from 'types'
 
 import db from 'Database'
 
 export const addGame = createAsyncThunk(
-  'Games/addGame',
+  `${TableNames.GAMES}/addGame`,
   async (game: AddGamePayload) => {
     const { id, name } = game
 
@@ -30,7 +26,7 @@ export const addGame = createAsyncThunk(
 )
 
 export const editGame = createAsyncThunk(
-  'Games/editGame',
+  `${TableNames.GAMES}/editGame`,
   async (game: EditGamePayload) => {
     const { id, name } = game
 

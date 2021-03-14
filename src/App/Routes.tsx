@@ -9,6 +9,8 @@ import SessionDetails from 'pages/SessionDetails'
 import { useSelector } from 'react-redux'
 import { selectContentIsLoading } from 'Redux/ContentLoading'
 import P from 'components/__styled__/P'
+import SessionTemplates from 'pages/SessionTemplates'
+import SessionTemplateDetails from 'pages/SessionTemplateDetails'
 
 const Routes = () => {
   const contentIsLoading = useSelector(selectContentIsLoading)
@@ -27,6 +29,12 @@ const Routes = () => {
       </Route>
       <Route path="/games">
         <Games />
+      </Route>
+      <Route exact path="/templates">
+        <SessionTemplates />
+      </Route>
+      <Route exact path="/templates/:templateId">
+        <SessionTemplateDetails />
       </Route>
       <Route path="/settings">
         Boardgame Tracker {process.env.REACT_APP_VERSION}
