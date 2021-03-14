@@ -1,31 +1,25 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 
-import * as types from 'types'
-
 import { RootState } from 'Redux/store'
-import {
-  addSession,
-  deleteGame,
-  fetchGamesWithSessions,
-  removeSession,
-} from 'Redux/sideEffects'
+import { addSession, deleteGame, init, removeSession } from 'Redux/sideEffects'
 
 import { addGame, editGame } from './sideEffects'
+import { Games, TableNames } from 'types'
 
-type State = types.Games
+type State = Games
 
 const initialState: State = {}
 
 export const GamesSlice = createSlice({
-  name: 'Games',
+  name: TableNames.GAMES,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchGamesWithSessions.fulfilled, (_, action) => {
+    builder.addCase(init.fulfilled, (_, action) => {
       return action.payload.games
     })
     // TODO handle inside sideEffect
-    builder.addCase(fetchGamesWithSessions.rejected, (_, action) => {
+    builder.addCase(init.rejected, (_, action) => {
       console.log(action.error)
     })
 
@@ -100,7 +94,10 @@ export const GamesSlice = createSlice({
 export const selectGamesById = (state: RootState) => state.Games
 export const selectGameIds = (state: RootState) => Object.keys(state.Games)
 export const selectGamesArray = (state: RootState) => Object.values(state.Games)
-export const selectGameById = (state: RootState, ownProps: { gameId: string }) => state.Games[ownProps.gameId]
+export const selectGameById = (
+  state: RootState,
+  ownProps: { gameId: string }
+) => state.Games[ownProps.gameId]
 
 export const selectGamesWithoutSessions = createSelector(
   [selectGamesArray],

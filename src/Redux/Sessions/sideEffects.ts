@@ -1,11 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { TableNames, EditSessionPayload } from 'types'
+import { TableNames } from 'types'
 
 import db from 'Database'
 
+export type EditSessionPayload = {
+  id: string
+  datePlayed: Date
+  amountOfPlayers: number
+  note: string
+}
+
 export const editSession = createAsyncThunk(
-  'Sessions/editSession',
+  `${TableNames.SESSIONS}/editSession`,
   async (session: EditSessionPayload) => {
     const { id, datePlayed, amountOfPlayers, note } = session
 

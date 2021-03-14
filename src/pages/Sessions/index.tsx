@@ -80,7 +80,7 @@ const Sessions = () => {
         {sessionsArray.length > 0 ? (
           <List>{renderSessions(sessionsArray)}</List>
         ) : (
-          <P>No sessions where added, yet.</P>
+          <P>No sessions have been added, yet.</P>
         )}
       </Main>
       <FloatingButton

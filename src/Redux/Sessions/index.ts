@@ -1,32 +1,26 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { closestTo, compareDesc } from 'date-fns'
 
-import * as types from 'types'
-
 import { RootState } from 'Redux/store'
-import {
-  addSession,
-  deleteGame,
-  fetchGamesWithSessions,
-  removeSession,
-} from 'Redux/sideEffects'
+import { addSession, deleteGame, init, removeSession } from 'Redux/sideEffects'
 
 import { editSession } from './sideEffects'
+import { Session, Sessions, TableNames } from 'types'
 
-type State = types.Sessions
+type State = Sessions
 
 const initialState: State = {}
 
 export const SessionsSlice = createSlice({
-  name: 'Sessions',
+  name: TableNames.SESSIONS,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchGamesWithSessions.fulfilled, (_, action) => {
+    builder.addCase(init.fulfilled, (_, action) => {
       return action.payload.sessions
     })
     // TODO handle inside sideEffect and trigger snackbar
-    builder.addCase(fetchGamesWithSessions.rejected, (_, action) => {
+    builder.addCase(init.rejected, (_, action) => {
       console.log(action.error)
     })
 
@@ -103,12 +97,12 @@ export const selectSessionById = (
 
 export const selectSessionsByGameId = (state: RootState, gameId: string) =>
   Object.values(state.Sessions).filter(
-    (session: types.Session) => session.gameId === gameId
+    (session: Session) => session.gameId === gameId
   )
 
 export const selectSessionsArraySortedByDatePlayed = createSelector(
   [selectSessionsByGameId],
-  (sessions: types.Session[]) =>
+  (sessions: Session[]) =>
     sessions.sort((sessionA, sessionB) => {
       return compareDesc(sessionA.datePlayed, sessionB.datePlayed)
     })
@@ -116,10 +110,8 @@ export const selectSessionsArraySortedByDatePlayed = createSelector(
 
 export const selectLatestSessionDateByGameId = createSelector(
   [selectSessionsByGameId],
-  (sessions: types.Session[]) => {
-    const sessionDates = sessions.map(
-      (session: types.Session) => session.datePlayed
-    )
+  (sessions: Session[]) => {
+    const sessionDates = sessions.map((session: Session) => session.datePlayed)
     const currentDate = new Date()
 
     return closestTo(currentDate, sessionDates)
