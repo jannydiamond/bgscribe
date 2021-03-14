@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { TableNames, AddSessionPayload, EditSessionPayload } from 'types'
+import { TableNames, EditSessionPayload } from 'types'
 
 import db from 'Database'
 
@@ -21,15 +21,6 @@ export const editSession = createAsyncThunk(
           return db.table(TableNames.SESSIONS).get(id)
         }
       })
-
-    return response
-  }
-)
-
-export const deleteSession = createAsyncThunk(
-  'Sessions/deleteSession',
-  async (sessionId: string) => {
-    const response = await db.table(TableNames.SESSIONS).delete(sessionId)
 
     return response
   }

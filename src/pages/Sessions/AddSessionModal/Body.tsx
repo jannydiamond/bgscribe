@@ -12,7 +12,7 @@ import Fieldset from 'components/__styled__/Fieldset'
 import Label from 'components/__styled__/Label'
 import LabelText from 'components/__styled__/LabelText'
 import Input from 'components/__styled__/Input'
-import {addSessionToGame} from 'Redux/sideEffects'
+import {addSession} from 'Redux/sideEffects'
 
 type Props = {
   modal: types.Modal
@@ -42,7 +42,7 @@ const Body = ({ modal, gameId }: Props) => {
     const sessionId = shortid.generate()
 
     dispatch(
-      addSessionToGame({
+      addSession({
         gameId,
         session: {
           id: sessionId,
