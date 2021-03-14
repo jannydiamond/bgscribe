@@ -23,6 +23,10 @@ const SessionDetails = () => {
   const sessions = useSelector(selectSessionsById)
   const currentSession = sessions[sessionId]
 
+  if (!currentSession) {
+    return null
+  }
+
   return (
     <>
       <Main>

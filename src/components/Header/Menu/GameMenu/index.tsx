@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectGames } from 'Redux/Games'
+import { selectGamesById } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
@@ -19,7 +19,7 @@ type Props = {
 }
 
 const GameMenu = ({ id, closeFlyout }: Props) => {
-  const games = useSelector(selectGames)
+  const games = useSelector(selectGamesById)
 
   const editGameModal = useModal()
   const deleteGameModal = useModal()
