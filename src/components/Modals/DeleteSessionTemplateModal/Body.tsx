@@ -1,19 +1,17 @@
 import React from 'react'
-import { format } from 'date-fns'
 
 import * as types from 'types'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 
 type Props = {
-  session: types.Session
+  template: types.SessionTemplate
 }
 
-const Body = ({ session }: Props) => {
+const Body = ({ template }: Props) => {
   return (
     <ModalBodyWrapper>
-      Do you really want to delete{' '}
-      <b>Session: {format(session.datePlayed, 'dd.MM.yyyy')}</b>?
+      Do you really want to delete <b>Template: {template.name}</b>?
     </ModalBodyWrapper>
   )
 }

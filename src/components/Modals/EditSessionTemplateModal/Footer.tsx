@@ -18,7 +18,7 @@ const Footer = ({ modal }: Props) => {
       <Button onClick={handleCancel} variant="secondary" size="small">
         Cancel
       </Button>
-      <Button type="submit" size="small" form="editSession">
+      <Button type="submit" size="small" form="editSessionTemplate">
         Save
       </Button>
     </>

@@ -2,7 +2,11 @@ import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { init } from 'Redux/sideEffects'
 import { RootState } from 'Redux/store'
 import { SessionTemplateId, SessionTemplates, TableNames } from 'types'
-import { addSessionTemplate } from './sideEffects'
+import {
+  addSessionTemplate,
+  deleteSessionTemplate,
+  editSessionTemplate,
+} from './sideEffects'
 
 type State = SessionTemplates
 
@@ -17,22 +21,49 @@ export const SessionTemplatesSlice = createSlice({
       return action.payload.sessionTemplates
     })
     // TODO handle inside sideEffect
-    builder
-      .addCase(init.rejected, (_, action) => {
-        console.log(action.error)
-      })
+    builder.addCase(init.rejected, (_, action) => {
+      console.log(action.error)
+    })
 
-      .addCase(addSessionTemplate.fulfilled, (state, action) => {
-        const template = action.payload
+    builder.addCase(addSessionTemplate.fulfilled, (state, action) => {
+      const template = action.payload
+      return {
+        ...state,
+        [template.id]: template,
+      }
+    })
+    // TODO handle inside sideEffects and trigger snackbar
+    builder.addCase(addSessionTemplate.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(editSessionTemplate.fulfilled, (state, action) => {
+      const { id } = action.payload
+
+      return {
+        ...state,
+        [id]: action.payload,
+      }
+    })
+    builder.addCase(editSessionTemplate.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(deleteSessionTemplate.fulfilled, (state, action) => {
+      const newState = Object.values(state).reduce((acc, template) => {
+        if (template.id === action.meta.arg) return acc
+
         return {
-          ...state,
+          ...acc,
           [template.id]: template,
         }
-      })
-      // TODO handle inside sideEffects and trigger snackbar
-      .addCase(addSessionTemplate.rejected, (_, action) => {
-        console.log(action.error)
-      })
+      }, {})
+
+      return newState
+    })
+    builder.addCase(deleteSessionTemplate.rejected, (_, action) => {
+      console.log(action.error)
+    })
   },
 })
 

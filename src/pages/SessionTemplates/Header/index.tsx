@@ -1,15 +1,13 @@
 import React from 'react'
 
-import StyledHeader from 'components/__styled__/Header'
+import HeaderInner from 'components/__styled__/Header'
 import Title from 'components/Header/__styled__/Title'
 
-type Props = {}
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
-    <StyledHeader>
+    <HeaderInner>
       <Title>Session Templates</Title>
-    </StyledHeader>
+    </HeaderInner>
   )
 }
 

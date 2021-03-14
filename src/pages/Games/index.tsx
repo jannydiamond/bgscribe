@@ -9,13 +9,13 @@ import { selectGamesArray } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
+import AddGameModal from 'components/Modals/AddGameModal'
 import FloatingButton from 'components/FloatingButton'
 import Avatar from 'components/Avatar'
 import Icon from 'components/Icon'
 import P from 'components/__styled__/P'
 import Main from 'components/__styled__/Main'
 
-import AddGameModal from './AddGameModal'
 import GamesHeader from './GamesHeader'
 import List from './__styled__/List'
 import ListItem from './__styled__/ListItem'
