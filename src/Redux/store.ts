@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
-import GamesReducer from 'Redux/Games'
+import { GamesSlice } from 'Redux/Games'
 import SessionsReducer from 'Redux/Sessions'
 
 export const store = configureStore({
   reducer: {
-    Games: GamesReducer,
+    Games: GamesSlice.reducer,
     Sessions: SessionsReducer,
   },
   middleware: (getDefaultMiddleware) =>

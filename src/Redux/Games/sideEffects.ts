@@ -12,11 +12,6 @@ import { RootState } from 'Redux/store'
 
 import db from 'Database'
 
-export const fetchGames = createAsyncThunk('Games/fetchGames', async () => {
-  const response = await db.table(TableNames.GAMES).orderBy('name').toArray()
-  return response
-})
-
 export const addGame = createAsyncThunk(
   'Games/addGame',
   async (game: AddGamePayload) => {
