@@ -1,0 +1,59 @@
+import {closestTo, compareDesc} from "date-fns";
+import {createSelector} from "reselect";
+import {selectGamesWithoutSessions, selectGamesWithSessions} from "./Games";
+import {selectSessionsById} from "./Sessions";
+
+export const selectGamesWithAggregatedSessions = createSelector(
+  [
+    selectGamesWithSessions,
+    selectSessionsById,
+  ],
+  (games, sessionsById) => {
+    return games.map(game => {
+      console.log({
+        game,
+        sessionsById,
+        aggregated: game.sessions.map(id => sessionsById[id])
+      })
+      return {
+        ...game,
+        aggregatedSessions: game.sessions.map(id => sessionsById[id]),
+      }
+    })
+  }
+)
+
+export const selectGamesWithLastPlayedDate = createSelector(
+  [selectGamesWithAggregatedSessions],
+  (games) => {
+    return games.map(game => {
+      console.log(game)
+      const sessionDates = game.aggregatedSessions.map(
+        (session) => session.datePlayed
+      )
+      const currentDate = new Date()
+
+      return {
+        ...game,
+        lastPlayed: closestTo(currentDate, sessionDates)
+      }
+    })
+  }
+)
+
+export const selectLastPlayedGamesSorted = createSelector(
+  [selectGamesWithLastPlayedDate],
+  (lastPlayedGames) => [...lastPlayedGames].sort((gameA, gameB) => {
+    return compareDesc(gameA.lastPlayed, gameB.lastPlayed)
+  })
+)
+
+export const selectGamesArrayWithLatestPlayedDateSorted = createSelector(
+  [
+    selectLastPlayedGamesSorted,
+    selectGamesWithoutSessions
+  ],
+  (lastPlayedGames, gamesWithoutSessions) => {
+    return [...lastPlayedGames, ...gamesWithoutSessions]
+  }
+)

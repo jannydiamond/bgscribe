@@ -8,7 +8,7 @@ import * as types from 'types'
 import { RootState } from 'Redux/store'
 import { selectGames } from 'Redux/Games/index'
 import {
-  selectSessions,
+  selectSessionsById,
   selectSessionsArraySortedByDatePlayed,
 } from 'Redux/Sessions'
 
@@ -41,7 +41,7 @@ const Sessions = () => {
   const games = useSelector(selectGames)
 
   const [session, setSession] = useState<types.Session | {}>({})
-  const sessions = useSelector(selectSessions)
+  const sessions = useSelector(selectSessionsById)
   const sessionsArray: types.Session[] = useSelector((state: RootState) =>
     selectSessionsArraySortedByDatePlayed(state, gameId)
   )

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { format } from 'date-fns'
 
 import { selectGames } from 'Redux/Games'
-import { selectSessions } from 'Redux/Sessions'
+import { selectSessionsById } from 'Redux/Sessions'
 
 import Title from './__styled__/Title'
 import Wrapper from './__styled__/Wrapper'
@@ -14,7 +14,7 @@ const Header = () => {
   const { gameId, sessionId } = useParams()
 
   const games = useSelector(selectGames)
-  const sessions = useSelector(selectSessions)
+  const sessions = useSelector(selectSessionsById)
 
   return (
     <Wrapper>

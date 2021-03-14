@@ -4,17 +4,6 @@ import { TableNames, AddSessionPayload, EditSessionPayload } from 'types'
 
 import db from 'Database'
 
-export const fetchSessions = createAsyncThunk(
-  'Sessions/fetchSessions',
-  async () => {
-    const response = await db
-      .table(TableNames.SESSIONS)
-      .orderBy('datePlayed')
-      .toArray()
-    return response
-  }
-)
-
 export const addSession = createAsyncThunk(
   'Sessions/addSession',
   async (session: AddSessionPayload) => {
