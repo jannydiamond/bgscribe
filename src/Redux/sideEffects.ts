@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import db from 'Database'
-import { TableNames } from 'types'
+import { AddSessionToGamePayload, RemoveSessionFromGamePayload, Session, TableNames } from 'types'
+import {RootState} from './store'
 
 const normalize = (entities: Array<{ id: string }>) =>
   entities.reduce((acc, session) => {
@@ -23,5 +24,70 @@ export const fetchGamesWithSessions = createAsyncThunk(
       games: normalize(games),
       sessions: normalize(sessions),
     }
+  }
+)
+
+export const deleteGame = createAsyncThunk(
+  'root/deleteGame',
+  async (gameId: string) => {
+    const response = await db.table(TableNames.GAMES).delete(gameId)
+
+    return response
+  }
+)
+
+// export const addSession = createAsyncThunk(
+  // 'root/addSession',
+  // async (gameId)
+// )
+
+export const addSessionToGame = createAsyncThunk(
+  'Games/addSessionToGame',
+  async (payload: { gameId: string, session: Session }, { getState }) => {
+    const { gameId, session } = payload
+    const state = getState() as RootState
+
+    const updatedGame = await db
+      .table(TableNames.GAMES)
+      .update(gameId, {
+        sessions: [...state.Games[gameId].sessions, session.id],
+      })
+      .then((updated) => {
+        if (updated === 1) {
+          return db.table(TableNames.GAMES).get(gameId)
+        }
+      })
+
+    const addedSession = await db
+      .table(TableNames.SESSIONS)
+      .add(session)
+      .then((id) => {
+        return db.table(TableNames.SESSIONS).get(id)
+      })
+
+    return { updatedGame, addedSession }
+  }
+)
+
+export const removeSessionFromGame = createAsyncThunk(
+  'Games/removeSessionFromGame',
+  async (payload: RemoveSessionFromGamePayload, { getState }) => {
+    const { gameId, sessionId } = payload
+    const state = getState() as RootState
+
+    const response = await db
+      .table(TableNames.GAMES)
+      .update(gameId, {
+        sessions: state.Games[gameId].sessions.filter(
+          (id: string) => id !== sessionId
+        ),
+      })
+      .then((updated) => {
+        if (updated === 1) {
+          return db.table(TableNames.GAMES).get(gameId)
+        }
+      })
+
+    return response
   }
 )

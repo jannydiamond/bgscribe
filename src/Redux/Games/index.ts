@@ -8,10 +8,9 @@ import {
   addGame,
   editGame,
   deleteGame,
-  addSessionToGame,
   removeSessionFromGame,
 } from './sideEffects'
-import {fetchGamesWithSessions} from 'Redux/sideEffects'
+import {addSessionToGame, fetchGamesWithSessions} from 'Redux/sideEffects'
 
 type State = types.Games
 
@@ -71,13 +70,14 @@ export const GamesSlice = createSlice({
     })
 
     builder.addCase(addSessionToGame.fulfilled, (state, action) => {
-      const { id } = action.payload
+      const { updatedGame } = action.payload
 
       return {
         ...state,
-        [id]: action.payload,
+        [updatedGame.id]: updatedGame,
       }
     })
+    // TODO handle inside sideEffect
     builder.addCase(addSessionToGame.rejected, (_, action) => {
       console.log(action.error)
     })
