@@ -4,18 +4,18 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'Redux/store'
 import { selectGameById } from 'Redux/Games'
 
-import Header from 'components/__styled__/Header'
+import { Header as HeaderInner } from 'components/__styled__/Header'
 import BackLink from 'components/Header/BackLink'
 import Menu from 'components/Header/Menu'
 import Title from 'components/Header/__styled__/Title'
 
-import GameMenu from './GameMenu'
+import MenuContent from './MenuContent'
 
 type Props = {
   gameId: string
 }
 
-const SessionsHeader = (props: Props) => {
+const Header = (props: Props) => {
   const game = useSelector((state: RootState) =>
     selectGameById(state, { gameId: props.gameId })
   )
@@ -23,7 +23,7 @@ const SessionsHeader = (props: Props) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
   return (
-    <Header>
+    <HeaderInner>
       <BackLink to="/games">Back to games overview</BackLink>
       <Title>{game.name ?? ''}</Title>
       <Menu
@@ -31,10 +31,10 @@ const SessionsHeader = (props: Props) => {
         isOpen={menuIsOpen}
         setMenuIsOpen={setMenuIsOpen}
       >
-        <GameMenu id={game.id} closeFlyout={() => setMenuIsOpen(false)} />
+        <MenuContent id={game.id} closeFlyout={() => setMenuIsOpen(false)} />
       </Menu>
-    </Header>
+    </HeaderInner>
   )
 }
 
-export default React.memo(SessionsHeader)
+export default React.memo(Header)
