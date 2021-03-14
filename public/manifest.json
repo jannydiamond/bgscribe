@@ -1,6 +1,6 @@
 {
-  "short_name": "Boardgame Tracker",
-  "name": "Boardgame Tracker",
+  "short_name": "BGScribe",
+  "name": "BGScribe",
   "chromes": [
     {
       "src": "images/favchrome.ico",
@@ -55,13 +55,13 @@
   ],
   "icons": [
     {
-      "src": "images/apple-touch-icon.png?v=xQ7pNnEwRd",
+      "src": "images/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "images/safari-pinned-tab.svg?v=xQ7pNnEwRd",
+      "src": "images/safari-pinned-tab.svg",
       "sizes": "683x683",
       "type": "image/svg",
       "purpose": "maskable"
@@ -69,6 +69,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#009432",
-  "background_color": "#009432"
+  "theme_color": "#7FC998",
+  "background_color": "#7FC998"
 }
