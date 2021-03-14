@@ -6,6 +6,7 @@ import shortid from 'shortid'
 import * as types from 'types'
 
 import { addSession } from 'Redux/sideEffects'
+import { selectSessionTemplatesById } from 'Redux/SessionTemplates'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
@@ -13,7 +14,6 @@ import DatePlayedInput from './DatePlayedInput'
 import AmountOfPlayersInput from './AmountOfPlayersInput'
 import SessionNoteInput from './SessionNoteInput'
 import SessionTemplateSelect from './SessionTemplateSelect'
-import {selectSessionTemplatesById} from 'Redux/SessionTemplates'
 
 type Props = {
   modal: types.Modal

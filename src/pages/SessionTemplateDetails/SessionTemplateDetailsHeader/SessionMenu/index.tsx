@@ -6,8 +6,8 @@ import { selectSessionsById } from 'Redux/Sessions'
 
 import { useModal } from 'hooks/useModal'
 
-import EditSessionModal from 'pages/Sessions/EditSessionModal'
-import DeleteSessionModal from 'pages/Sessions/DeleteSessionModal'
+import EditSessionModal from 'pages/GameDetails/EditSessionModal'
+import DeleteSessionModal from 'pages/GameDetails/DeleteSessionModal'
 
 import Icon from 'components/Icon'
 import MenuList from 'components/Header/Menu/__styled__/MenuList'

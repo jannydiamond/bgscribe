@@ -18,7 +18,7 @@ type Props = {
   closeFlyout: () => void
 }
 
-const GameMenu = ({ id, closeFlyout }: Props) => {
+const MenuContent = ({ id, closeFlyout }: Props) => {
   const games = useSelector(selectGamesById)
 
   const editGameModal = useModal()
@@ -54,4 +54,4 @@ const GameMenu = ({ id, closeFlyout }: Props) => {
   )
 }
 
-export default React.memo(GameMenu)
+export default React.memo(MenuContent)

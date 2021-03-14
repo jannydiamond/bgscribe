@@ -15,6 +15,7 @@ export type GameId = string
 export type Game = {
   id: GameId
   name: string
+  image: string
   sessions: string[]
   created: Date
 }
@@ -65,11 +66,13 @@ export type SessionTemplates = Record<SessionTemplateId, SessionTemplate>
 export type AddGamePayload = {
   id: string
   name: string
+  image?: any
 }
 
 export type EditGamePayload = {
   id: string
   name: string
+  image?: any
 }
 
 export enum TableNames {

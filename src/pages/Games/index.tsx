@@ -38,7 +38,7 @@ const Games = () => {
       return (
         <ListItem key={game.id}>
           <Link to={`/games/${game.id}`}>
-            <Avatar src="http://placekitten.com/300/300" alt={game.name} />
+            <Avatar src={game.image ? game.image : ''} alt={game.name} />
             <ContentWrapper>
               <Title>{game.name}</Title>
               <Subtitle>
