@@ -62,27 +62,6 @@ export const deleteGame = createAsyncThunk(
   }
 )
 
-export const addSessionToGame = createAsyncThunk(
-  'Games/addSessionToGame',
-  async (payload: AddSessionToGamePayload, { getState }) => {
-    const { gameId, sessionId } = payload
-    const state = getState() as RootState
-
-    const response = await db
-      .table(TableNames.GAMES)
-      .update(gameId, {
-        sessions: [...state.Games[gameId].sessions, sessionId],
-      })
-      .then((updated) => {
-        if (updated === 1) {
-          return db.table(TableNames.GAMES).get(gameId)
-        }
-      })
-
-    return response
-  }
-)
-
 export const removeSessionFromGame = createAsyncThunk(
   'Games/removeSessionFromGame',
   async (payload: RemoveSessionFromGamePayload, { getState }) => {
