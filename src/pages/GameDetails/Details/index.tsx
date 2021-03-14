@@ -22,11 +22,13 @@ const Details = (props: Props) => {
   const game = gamesById[props.gameId]
 
   return (
-    <Wrapper>
-      <ImageWrapper>
-        <Image src={game.image} alt="" />
-      </ImageWrapper>
-      <DetailsWrapper>
+    <Wrapper noImage={!game.image}>
+      {game.image && (
+        <ImageWrapper>
+          <Image src={game.image} alt="" />
+        </ImageWrapper>
+      )}
+      <DetailsWrapper noImage={!game.image}>
         <KeyValueList>
           <SessionCount gameId={props.gameId} />
           <LastPlayed gameId={props.gameId} />

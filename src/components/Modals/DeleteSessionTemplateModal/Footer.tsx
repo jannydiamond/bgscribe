@@ -4,31 +4,25 @@ import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
-import { removeSession } from 'Redux/sideEffects'
+import { deleteSessionTemplate } from 'Redux/SessionTemplates/sideEffects'
 
 import Button from 'components/__styled__/Button'
 
 type Props = {
   modal: types.Modal
-  session: types.Session
-  gameId: string
+  template: types.SessionTemplate
 }
 
-const Footer = ({ modal, session, gameId }: Props) => {
+const Footer = ({ modal, template }: Props) => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const handleDeleteSession = () => {
-    dispatch(
-      removeSession({
-        gameId,
-        sessionId: session.id,
-      })
-    )
+  const handleDeleteTemplate = () => {
+    dispatch(deleteSessionTemplate(template.id))
 
     modal.hide()
 
-    history.push(`/games/${gameId}`)
+    history.push(`/templates`)
   }
 
   const handleCancel = () => {
@@ -40,8 +34,8 @@ const Footer = ({ modal, session, gameId }: Props) => {
       <Button onClick={handleCancel} variant="secondary" size="small">
         Cancel
       </Button>
-      <Button onClick={handleDeleteSession} size="small">
-        Delete session
+      <Button onClick={handleDeleteTemplate} size="small">
+        Delete template
       </Button>
     </>
   )

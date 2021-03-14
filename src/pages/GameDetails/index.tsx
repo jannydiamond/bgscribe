@@ -6,13 +6,13 @@ import { selectGamesById } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
+import AddSessionModal from 'components/Modals/AddSessionModal'
 import FloatingButton from 'components/FloatingButton'
 import Main from 'components/__styled__/Main'
 
 import Header from './Header'
 import Details from './Details'
 import Sessions from './Sessions'
-import AddSessionModal from './AddSessionModal'
 
 const GameDetails = () => {
   // @ts-ignore

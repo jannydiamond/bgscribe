@@ -2,9 +2,9 @@ import React from 'react'
 
 import { useModal } from 'hooks/useModal'
 
+import AddSessionTemplateModal from 'components/Modals/AddSessionTemplateModal'
 import FloatingButton from 'components/FloatingButton'
 
-import AddTemplateModal from './AddModal'
 import Header from './Header'
 import Main from 'components/__styled__/Main'
 import SessionTemplateList from './SessionTemplateList'
@@ -24,7 +24,7 @@ const SessionTemplates = () => {
       >
         Add Template
       </FloatingButton>
-      <AddTemplateModal modal={addSessionTemplateModal} />
+      <AddSessionTemplateModal modal={addSessionTemplateModal} />
     </>
   )
 }

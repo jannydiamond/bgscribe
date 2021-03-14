@@ -6,9 +6,9 @@ const mainTheme = {
       dark: '#419a5f',
     },
     secondary: {
-      main: '#FFDDA0',
-      light: '#ffe8c0',
-      dark: '#ffbf4d',
+      main: '#ffbf4d',
+      light: '#FFDDA0',
+      dark: '#dd8e00',
     },
     danger: {
       main: '#FFAEA0',

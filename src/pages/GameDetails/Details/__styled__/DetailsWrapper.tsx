@@ -1,12 +1,16 @@
 import styled from 'styled-components/macro'
 
-const DetailsWrapper = styled('div')`
+type Props = {
+  noImage: boolean
+}
+
+const DetailsWrapper = styled('div')<Props>`
   padding: 24px;
   border-radius: 16px;
   background: ${(props) => props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.text.light};
   font-size: 0.75rem;
-  transform: translateY(-50%);
+  ${(props) => (props.noImage ? null : 'transform: translateY(-50%);')}
 `
 
 export default DetailsWrapper

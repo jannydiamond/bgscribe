@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux'
 
 import * as types from 'types'
 
+import { addSessionTemplate } from 'Redux/SessionTemplates/sideEffects'
+
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
-import { addSessionTemplate } from 'Redux/SessionTemplates/sideEffects'
 import NameInput from './NameInput'
 import TemplateInput from './TemplateInput'
 
