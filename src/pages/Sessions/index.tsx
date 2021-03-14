@@ -6,8 +6,7 @@ import { format } from 'date-fns'
 import * as types from 'types'
 
 import { RootState } from 'Redux/store'
-import { selectGames } from 'Redux/Games'
-import { selectGamesArrayWithLatestPlayedDateSorted } from 'Redux/root'
+import { selectGamesById } from 'Redux/Games'
 import { selectSessionsArraySortedByDatePlayed } from 'Redux/Sessions'
 
 import { useModal } from 'hooks/useModal'
@@ -16,8 +15,6 @@ import FloatingButton from 'components/FloatingButton'
 import Icon from 'components/Icon'
 import P from 'components/__styled__/P'
 import KeyValueList from 'components/__styled__/KeyValueList'
-import KeyValueListItem from 'components/__styled__/KeyValueListItem'
-import KeyValueListKey from 'components/__styled__/KeyValueListKey'
 
 import GameDetails from './GameDetails'
 import AddSessionModal from './AddSessionModal'
@@ -30,25 +27,26 @@ import Title from './__styled__/Title'
 import Subtitle from './__styled__/Subtitle'
 import IconWrapper from './__styled__/IconWrapper'
 import Headline from './__styled__/Headline'
+import SessionCount from './SessionCount'
+import LastPlayed from './LastPlayed'
 
 const Sessions = () => {
   // @ts-ignore
   const { gameId } = useParams()
 
-  const games = useSelector(selectGames)
-  const gamesArrayWithLastPlayedDate: types.GameWithLastPlayedDate[] = useSelector(
-    selectGamesArrayWithLatestPlayedDateSorted
-  )
-
-  const gameLastPlayed = gamesArrayWithLastPlayedDate.find(
-    (game) => game.id === gameId
-  )
+  const gamesById = useSelector(selectGamesById)
+  const game = gamesById[gameId]
 
   const sessionsArray: types.Session[] = useSelector((state: RootState) =>
     selectSessionsArraySortedByDatePlayed(state, gameId)
   )
 
   const addSessionModal = useModal()
+
+  if (!game) {
+    return null
+  }
+
 
   const renderSessions = (sessions: types.Session[]) => {
     return sessions.map((session: types.Session) => {
@@ -73,20 +71,8 @@ const Sessions = () => {
       <Main>
         <GameDetails>
           <KeyValueList>
-            <KeyValueListItem>
-              <KeyValueListKey>Sessions:</KeyValueListKey>{' '}
-              {games[gameId].sessions.length}
-            </KeyValueListItem>
-            <KeyValueListItem>
-              <KeyValueListKey>Last played:</KeyValueListKey>{' '}
-              {gameLastPlayed?.lastPlayed
-                ? format(gameLastPlayed.lastPlayed, 'dd.MM.yyyy')
-                : '-'}
-            </KeyValueListItem>
-            <KeyValueListItem>
-              <KeyValueListKey>Date added:</KeyValueListKey>{' '}
-              {format(games[gameId].created, 'dd.MM.yyyy')}
-            </KeyValueListItem>
+            <SessionCount gameId={gameId} />
+            <LastPlayed gameId={gameId} />
           </KeyValueList>
         </GameDetails>
         <Headline>Sessions</Headline>
@@ -102,7 +88,7 @@ const Sessions = () => {
       >
         Add Session
       </FloatingButton>
-      <AddSessionModal modal={addSessionModal} game={games[gameId]} />
+      <AddSessionModal modal={addSessionModal} game={game} />
     </>
   )
 }

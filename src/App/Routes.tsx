@@ -6,30 +6,30 @@ import Games from 'pages/Games'
 import Sessions from 'pages/Sessions'
 import SessionDetails from 'pages/SessionDetails'
 
-import RouteContent from './RouteContent'
+import { useSelector } from 'react-redux'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
+import P from 'components/__styled__/P'
 
 const Routes = () => {
+  const contentIsLoading = useSelector(selectContentIsLoading)
+
+  if (contentIsLoading) {
+    return <P>"Loading..."</P>
+  }
+
   return (
     <Switch>
       <Route path="/games/:gameId/:sessionId">
-        <RouteContent>
-          <SessionDetails />
-        </RouteContent>
+        <SessionDetails />
       </Route>
       <Route path="/games/:gameId">
-        <RouteContent>
-          <Sessions />
-        </RouteContent>
+        <Sessions />
       </Route>
       <Route path="/games">
-        <RouteContent>
-          <Games />
-        </RouteContent>
+        <Games />
       </Route>
       <Route path="/settings">
-        <RouteContent>
-          Boardgame Tracker {process.env.REACT_APP_VERSION}
-        </RouteContent>
+        Boardgame Tracker {process.env.REACT_APP_VERSION}
       </Route>
       <Route path="*">
         <Redirect to="/games" />

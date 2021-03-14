@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { format } from 'date-fns'
 
-import { selectGames } from 'Redux/Games'
+import { selectGamesById } from 'Redux/Games'
 import { selectSessionsById } from 'Redux/Sessions'
 
 import BackLink from './BackLink'
@@ -14,10 +14,16 @@ import Title from './__styled__/Title'
 import Wrapper from './__styled__/Wrapper'
 
 const Header = () => {
-  const games = useSelector(selectGames)
+  const games = useSelector(selectGamesById)
   const sessions = useSelector(selectSessionsById)
 
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
+
+  // FIXME
+  // refactor this component and handle the header case on each respective page instead
+  if(Object.keys(games).length < 1 || Object.keys(sessions).length < 1) {
+    return null
+  }
 
   return (
     <Switch>

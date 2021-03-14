@@ -97,9 +97,10 @@ export const GamesSlice = createSlice({
   },
 })
 
-export const selectGames = (state: RootState) => state.Games
+export const selectGamesById = (state: RootState) => state.Games
 export const selectGameIds = (state: RootState) => Object.keys(state.Games)
 export const selectGamesArray = (state: RootState) => Object.values(state.Games)
+export const selectGameById = (state: RootState, ownProps: { gameId: string }) => state.Games[ownProps.gameId]
 
 export const selectGamesWithoutSessions = createSelector(
   [selectGamesArray],
