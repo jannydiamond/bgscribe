@@ -25,15 +25,3 @@ export const editSession = createAsyncThunk(
     return response
   }
 )
-
-export const deleteAllGameSessions = createAsyncThunk(
-  'Sessions/deleteAllGameSessions',
-  async (gameId: string) => {
-    const response = await db
-      .table(TableNames.SESSIONS)
-      .where({ gameId: gameId })
-      .delete()
-
-    return response
-  }
-)
