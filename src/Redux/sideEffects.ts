@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import db from 'Database'
-import { AddSessionToGamePayload, RemoveSessionFromGamePayload, Session, TableNames } from 'types'
+import { Session, TableNames } from 'types'
 import {RootState} from './store'
 
 const normalize = (entities: Array<{ id: string }>) =>
@@ -36,13 +36,8 @@ export const deleteGame = createAsyncThunk(
   }
 )
 
-// export const addSession = createAsyncThunk(
-  // 'root/addSession',
-  // async (gameId)
-// )
-
-export const addSessionToGame = createAsyncThunk(
-  'Games/addSessionToGame',
+export const addSession = createAsyncThunk(
+  'root/addSession',
   async (payload: { gameId: string, session: Session }, { getState }) => {
     const { gameId, session } = payload
     const state = getState() as RootState
@@ -69,13 +64,13 @@ export const addSessionToGame = createAsyncThunk(
   }
 )
 
-export const removeSessionFromGame = createAsyncThunk(
-  'Games/removeSessionFromGame',
-  async (payload: RemoveSessionFromGamePayload, { getState }) => {
+export const removeSession = createAsyncThunk(
+  'root/removeSession',
+  async (payload: { gameId: string, sessionId: string }, { getState }) => {
     const { gameId, sessionId } = payload
     const state = getState() as RootState
 
-    const response = await db
+    const updatedGame = await db
       .table(TableNames.GAMES)
       .update(gameId, {
         sessions: state.Games[gameId].sessions.filter(
@@ -88,6 +83,8 @@ export const removeSessionFromGame = createAsyncThunk(
         }
       })
 
-    return response
+    await db.table(TableNames.SESSIONS).delete(sessionId)
+
+    return { updatedGame }
   }
 )

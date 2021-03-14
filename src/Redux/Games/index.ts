@@ -8,9 +8,8 @@ import {
   addGame,
   editGame,
   deleteGame,
-  removeSessionFromGame,
 } from './sideEffects'
-import {addSessionToGame, fetchGamesWithSessions} from 'Redux/sideEffects'
+import {addSession, fetchGamesWithSessions, removeSession} from 'Redux/sideEffects'
 
 type State = types.Games
 
@@ -69,7 +68,7 @@ export const GamesSlice = createSlice({
       console.log(action.error)
     })
 
-    builder.addCase(addSessionToGame.fulfilled, (state, action) => {
+    builder.addCase(addSession.fulfilled, (state, action) => {
       const { updatedGame } = action.payload
 
       return {
@@ -78,19 +77,20 @@ export const GamesSlice = createSlice({
       }
     })
     // TODO handle inside sideEffect
-    builder.addCase(addSessionToGame.rejected, (_, action) => {
+    builder.addCase(addSession.rejected, (_, action) => {
       console.log(action.error)
     })
 
-    builder.addCase(removeSessionFromGame.fulfilled, (state, action) => {
-      const { id } = action.payload
+    builder.addCase(removeSession.fulfilled, (state, action) => {
+      const { updatedGame } = action.payload
 
       return {
         ...state,
-        [id]: action.payload,
+        [updatedGame.id]: updatedGame,
       }
     })
-    builder.addCase(removeSessionFromGame.rejected, (_, action) => {
+    // TODO handle inside sideEffect
+    builder.addCase(removeSession.rejected, (_, action) => {
       console.log(action.error)
     })
   },

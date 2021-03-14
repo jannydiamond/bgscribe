@@ -4,11 +4,7 @@ import {
   TableNames,
   AddGamePayload,
   EditGamePayload,
-  AddSessionToGamePayload,
-  RemoveSessionFromGamePayload,
 } from 'types'
-
-import { RootState } from 'Redux/store'
 
 import db from 'Database'
 
@@ -57,29 +53,6 @@ export const deleteGame = createAsyncThunk(
   'Games/deleteGame',
   async (gameId: string) => {
     const response = await db.table(TableNames.GAMES).delete(gameId)
-
-    return response
-  }
-)
-
-export const removeSessionFromGame = createAsyncThunk(
-  'Games/removeSessionFromGame',
-  async (payload: RemoveSessionFromGamePayload, { getState }) => {
-    const { gameId, sessionId } = payload
-    const state = getState() as RootState
-
-    const response = await db
-      .table(TableNames.GAMES)
-      .update(gameId, {
-        sessions: state.Games[gameId].sessions.filter(
-          (id: string) => id !== sessionId
-        ),
-      })
-      .then((updated) => {
-        if (updated === 1) {
-          return db.table(TableNames.GAMES).get(gameId)
-        }
-      })
 
     return response
   }

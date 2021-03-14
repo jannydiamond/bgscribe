@@ -44,29 +44,11 @@ export type EditGamePayload = {
   name: string
 }
 
-export type AddSessionPayload = {
-  id: string
-  gameId: string
-  datePlayed: Date
-  amountOfPlayers: number
-  note: string
-}
-
 export type EditSessionPayload = {
   id: string
   datePlayed: Date
   amountOfPlayers: number
   note: string
-}
-
-export type AddSessionToGamePayload = {
-  gameId: string
-  sessionId: string
-}
-
-export type RemoveSessionFromGamePayload = {
-  gameId: string
-  sessionId: string
 }
 
 export enum TableNames {
