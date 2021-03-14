@@ -118,5 +118,3 @@ export const selectLatestSessionDateByGameId = createSelector(
     return closestTo(currentDate, sessionDates)
   }
 )
-
-export default SessionsSlice.reducer

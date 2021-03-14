@@ -4,10 +4,10 @@ import { Session, TableNames } from 'types'
 import {RootState} from './store'
 
 const normalize = (entities: Array<{ id: string }>) =>
-  entities.reduce((acc, session) => {
+  entities.reduce((acc, entity ) => {
     return {
       ...acc,
-      [session.id]: session,
+      [entity.id]: entity ,
     }
   }, {})
 
