@@ -104,7 +104,7 @@ export const selectGamesWithoutSessions = createSelector(
   (games) => games.filter(game => game.sessions.length < 1)
 )
 
-export const selectGamesWithSessions = createSelector(
+export const selectGamesContainingSessions = createSelector(
   [selectGamesArray],
   (games) => games.filter(game => game.sessions.length > 0)
 )
