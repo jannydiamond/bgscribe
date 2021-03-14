@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from 'Redux/store'
+import { selectSessionTemplateById } from 'Redux/SessionTemplates'
 
-import Header from 'components/__styled__/Header'
+import HeaderInner from 'components/__styled__/Header'
 import BackLink from 'components/Header/BackLink'
 import Menu from 'components/Header/Menu'
 import Title from 'components/Header/__styled__/Title'
 
-import { selectSessionTemplateById } from 'Redux/SessionTemplates'
+import MenuContent from './MenuContent'
 
 type Props = {
   templateId: string
@@ -22,7 +23,7 @@ const SessionTemplateDetailsHeader = (props: Props) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
   return (
-    <Header>
+    <HeaderInner>
       <BackLink to={`/templates`}>Back to session template overview</BackLink>
       <Title>Template: {template.name}</Title>
       <Menu
@@ -30,9 +31,12 @@ const SessionTemplateDetailsHeader = (props: Props) => {
         isOpen={menuIsOpen}
         setMenuIsOpen={setMenuIsOpen}
       >
-        <p>TODO</p>
+        <MenuContent
+          templateId={props.templateId}
+          closeFlyout={() => setMenuIsOpen(false)}
+        />
       </Menu>
-    </Header>
+    </HeaderInner>
   )
 }
 

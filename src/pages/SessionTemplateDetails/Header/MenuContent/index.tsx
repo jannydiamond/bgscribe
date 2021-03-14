@@ -1,13 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectGamesById } from 'Redux/Games'
-import { selectSessionsById } from 'Redux/Sessions'
+import { selectSessionTemplatesById } from 'Redux/SessionTemplates'
 
 import { useModal } from 'hooks/useModal'
 
-import EditSessionModal from 'pages/GameDetails/EditSessionModal'
-import DeleteSessionModal from 'pages/GameDetails/DeleteSessionModal'
+import EditSessionTemplateModal from 'components/Modals/EditSessionTemplateModal'
+import DeleteSessionTemplateModal from 'components/Modals/DeleteSessionTemplateModal'
 
 import Icon from 'components/Icon'
 import MenuList from 'components/Header/Menu/__styled__/MenuList'
@@ -15,26 +14,24 @@ import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'
 import MenuListButton from 'components/Header/Menu/__styled__/MenuListButton'
 
 type Props = {
-  id: string
-  gameId: string
+  templateId: string
   closeFlyout: () => void
 }
 
-const SessionMenu = ({ id, gameId, closeFlyout }: Props) => {
-  const games = useSelector(selectGamesById)
-  const sessions = useSelector(selectSessionsById)
+const MenuContent = ({ templateId, closeFlyout }: Props) => {
+  const templates = useSelector(selectSessionTemplatesById)
 
-  const editSessionModal = useModal()
-  const deleteSessionModal = useModal()
+  const editSessionTemplateModal = useModal()
+  const deleteSessionTemplateModal = useModal()
 
   const handleEditSession = () => {
     closeFlyout()
-    editSessionModal.show()
+    editSessionTemplateModal.show()
   }
 
   const handleDeleteSession = () => {
     closeFlyout()
-    deleteSessionModal.show()
+    deleteSessionTemplateModal.show()
   }
 
   return (
@@ -42,23 +39,25 @@ const SessionMenu = ({ id, gameId, closeFlyout }: Props) => {
       <MenuListItem>
         <MenuListButton onClick={handleEditSession}>
           <Icon icon="edit" />
-          Edit Session
+          Edit Template
         </MenuListButton>
-        <EditSessionModal modal={editSessionModal} session={sessions[id]} />
+        <EditSessionTemplateModal
+          modal={editSessionTemplateModal}
+          template={templates[templateId]}
+        />
       </MenuListItem>
       <MenuListItem>
         <MenuListButton onClick={handleDeleteSession} delete>
           <Icon icon="delete" />
-          Delete Session
+          Delete Template
         </MenuListButton>
-        <DeleteSessionModal
-          modal={deleteSessionModal}
-          session={sessions[id]}
-          game={games[gameId]}
+        <DeleteSessionTemplateModal
+          modal={deleteSessionTemplateModal}
+          template={templates[templateId]}
         />
       </MenuListItem>
     </MenuList>
   )
 }
 
-export default React.memo(SessionMenu)
+export default React.memo(MenuContent)
