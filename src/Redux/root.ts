@@ -1,20 +1,15 @@
 import {closestTo, compareDesc} from "date-fns";
 import {createSelector} from "reselect";
-import {selectGamesWithoutSessions, selectGamesWithSessions} from "./Games";
+import {selectGamesWithoutSessions, selectGamesContainingSessions} from "./Games";
 import {selectSessionsById} from "./Sessions";
 
 export const selectGamesWithAggregatedSessions = createSelector(
   [
-    selectGamesWithSessions,
+    selectGamesContainingSessions,
     selectSessionsById,
   ],
   (games, sessionsById) => {
     return games.map(game => {
-      console.log({
-        game,
-        sessionsById,
-        aggregated: game.sessions.map(id => sessionsById[id])
-      })
       return {
         ...game,
         aggregatedSessions: game.sessions.map(id => sessionsById[id]),
@@ -27,7 +22,6 @@ export const selectGamesWithLastPlayedDate = createSelector(
   [selectGamesWithAggregatedSessions],
   (games) => {
     return games.map(game => {
-      console.log(game)
       const sessionDates = game.aggregatedSessions.map(
         (session) => session.datePlayed
       )
