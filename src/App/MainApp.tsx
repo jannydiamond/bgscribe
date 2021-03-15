@@ -20,6 +20,7 @@ const MainApp = () => {
       <BottomNavigation />
 
       <div id="modal-root" />
+      <div id="snackbar-root" />
     </>
   )
 }

@@ -1,7 +1,22 @@
-import { RenderModalType } from 'hooks/useModal'
+import { RenderModalType, RenderPromptType } from 'hooks/useModal'
+import { RenderSnackbarType } from 'hooks/useSnackbar'
 
 export type Modal = {
   RenderModal: RenderModalType
+  show: () => void
+  hide: () => void
+}
+
+export type Prompt = {
+  RenderPrompt: RenderPromptType
+  show: () => void
+  hide: () => void
+}
+
+export type SnackbarType = 'default' | 'error' | 'success'
+
+export type Snackbar = {
+  RenderSnackbar: RenderSnackbarType
   show: () => void
   hide: () => void
 }

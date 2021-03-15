@@ -18,7 +18,20 @@ const initialState: State = {
 export const DatabaseSlice = createSlice({
   name: 'Database',
   initialState,
-  reducers: {},
+  reducers: {
+    resetExportStatus: (state) => {
+      return {
+        ...state,
+        exportingStatus: 'idle',
+      }
+    },
+    resetImportStatus: (state) => {
+      return {
+        ...state,
+        importingStatus: 'idle',
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(exportDatabase.pending, (state, _action) => {
       return {
@@ -59,6 +72,8 @@ export const DatabaseSlice = createSlice({
     })
   },
 })
+
+export const { resetExportStatus, resetImportStatus } = DatabaseSlice.actions
 
 export const selectDatabase = (state: RootState) => state.Database
 

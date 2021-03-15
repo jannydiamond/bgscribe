@@ -28,6 +28,20 @@ const mainTheme = {
       dark: '#999999',
     },
   },
+  snackbar: {
+    default: {
+      bg: '#ffffff',
+      color: '#dadada',
+    },
+    success: {
+      bg: '#7FC998',
+      color: '#ffffff',
+    },
+    error: {
+      bg: '#FFAEA0',
+      color: 'ffffff',
+    },
+  },
 }
 
 export default mainTheme
