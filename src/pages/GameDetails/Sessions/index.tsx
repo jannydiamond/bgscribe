@@ -7,17 +7,9 @@ import { Session } from 'types'
 import { RootState } from 'Redux/store'
 import { selectSessionsArraySortedByDatePlayed } from 'Redux/Sessions'
 
-import Headline from 'pages/GameDetails/__styled__/Headline'
-import List from 'pages/GameDetails/__styled__/List'
-import ListItem from 'pages/GameDetails/__styled__/ListItem'
-import Link from 'pages/GameDetails/__styled__/Link'
-import ContentWrapper from 'pages/GameDetails/__styled__/ContentWrapper'
-import IconWrapper from 'pages/GameDetails/__styled__/IconWrapper'
-import Title from 'pages/GameDetails/__styled__/Title'
-import Subtitle from 'pages/GameDetails/__styled__/Subtitle'
-
-import Icon from 'components/Icon'
+import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
+import H2 from 'components/__styled__/H2'
 
 type Props = {
   gameId: string
@@ -31,26 +23,21 @@ const Sessions = (props: Props) => {
   const renderSessions = (sessions: Session[]) => {
     return sessions.map((session: Session) => {
       return (
-        <ListItem key={session.id}>
-          <Link to={`/games/${props.gameId}/${session.id}`}>
-            <ContentWrapper>
-              <Title>{format(session.datePlayed, 'dd.MM.yyyy')}</Title>
-              <Subtitle>{session.amountOfPlayers} Players</Subtitle>
-            </ContentWrapper>
-            <IconWrapper>
-              <Icon icon="chevron_right" />
-            </IconWrapper>
-          </Link>
-        </ListItem>
+        <LinkTile
+          key={session.id}
+          href={`/games/${props.gameId}/${session.id}`}
+          title={format(session.datePlayed, 'dd.MM.yyyy')}
+          subtitle={`${session.amountOfPlayers} Players`}
+        />
       )
     })
   }
 
   return (
     <>
-      <Headline>Sessions</Headline>
+      <H2>Sessions</H2>
       {sessionsArray.length > 0 ? (
-        <List>{renderSessions(sessionsArray)}</List>
+        renderSessions(sessionsArray)
       ) : (
         <P>No sessions have been added, yet.</P>
       )}

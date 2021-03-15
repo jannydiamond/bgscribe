@@ -1,40 +1,42 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { format } from 'date-fns'
 
 import { RootState } from 'Redux/store'
-import { selectSessionTemplateById } from 'Redux/SessionTemplates'
+import { selectSessionById } from 'Redux/Sessions'
 
 import HeaderInner from 'components/__styled__/Header'
 import BackLink from 'components/Header/BackLink'
 import Menu from 'components/Header/Menu'
 import Title from 'components/Header/__styled__/Title'
 
-import MenuContent from './MenuContent'
+import SessionMenu from './MenuContent'
 
 type Props = {
-  templateId: string
+  sessionId: string
 }
 
-const SessionTemplateDetailsHeader = (props: Props) => {
-  const template = useSelector((state: RootState) =>
-    selectSessionTemplateById(state, { templateId: props.templateId })
+const Header = (props: Props) => {
+  const session = useSelector((state: RootState) =>
+    selectSessionById(state, { sessionId: props.sessionId })
   )
 
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false)
 
   return (
     <HeaderInner>
-      <BackLink to={`/settings/templates`}>
-        Back to session template overview
+      <BackLink to={`/games/${session.gameId}`}>
+        Back to sessions overview
       </BackLink>
-      <Title>Template: {template.name}</Title>
+      <Title>{format(session.datePlayed, 'dd.MM.yyyy') ?? ''}</Title>
       <Menu
-        label="Session Template Menu"
+        label="Session Menu"
         isOpen={menuIsOpen}
         setMenuIsOpen={setMenuIsOpen}
       >
-        <MenuContent
-          templateId={props.templateId}
+        <SessionMenu
+          sessionId={session.id}
+          gameId={session.gameId}
           closeFlyout={() => setMenuIsOpen(false)}
         />
       </Menu>
@@ -42,4 +44,4 @@ const SessionTemplateDetailsHeader = (props: Props) => {
   )
 }
 
-export default React.memo(SessionTemplateDetailsHeader)
+export default React.memo(Header)

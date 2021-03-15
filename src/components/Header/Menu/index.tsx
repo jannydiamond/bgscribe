@@ -20,7 +20,7 @@ const Menu = ({ label, isOpen, children, setMenuIsOpen }: Props) => {
 
   return (
     <Wrapper ref={ref}>
-      <Button isOpen={isOpen} onClick={() => setMenuIsOpen(true)}>
+      <Button isOpen={isOpen} onClick={() => setMenuIsOpen(!isOpen)}>
         {label}
       </Button>
       <Flyout isOpen={isOpen}>{children}</Flyout>
