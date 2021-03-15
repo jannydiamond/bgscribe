@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import Modal from 'components/Modal'
+import Prompt from 'components/Prompt'
 
 type ModalProps = {
   titleLabel: string
@@ -53,5 +54,38 @@ export const useModal = () => {
     show,
     hide,
     RenderModal,
+  }
+}
+
+type PromptProps = {
+  titleLabel: string
+  children?: React.ReactChild
+  closeCallback?: () => void
+  yesHandler: () => void
+  noHandler: () => void
+}
+
+export type RenderPromptType = (props: PromptProps) => JSX.Element
+
+export const usePrompt = () => {
+  const { show, hide, RenderModal } = useModal()
+
+  const RenderPrompt: RenderPromptType = ({
+    titleLabel,
+    children,
+    yesHandler,
+    noHandler,
+  }) => (
+    <RenderModal titleLabel={titleLabel} closeCallback={noHandler}>
+      <Prompt yesHandler={yesHandler} noHandler={noHandler}>
+        {children}
+      </Prompt>
+    </RenderModal>
+  )
+
+  return {
+    show,
+    hide,
+    RenderPrompt,
   }
 }
