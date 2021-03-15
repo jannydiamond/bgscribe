@@ -13,6 +13,32 @@ const normalize = (entities: Array<{ id: string }>) =>
 
 const THUNK_PREFIX = 'root'
 
+// Converts a base64 string into a URL which can be used throughout the app
+// during runtime
+export const base64ToURL = async (base64: string) => {
+  const base64Blob = base64 ? await (await fetch(base64)).blob() : ''
+  const base64Url = base64Blob ? window.URL.createObjectURL(base64Blob) : ''
+
+  return base64Url
+}
+
+const asyncMapBase64ImagesToURLs = async <T extends { image: string }>(
+  objects: T[]
+): Promise<T[]> => {
+  return Promise.all(
+    objects.map(async (object) => {
+      const { image } = object
+
+      const imageUrl = await base64ToURL(image)
+
+      return {
+        ...object,
+        image: imageUrl,
+      }
+    })
+  )
+}
+
 export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
   const games = await db.table(TableNames.GAMES).orderBy('name').toArray()
   const sessions = await db
@@ -24,8 +50,10 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     .orderBy('name')
     .toArray()
 
+  const gamesWithImageURLs = await asyncMapBase64ImagesToURLs(games)
+
   return {
-    games: normalize(games),
+    games: normalize(gamesWithImageURLs),
     sessions: normalize(sessions),
     sessionTemplates: normalize(sessionTemplates),
   }

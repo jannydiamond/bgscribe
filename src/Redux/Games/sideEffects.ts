@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { TableNames, AddGamePayload, EditGamePayload } from 'types'
 
 import db from 'Database'
+import { base64ToURL } from 'Redux/sideEffects'
 
 export const addGame = createAsyncThunk(
   `${TableNames.GAMES}/addGame`,
@@ -22,7 +23,12 @@ export const addGame = createAsyncThunk(
         return db.table(TableNames.GAMES).get(gameId)
       })
 
-    return response
+    const imageUrl = await base64ToURL(image)
+
+    return {
+      ...response,
+      image: imageUrl,
+    }
   }
 )
 
@@ -35,7 +41,7 @@ export const editGame = createAsyncThunk(
       .table(TableNames.GAMES)
       .update(id, {
         name: name !== '' ? name : id,
-        image: image ? image : '',
+        ...(image.startsWith('data:image/') ? { image } : {}), // => only write if is base64 encoded image
       })
       .then((updated) => {
         if (updated === 1) {
@@ -43,6 +49,11 @@ export const editGame = createAsyncThunk(
         }
       })
 
-    return response
+    const imageUrl = await base64ToURL(image)
+
+    return {
+      ...response,
+      image: imageUrl,
+    }
   }
 )
