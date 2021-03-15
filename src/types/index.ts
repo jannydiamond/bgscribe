@@ -72,6 +72,46 @@ export type SessionTemplate = {
 
 export type SessionTemplates = Record<SessionTemplateId, SessionTemplate>
 
+//////////////////
+// Achievements //
+//////////////////
+
+export type AchievementId = string
+
+export type AchievementLevel =
+  | 'regular'
+  | 'bronce'
+  | 'silver'
+  | 'gold'
+  | 'emerald'
+
+export type Achievement = {
+  id: AchievementId
+  achievementSetId?: AchievementSetId // we might have achievements without a set (e.g. if a game still relates to it, but its set has been deleted
+  title: string
+  level: AchievementLevel
+  image?: string
+}
+
+export type AchievementSetId = string
+export type AchievementSet = {
+  id: AchievementSetId
+  title: string
+  tags: string[] // => e.g. 'standard', 'spirit island'...
+  achievements: AchievementId[]
+  author?: {
+    name?: string
+    email?: string
+  }
+}
+
+export type GameAchievementId = string // => compound id from gameId and achievementId
+export type GameAchievement = {
+  gameId: GameId
+  achievementId: AchievementId
+  achieved: boolean
+}
+
 //////////
 // Misc //
 //////////
@@ -94,4 +134,7 @@ export enum TableNames {
   GAMES = 'Games',
   SESSIONS = 'Sessions',
   SESSION_TEMPLATES = 'SessionTemplates',
+  ACHIEVEMENTS = 'Achievements',
+  ACHIEVEMENT_SETS = 'AchievementSets',
+  GAME_ACHIEVEMENTS = 'GameAchievements',
 }
