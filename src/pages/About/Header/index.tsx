@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <HeaderInner>
       <BackLink to="/settings">Back to settings</BackLink>
-      <Title noMenu>Session Templates</Title>
+      <Title noMenu>About</Title>
     </HeaderInner>
   )
 }

@@ -5,6 +5,10 @@ const Wrapper = styled('div')`
   width: 64px;
   overflow: hidden;
   border-radius: 4px;
+
+  + * {
+    padding-left: 16px;
+  }
 `
 
 export default Wrapper

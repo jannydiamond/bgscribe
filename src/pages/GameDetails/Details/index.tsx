@@ -1,10 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectGamesById } from 'Redux/Games'
+import { RootState } from 'Redux/store'
+import { selectGameById } from 'Redux/Games'
 
-import LastPlayed from 'pages/GameDetails/LastPlayed'
-import SessionCount from 'pages/GameDetails/SessionCount'
+import SessionCount from 'pages/GameDetails/Details/SessionCount'
+import LastPlayed from 'pages/GameDetails/Details/LastPlayed'
 
 import KeyValueList from 'components/__styled__/KeyValueList'
 
@@ -18,8 +19,9 @@ type Props = {
 }
 
 const Details = (props: Props) => {
-  const gamesById = useSelector(selectGamesById)
-  const game = gamesById[props.gameId]
+  const game = useSelector((state: RootState) =>
+    selectGameById(state, { gameId: props.gameId })
+  )
 
   return (
     <Wrapper noImage={!game.image}>
