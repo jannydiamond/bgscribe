@@ -35,6 +35,12 @@ const Button = styled('button')<Props>`
         : props.theme.colors.primary.dark};
   }
 
+  &:disabled {
+    color: ${(props) => props.theme.colors.gray.dark};
+    background-color: ${(props) => props.theme.colors.gray.light};
+    pointer-events: none;
+  }
+
   + button {
     margin-left: 16px;
   }

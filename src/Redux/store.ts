@@ -4,6 +4,7 @@ import { GamesSlice } from 'Redux/Games'
 import { SessionsSlice } from 'Redux/Sessions'
 import { ContentLoadingSlice } from './ContentLoading'
 import { SessionTemplatesSlice } from './SessionTemplates'
+import { DatabaseSlice } from './Database'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     Sessions: SessionsSlice.reducer,
     SessionTemplates: SessionTemplatesSlice.reducer,
     ContentLoading: ContentLoadingSlice.reducer,
+    Database: DatabaseSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
