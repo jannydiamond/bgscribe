@@ -1,7 +1,7 @@
 import Dexie from 'dexie'
 import { TableNames } from 'types'
 
-const db = new Dexie('BoardgameTracker')
+const db = new Dexie('BGScribe')
 
 db.version(1).stores({
   [TableNames.GAMES]: 'id, name, sessions, created',
