@@ -2,7 +2,10 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
 import { GamesSlice } from 'Redux/Games'
 import { SessionsSlice } from 'Redux/Sessions'
+import { AchievementSlice } from './Achievements'
+import { AchievementSetSlice } from './AchievementSets/indext'
 import { ContentLoadingSlice } from './ContentLoading'
+import { GameAchievementSlice } from './GameAchievements'
 import { SessionTemplatesSlice } from './SessionTemplates'
 import { DatabaseSlice } from './Database'
 
@@ -11,6 +14,9 @@ export const store = configureStore({
     Games: GamesSlice.reducer,
     Sessions: SessionsSlice.reducer,
     SessionTemplates: SessionTemplatesSlice.reducer,
+    Achievements: AchievementSlice.reducer,
+    AchievementSets: AchievementSetSlice.reducer,
+    GameAchievements: GameAchievementSlice.reducer,
     ContentLoading: ContentLoadingSlice.reducer,
     Database: DatabaseSlice.reducer,
   },
