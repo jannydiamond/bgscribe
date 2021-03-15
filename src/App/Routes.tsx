@@ -10,6 +10,7 @@ import SessionDetails from 'pages/SessionDetails'
 import SessionTemplates from 'pages/SessionTemplates'
 import SessionTemplateDetails from 'pages/SessionTemplateDetails'
 import Settings from 'pages/Settings'
+import Database from 'pages/Database'
 import About from 'pages/About'
 
 const Routes = () => {
@@ -41,6 +42,9 @@ const Routes = () => {
       </Route>
       <Route path="/settings/templates">
         <SessionTemplates />
+      </Route>
+      <Route path="/settings/database">
+        <Database />
       </Route>
       <Route path="/settings/about">
         <About />
