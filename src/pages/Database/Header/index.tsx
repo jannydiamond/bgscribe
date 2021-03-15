@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <HeaderInner>
       <BackLink to="/settings">Back to settings</BackLink>
-      <Title noMenu>Database</Title>
+      <Title noMenu>Database Import / Export</Title>
     </HeaderInner>
   )
 }
