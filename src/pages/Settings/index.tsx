@@ -10,6 +10,10 @@ const Settings = () => {
       <Header />
       <Main>
         <LinkTile href="/settings/templates" title="Manage Session Templates" />
+        <LinkTile
+          href="/settings/database"
+          title="Import / Export of Database"
+        />
         <LinkTile href="/settings/about" title="About" />
       </Main>
     </>

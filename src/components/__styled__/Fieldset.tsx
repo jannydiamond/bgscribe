@@ -6,7 +6,8 @@ const Fieldset = styled('fieldset')`
   margin: 0;
   max-width: 624px;
 
-  + fieldset {
+  + fieldset,
+  + button {
     margin-top: 16px;
   }
 `

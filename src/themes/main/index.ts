@@ -25,7 +25,7 @@ const mainTheme = {
     gray: {
       main: '#dadada',
       light: '#efefef',
-      dark: '#333333',
+      dark: '#999999',
     },
   },
 }
