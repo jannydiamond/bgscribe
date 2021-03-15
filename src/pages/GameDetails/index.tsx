@@ -2,7 +2,8 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { selectGamesById } from 'Redux/Games'
+import { RootState } from 'Redux/store'
+import { selectGameById } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
@@ -18,8 +19,9 @@ const GameDetails = () => {
   // @ts-ignore
   const { gameId } = useParams()
 
-  const gamesById = useSelector(selectGamesById)
-  const game = gamesById[gameId]
+  const game = useSelector((state: RootState) =>
+    selectGameById(state, { gameId })
+  )
 
   const addSessionModal = useModal()
 

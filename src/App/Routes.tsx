@@ -9,6 +9,8 @@ import GameDetails from 'pages/GameDetails'
 import SessionDetails from 'pages/SessionDetails'
 import SessionTemplates from 'pages/SessionTemplates'
 import SessionTemplateDetails from 'pages/SessionTemplateDetails'
+import Settings from 'pages/Settings'
+import About from 'pages/About'
 
 const Routes = () => {
   const contentIsLoading = useSelector(selectContentIsLoading)
@@ -34,8 +36,17 @@ const Routes = () => {
       <Route exact path="/templates">
         <SessionTemplates />
       </Route>
+      <Route path="/settings/templates/:templateId">
+        <SessionTemplateDetails />
+      </Route>
+      <Route path="/settings/templates">
+        <SessionTemplates />
+      </Route>
+      <Route path="/settings/about">
+        <About />
+      </Route>
       <Route path="/settings">
-        Boardgame Tracker {process.env.REACT_APP_VERSION}
+        <Settings />
       </Route>
       <Route path="*">
         <Redirect to="/games" />

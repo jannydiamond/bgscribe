@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'Redux/store'
 import { selectGameById } from 'Redux/Games'
 
-import { Header as HeaderInner } from 'components/__styled__/Header'
+import HeaderInner from 'components/__styled__/Header'
 import BackLink from 'components/Header/BackLink'
 import Menu from 'components/Header/Menu'
 import Title from 'components/Header/__styled__/Title'
@@ -31,7 +31,10 @@ const Header = (props: Props) => {
         isOpen={menuIsOpen}
         setMenuIsOpen={setMenuIsOpen}
       >
-        <MenuContent id={game.id} closeFlyout={() => setMenuIsOpen(false)} />
+        <MenuContent
+          gameId={game.id}
+          closeFlyout={() => setMenuIsOpen(false)}
+        />
       </Menu>
     </HeaderInner>
   )

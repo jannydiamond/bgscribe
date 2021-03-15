@@ -9,6 +9,7 @@ const Input = styled('input')`
   outline: 0;
   padding: 0 8px;
   color: ${(props) => props.theme.colors.text.dark};
+  font-size: 0.875rem;
 
   &:hover,
   &:focus {
