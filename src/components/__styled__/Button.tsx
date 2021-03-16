@@ -21,7 +21,7 @@ const Button = styled('button')<Props>`
       ? props.theme.colors.secondary.main
       : props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.text.light};
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 400;
   outline: none;
   transition: background-color 0.2s ease-in-out;

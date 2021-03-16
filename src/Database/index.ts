@@ -35,4 +35,11 @@ db.version(6).stores({
   [TableNames.GAME_ACHIEVEMENTS]: '[gameId+achievementId], achieved', // change primary key
 })
 
+db.version(7).stores({
+  [TableNames.ACHIEVEMENT_SETS]:
+    'id, title, tags, version, achievements, author, created', // add created
+  [TableNames.GAME_ACHIEVEMENTS]:
+    '[gameId+achievementId], achieved, achievedDate', // add achievedDate
+})
+
 export default db

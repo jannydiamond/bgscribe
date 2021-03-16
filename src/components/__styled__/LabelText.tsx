@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 const LabelText = styled('span')`
   display: block;
-  font-size: 12px;
+  font-size: 0.875rem;
   color: ${(props) => props.theme.colors.text.main};
 
   + * {

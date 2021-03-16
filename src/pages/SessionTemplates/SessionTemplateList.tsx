@@ -15,7 +15,7 @@ const SessionTemplateList = () => {
         sessionTemplates.map((template) => (
           <LinkTile
             key={template.id}
-            href={`/templates/${template.id}`}
+            href={`/settings/templates/${template.id}`}
             title={template.name}
           />
         ))
