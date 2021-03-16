@@ -9,7 +9,7 @@ const DetailsWrapper = styled('div')<Props>`
   border-radius: 16px;
   background: ${(props) => props.theme.colors.primary.main};
   color: ${(props) => props.theme.colors.text.light};
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   ${(props) => (props.noImage ? null : 'transform: translateY(-50%);')}
 `
 

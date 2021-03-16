@@ -49,6 +49,10 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     .table(TableNames.SESSION_TEMPLATES)
     .orderBy('name')
     .toArray()
+  const achievementSets = await db
+    .table(TableNames.ACHIEVEMENT_SETS)
+    .orderBy('title')
+    .toArray()
 
   const gamesWithImageURLs = await asyncMapBase64ImagesToURLs(games)
 
@@ -56,6 +60,7 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     games: normalize(gamesWithImageURLs),
     sessions: normalize(sessions),
     sessionTemplates: normalize(sessionTemplates),
+    achievementSets: normalize(achievementSets),
   }
 })
 
@@ -138,6 +143,21 @@ export const removeSession = createAsyncThunk(
         await db.table(TableNames.SESSIONS).delete(sessionId)
 
         return { updatedGame }
+      }
+    )
+  }
+)
+
+export const deleteAchievementSet = createAsyncThunk(
+  `${THUNK_PREFIX}/deleteAchievementSet`,
+  async (achievementSetId: string) => {
+    await db.transaction(
+      'rw',
+      db.table(TableNames.ACHIEVEMENT_SETS),
+      db.table(TableNames.ACHIEVEMENTS),
+      () => {
+        db.table(TableNames.ACHIEVEMENT_SETS).delete(achievementSetId)
+        db.table(TableNames.ACHIEVEMENTS).where({ achievementSetId }).delete()
       }
     )
   }
