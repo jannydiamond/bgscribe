@@ -12,6 +12,9 @@ import SessionTemplateDetails from 'pages/SessionTemplateDetails'
 import Settings from 'pages/Settings'
 import Database from 'pages/Database'
 import About from 'pages/About'
+import AchievementSets from 'pages/AchievementSets'
+import AchievementSetDetails from 'pages/AchievementSetDetails'
+import AchievementDetails from 'pages/AchievementDetails'
 
 const Routes = () => {
   const contentIsLoading = useSelector(selectContentIsLoading)
@@ -31,11 +34,14 @@ const Routes = () => {
       <Route path="/games">
         <Games />
       </Route>
-      <Route exact path="/templates/:templateId">
-        <SessionTemplateDetails />
+      <Route path="/achievement-sets/:achievementSetId/:achievementId">
+        <AchievementDetails />
       </Route>
-      <Route exact path="/templates">
-        <SessionTemplates />
+      <Route path="/achievement-sets/:achievementSetId">
+        <AchievementSetDetails />
+      </Route>
+      <Route path="/achievement-sets">
+        <AchievementSets />
       </Route>
       <Route path="/settings/templates/:templateId">
         <SessionTemplateDetails />

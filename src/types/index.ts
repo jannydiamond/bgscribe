@@ -108,7 +108,7 @@ export type AchievementSetId = string
 export type AchievementSet = {
   id: AchievementSetId
   title: string
-  desription?: string
+  description?: string
   tags: string[] // => e.g. 'standard', 'spirit island'...
   version: string
   achievements: AchievementId[]
@@ -116,6 +116,7 @@ export type AchievementSet = {
     name?: string
     email?: string
   }
+  created: Date
 }
 
 export type GameAchievementId = string // => compound id from gameId and achievementId
@@ -123,6 +124,7 @@ export type GameAchievement = {
   gameId: GameId
   achievementId: AchievementId
   achieved: boolean
+  achievedDate: Date
 }
 
 //////////
