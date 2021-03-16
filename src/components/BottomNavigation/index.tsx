@@ -19,6 +19,14 @@ const BottomNavigation = () => {
           />
         </LinkListItem>
         <LinkListItem>
+          <Link
+            to="/achievement-sets"
+            label="Achievement Sets"
+            icon="ra-trophy"
+            isRpg
+          />
+        </LinkListItem>
+        <LinkListItem>
           <Link to="/settings" label="Settings" icon="settings" />
         </LinkListItem>
       </LinkList>
