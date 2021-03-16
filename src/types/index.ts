@@ -85,10 +85,21 @@ export type AchievementLevel =
   | 'gold'
   | 'emerald'
 
+export type ProgressAchievementConfig =
+  | { type: 'increase' }
+  | { type: 'increaseBy'; amount: number }
+  | { type: 'list'; list: Array<{ name: string; achieved: boolean }> }
+
+export type AchievementType =
+  | { type: 'regular' }
+  | { type: 'progress'; config: ProgressAchievementConfig }
+
 export type Achievement = {
   id: AchievementId
+  type: AchievementType
   achievementSetId?: AchievementSetId // we might have achievements without a set (e.g. if a game still relates to it, but its set has been deleted
   title: string
+  description?: string
   level: AchievementLevel
   image?: string
 }
@@ -97,7 +108,9 @@ export type AchievementSetId = string
 export type AchievementSet = {
   id: AchievementSetId
   title: string
+  desription?: string
   tags: string[] // => e.g. 'standard', 'spirit island'...
+  version: string
   achievements: AchievementId[]
   author?: {
     name?: string
