@@ -27,7 +27,7 @@ db.version(4).stores({
 db.version(5).stores({
   [TableNames.ACHIEVEMENTS]: 'id, achievementSetId, type, title, level', // remove image, add type
   [TableNames.ACHIEVEMENT_SETS]:
-    'id, title, tags, version, achievements, author,', // add version
+    'id, title, tags, version, achievements, author', // add version
   [TableNames.GAME_ACHIEVEMENTS]: null, // remove to change primary key
 })
 
