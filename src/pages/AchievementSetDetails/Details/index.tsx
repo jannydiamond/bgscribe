@@ -11,7 +11,7 @@ import P from 'components/__styled__/P'
 import Version from './Version'
 import CreatedBy from './CreatedBy'
 import DateAdded from './DateAdded'
-import Tags from './Tags'
+import AchievementSetTags from './AchievementSetTags'
 
 type Props = {
   achievementSetId: string
@@ -32,7 +32,7 @@ const Details = (props: Props) => {
         <CreatedBy achievementSetId={props.achievementSetId} />
         <DateAdded achievementSetId={props.achievementSetId} />
       </KeyValueList>
-      <Tags achievementSetId={props.achievementSetId} />
+      <AchievementSetTags achievementSetId={props.achievementSetId} />
     </Wrapper>
   )
 }

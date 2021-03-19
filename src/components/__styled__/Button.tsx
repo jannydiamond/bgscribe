@@ -23,6 +23,7 @@ const Button = styled('button')<Props>`
   color: ${(props) => props.theme.colors.text.light};
   font-size: 0.875rem;
   font-weight: 400;
+  font-family: 'Open Sans', Arial, sans-serif;
   outline: none;
   transition: background-color 0.2s ease-in-out;
 
