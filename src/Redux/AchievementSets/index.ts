@@ -2,7 +2,12 @@ import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { AchievementSet, AchievementSetId, TableNames } from 'types'
 
 import { RootState } from 'Redux/store'
-import { deleteAchievementSet, init } from 'Redux/sideEffects'
+import {
+  addAchievement,
+  deleteAchievementSet,
+  init,
+  removeAchievement,
+} from 'Redux/sideEffects'
 import { addAchievementSet, editAchievementSet } from './sideEffects'
 
 type State = {
@@ -75,6 +80,36 @@ export const AchievementSetSlice = createSlice({
       }
     })
     builder.addCase(deleteAchievementSet.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(addAchievement.fulfilled, (state, action) => {
+      const { updatedAchievementSet } = action.payload
+
+      return {
+        byId: {
+          ...state.byId,
+          [updatedAchievementSet.id]: updatedAchievementSet,
+        },
+      }
+    })
+    // TODO handle inside sideEffect
+    builder.addCase(addAchievement.rejected, (_, action) => {
+      console.log(action.error)
+    })
+
+    builder.addCase(removeAchievement.fulfilled, (state, action) => {
+      const { updatedAchievementSet } = action.payload
+
+      return {
+        byId: {
+          ...state.byId,
+          [updatedAchievementSet.id]: updatedAchievementSet,
+        },
+      }
+    })
+    // TODO handle inside sideEffect
+    builder.addCase(removeAchievement.rejected, (_, action) => {
       console.log(action.error)
     })
   },

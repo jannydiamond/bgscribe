@@ -9,6 +9,8 @@ import { selectAchievementsByAchievementSetId } from 'Redux/Achievements'
 import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
 import H2 from 'components/__styled__/H2'
+import List from './__styled__/List'
+import ListItem from './__styled__/ListItem'
 
 type Props = {
   achievementSetId: string
@@ -22,13 +24,14 @@ const Achievements = (props: Props) => {
   const renderAchievements = (achievements: Achievement[]) => {
     return achievements.map((achievement: Achievement) => {
       return (
-        <LinkTile
-          key={achievement.id}
-          href={`/games/${props.achievementSetId}/${achievement.id}`}
-          imageSrc={achievement.image ?? '-'}
-          title={achievement.title}
-          subtitle={achievement.description ?? '-'}
-        />
+        <ListItem key={achievement.id}>
+          <LinkTile
+            href={`/achievement-sets/${props.achievementSetId}/${achievement.id}`}
+            imageSrc={achievement.image ?? '-'}
+            title={achievement.title}
+            subtitle={achievement.description ?? '-'}
+          />
+        </ListItem>
       )
     })
   }
@@ -37,7 +40,7 @@ const Achievements = (props: Props) => {
     <>
       <H2>Achievements</H2>
       {achievementsArray.length > 0 ? (
-        renderAchievements(achievementsArray)
+        <List>{renderAchievements(achievementsArray)}</List>
       ) : (
         <P>No achievements have been added, yet.</P>
       )}

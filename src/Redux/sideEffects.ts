@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import db from 'Database'
-import { Session, TableNames } from 'types'
+import {
+  AchievementSetId,
+  Achievement,
+  Session,
+  TableNames,
+  AchievementId,
+} from 'types'
 import { RootState } from './store'
 
 const normalize = (entities: Array<{ id: string }>) =>
@@ -53,14 +59,22 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     .table(TableNames.ACHIEVEMENT_SETS)
     .orderBy('title')
     .toArray()
+  const achievements = await db
+    .table(TableNames.ACHIEVEMENTS)
+    .orderBy('title')
+    .toArray()
 
   const gamesWithImageURLs = await asyncMapBase64ImagesToURLs(games)
+  const achievementsWithImageURLs = await asyncMapBase64ImagesToURLs(
+    achievements
+  )
 
   return {
     games: normalize(gamesWithImageURLs),
     sessions: normalize(sessions),
     sessionTemplates: normalize(sessionTemplates),
     achievementSets: normalize(achievementSets),
+    achievements: normalize(achievementsWithImageURLs),
   }
 })
 
@@ -158,6 +172,98 @@ export const deleteAchievementSet = createAsyncThunk(
       () => {
         db.table(TableNames.ACHIEVEMENT_SETS).delete(achievementSetId)
         db.table(TableNames.ACHIEVEMENTS).where({ achievementSetId }).delete()
+      }
+    )
+  }
+)
+
+export const addAchievement = createAsyncThunk(
+  `${THUNK_PREFIX}/addAchievement`,
+  async (
+    payload: { achievementSetId: AchievementSetId; achievement: Achievement },
+    { getState }
+  ) => {
+    const { achievementSetId, achievement } = payload
+    const state = getState() as RootState
+
+    const result = await db.transaction(
+      'rw',
+      db.table(TableNames.ACHIEVEMENT_SETS),
+      db.table(TableNames.ACHIEVEMENTS),
+      async () => {
+        const updatedAchievementSet = await db
+          .table(TableNames.ACHIEVEMENT_SETS)
+          .update(achievementSetId, {
+            achievements: [
+              ...state.AchievementSets.byId[achievementSetId].achievements,
+              achievement.id,
+            ],
+          })
+          .then((updated) => {
+            if (updated === 1) {
+              return db.table(TableNames.ACHIEVEMENT_SETS).get(achievementSetId)
+            }
+          })
+
+        const addedAchievement = await db
+          .table(TableNames.ACHIEVEMENTS)
+          .add({
+            ...achievement,
+            title:
+              achievement.title !== '' ? achievement.title : achievement.id,
+          })
+          .then((id) => {
+            return db.table(TableNames.ACHIEVEMENTS).get(id)
+          })
+
+        return { updatedAchievementSet, addedAchievement }
+      }
+    )
+
+    const imageUrl = achievement.image
+      ? await base64ToURL(achievement.image)
+      : ''
+
+    return {
+      ...result,
+      image: imageUrl,
+    }
+  }
+)
+
+export const removeAchievement = createAsyncThunk(
+  `${THUNK_PREFIX}/removeAchievement`,
+  async (
+    payload: {
+      achievementSetId: AchievementSetId
+      achievementId: AchievementId
+    },
+    { getState }
+  ) => {
+    const { achievementSetId, achievementId } = payload
+    const state = getState() as RootState
+
+    return db.transaction(
+      'rw',
+      db.table(TableNames.ACHIEVEMENT_SETS),
+      db.table(TableNames.ACHIEVEMENTS),
+      async () => {
+        const updatedAchievementSet = await db
+          .table(TableNames.ACHIEVEMENT_SETS)
+          .update(achievementSetId, {
+            achievements: state.AchievementSets.byId[
+              achievementSetId
+            ].achievements.filter((id: string) => id !== achievementId),
+          })
+          .then((updated) => {
+            if (updated === 1) {
+              return db.table(TableNames.ACHIEVEMENT_SETS).get(achievementSetId)
+            }
+          })
+
+        await db.table(TableNames.ACHIEVEMENTS).delete(achievementId)
+
+        return { updatedAchievementSet }
       }
     )
   }

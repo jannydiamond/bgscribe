@@ -13,6 +13,7 @@ import Main from 'components/__styled__/Main'
 import Header from './Header'
 import Details from './Details'
 import Achievements from './Achievements'
+import AddAchievementModal from 'components/Modals/AddAchievementModal'
 
 const AchievementSetDetails = () => {
   // @ts-ignore
@@ -41,6 +42,10 @@ const AchievementSetDetails = () => {
       >
         Add Achievement
       </FloatingButton>
+      <AddAchievementModal
+        modal={addAchievementModal}
+        achievementSetId={achievementSetId}
+      />
     </>
   )
 }
