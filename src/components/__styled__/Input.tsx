@@ -10,11 +10,18 @@ const Input = styled('input')`
   padding: 0 8px;
   color: ${(props) => props.theme.colors.text.dark};
   font-size: 0.875rem;
+  font-family: 'Open Sans', Arial, sans-serif;
 
   &:hover,
   &:focus {
     border-color: ${(props) => props.theme.colors.primary.main};
     caret-color: ${(props) => props.theme.colors.primary.main};
+  }
+
+  &[type='radio'],
+  &[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
   }
 `
 

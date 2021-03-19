@@ -42,6 +42,25 @@ const mainTheme = {
       color: 'ffffff',
     },
   },
+  achievement: {
+    level: {
+      regular: {
+        color: '#efefef',
+      },
+      bronze: {
+        color: '#cd7f32',
+      },
+      silver: {
+        color: '#c0c0c0',
+      },
+      gold: {
+        color: '#ffd700',
+      },
+      emerald: {
+        color: '#50c878',
+      },
+    },
+  },
 }
 
 export default mainTheme
