@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import shortid from 'shortid'
 import { OptionTypeBase } from 'react-select'
 
 import * as types from 'types'
 
 import { addAchievementSet } from 'Redux/AchievementSets/sideEffects'
-import { selectAchievementSetsTags } from 'Redux/AchievementSets'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
-import Fieldset from 'components/__styled__/Fieldset'
-import Label from 'components/__styled__/Label'
-import LabelText from 'components/__styled__/LabelText'
-import Input from 'components/__styled__/Input'
-import Textarea from 'components/__styled__/Textarea'
-import CreatableSelect from 'components/__styled__/CreatableSelect'
+import TitleInput from './TitleInput'
+import DescriptionTextarea from './DescriptionTextarea'
+import TagsSelect from './TagsSelect'
+import VersionInput from './VersionInput'
+import AuthorNameInput from './AuthorNameInput'
+import AuthorEmailInput from './AuthorEmailInput'
 
 type Props = {
   modal: types.Modal
@@ -24,21 +23,10 @@ type Props = {
 const Body = ({ modal }: Props) => {
   const dispatch = useDispatch()
 
-  const allTags = useSelector(selectAchievementSetsTags)
-
-  const options: OptionTypeBase = [
-    ...allTags.map((tag) => {
-      return {
-        label: tag,
-        value: tag,
-      }
-    }),
-  ]
-
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
-  const [tags, setTags] = useState<OptionTypeBase | null>(options)
-  const [version, setVersion] = useState<string>('')
+  const [tags, setTags] = useState<OptionTypeBase | null>(null)
+  const [version, setVersion] = useState<string>('1')
   const [authorName, setAuthorName] = useState<string>('')
   const [authorEmail, setAuthorEmail] = useState<string>('')
 
@@ -60,7 +48,7 @@ const Body = ({ modal }: Props) => {
     dispatch(
       addAchievementSet({
         id: achievementSetId,
-        title,
+        title: title ?? achievementSetId,
         description,
         tags: tags ? tags.map((tag: OptionTypeBase) => tag.value) : [],
         version,
@@ -78,59 +66,18 @@ const Body = ({ modal }: Props) => {
   return (
     <ModalBodyWrapper>
       <Form id="addAchievementSet" onSubmit={handleSubmit}>
-        <Fieldset>
-          <Label htmlFor="achievementSetTitle">
-            <LabelText>Title</LabelText>
-            <Input id="achievementSetTitle" onChange={handleTitleChange} />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="achievementSetDescription">
-            <LabelText>Description</LabelText>
-            <Textarea
-              id="achievementSetDescription"
-              onChange={handleDescriptionChange}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="achievementSetTags">
-            <LabelText>Tags</LabelText>
-            <CreatableSelect
-              options={options}
-              isMulti
-              onChange={handleTagsChange}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="achievementSetVersion">
-            <LabelText>Version</LabelText>
-            <Input
-              id="achievementSetVersion"
-              type="number"
-              onChange={handleVersionChange}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="achievementSetAuthorName">
-            <LabelText>Author name</LabelText>
-            <Input
-              id="achievementSetAuthorName"
-              onChange={handleAuthorNameChange}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="achievementSetAuthorEmail">
-            <LabelText>Author email</LabelText>
-            <Input
-              id="achievementSetAuthorEmail"
-              onChange={handleAuthorEmailChange}
-            />
-          </Label>
-        </Fieldset>
+        <TitleInput onChange={handleTitleChange} value={title} />
+        <DescriptionTextarea
+          onChange={handleDescriptionChange}
+          value={description}
+        />
+        <TagsSelect onChange={handleTagsChange} value={tags} />
+        <VersionInput onChange={handleVersionChange} value={version} />
+        <AuthorNameInput onChange={handleAuthorNameChange} value={authorName} />
+        <AuthorEmailInput
+          onChange={handleAuthorEmailChange}
+          value={authorEmail}
+        />
       </Form>
     </ModalBodyWrapper>
   )

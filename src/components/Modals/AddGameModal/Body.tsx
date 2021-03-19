@@ -8,11 +8,8 @@ import { addGame } from 'Redux/Games/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
-import Fieldset from 'components/__styled__/Fieldset'
-import Label from 'components/__styled__/Label'
-import LabelText from 'components/__styled__/LabelText'
-import Input from 'components/__styled__/Input'
-import FileInput from 'components/__styled__/FileInput'
+import NameInput from './NameInput'
+import ImageFileInput from './ImageFileInput'
 
 type Props = {
   modal: types.Modal
@@ -54,23 +51,8 @@ const Body = ({ modal }: Props) => {
   return (
     <ModalBodyWrapper>
       <Form id="addGame" onSubmit={handleSubmit}>
-        <Fieldset>
-          <Label htmlFor="gameName">
-            <LabelText>Name</LabelText>
-            <Input id="gameName" onChange={handleNameChange} />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="gameImage">
-            <LabelText>Image</LabelText>
-            <FileInput
-              id="gameImage"
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-          </Label>
-        </Fieldset>
+        <NameInput onChange={handleNameChange} value={name} />
+        <ImageFileInput onChange={handleImageChange} />
       </Form>
     </ModalBodyWrapper>
   )
