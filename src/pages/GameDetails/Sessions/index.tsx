@@ -9,7 +9,6 @@ import { selectSessionsArraySortedByDatePlayed } from 'Redux/Sessions'
 
 import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
-import H2 from 'components/__styled__/H2'
 
 type Props = {
   gameId: string
@@ -35,7 +34,6 @@ const Sessions = (props: Props) => {
 
   return (
     <>
-      <H2>Sessions</H2>
       {sessionsArray.length > 0 ? (
         renderSessions(sessionsArray)
       ) : (
