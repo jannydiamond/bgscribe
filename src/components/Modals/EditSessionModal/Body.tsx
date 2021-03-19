@@ -9,10 +9,9 @@ import { editSession } from 'Redux/Sessions/sideEffects'
 
 import ModalBodyWrapper from 'components/__styled__/ModalBodyWrapper'
 import Form from 'components/__styled__/Form'
-import Fieldset from 'components/__styled__/Fieldset'
-import Label from 'components/__styled__/Label'
-import LabelText from 'components/__styled__/LabelText'
-import Input from 'components/__styled__/Input'
+import DatePlayedInput from './DatePlayedInput'
+import AmountOfPlayersInput from './AmountOfPlayersInput'
+import SessionNoteInput from './SessionNoteInput'
 
 type Props = {
   modal: types.Modal
@@ -52,40 +51,13 @@ const Body = ({ modal, session }: Props) => {
   return (
     <ModalBodyWrapper>
       <Form id="editSession" onSubmit={handleSubmit}>
-        <Fieldset>
-          <Label htmlFor="sessionDatePlayed">
-            <LabelText>Date played</LabelText>
-            <Input
-              type="date"
-              id="sessionDatePlayed"
-              onChange={handleDatePlayedChange}
-              value={datePlayed}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="sessionAmountOfPlayers">
-            <LabelText>Amount of players</LabelText>
-            <Input
-              type="number"
-              id="sessionAmountOfPlayers"
-              onChange={handleAmountOfPlayersChange}
-              value={amountOfPlayers}
-            />
-          </Label>
-        </Fieldset>
-        <Fieldset>
-          <Label htmlFor="sessionNote">
-            <LabelText>Note (with markdown support)</LabelText>
-            <MDEditor
-              id="sessionNote"
-              value={note}
-              onChange={handleNoteChange}
-              hideToolbar={true}
-              preview="edit"
-            />
-          </Label>
-        </Fieldset>
+        <DatePlayedInput onChange={handleDatePlayedChange} value={datePlayed} />
+        <AmountOfPlayersInput
+          onChange={handleAmountOfPlayersChange}
+          value={amountOfPlayers}
+        />
+
+        <SessionNoteInput onChange={handleNoteChange} value={note} />
       </Form>
     </ModalBodyWrapper>
   )
