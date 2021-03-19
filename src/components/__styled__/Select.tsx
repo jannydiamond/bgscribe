@@ -16,6 +16,7 @@ const Select = styled((props) => (
     color: ${(props) => props.theme.colors.text.dark};
     font-size: 0.875rem;
     box-shadow: none;
+    text-transform: capitalize;
 
     &:hover,
     &:focus {
@@ -49,6 +50,7 @@ const Select = styled((props) => (
     outline: none;
     background: transparent;
     font-size: 0.875rem;
+    text-transform: capitalize;
 
     &:hover,
     &:focus {
