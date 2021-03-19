@@ -78,12 +78,14 @@ export type SessionTemplates = Record<SessionTemplateId, SessionTemplate>
 
 export type AchievementId = string
 
-export type AchievementLevel =
-  | 'regular'
-  | 'bronce'
-  | 'silver'
-  | 'gold'
-  | 'emerald'
+export const ACHIEVEMENT_LEVELS = [
+  'regular',
+  'bronze',
+  'silver',
+  'gold',
+  'emerald',
+] as const
+export type AchievementLevel = typeof ACHIEVEMENT_LEVELS[number]
 
 export type ProgressAchievementConfig =
   | { type: 'increase' }
