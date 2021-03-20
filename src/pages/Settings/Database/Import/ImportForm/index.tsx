@@ -6,7 +6,7 @@ import { usePrompt } from 'hooks/useModal'
 import Button from 'components/__styled__/Button'
 import Form from 'components/__styled__/Form'
 
-import ImportFileInput from './ImportFileInput'
+import ImportFileInput from 'components/ImportFileInput'
 import Prompt from './Prompt'
 
 const ImportForm = () => {

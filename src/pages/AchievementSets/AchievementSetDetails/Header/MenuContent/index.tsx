@@ -4,6 +4,7 @@ import MenuList from 'components/Header/Menu/__styled__/MenuList'
 
 import EditAchievementSet from './EditAchievementSet'
 import DeleteAchievementSet from './DeleteAchievementSet'
+import ExportAchievementSet from './ExportAchievementSet'
 
 type Props = {
   achievementSetId: string
@@ -13,6 +14,10 @@ type Props = {
 const MenuContent = ({ achievementSetId, closeFlyout }: Props) => {
   return (
     <MenuList>
+      <ExportAchievementSet
+        achievementSetId={achievementSetId}
+        closeFlyout={closeFlyout}
+      />
       <EditAchievementSet
         achievementSetId={achievementSetId}
         closeFlyout={closeFlyout}

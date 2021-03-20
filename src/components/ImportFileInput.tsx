@@ -6,7 +6,7 @@ import LabelText from 'components/__styled__/LabelText'
 import FileInput from 'components/__styled__/FileInput'
 
 type Props = {
-  value: string
+  value?: string
   handleChange: (event: any) => void
 }
 

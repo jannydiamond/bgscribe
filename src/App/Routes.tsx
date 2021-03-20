@@ -1,8 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
-
-import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 import Games from 'pages/Games'
 import GameDetails from 'pages/Games/GameDetails'
@@ -17,12 +14,6 @@ import AchievementSetDetails from 'pages/AchievementSets/AchievementSetDetails'
 import AchievementDetails from 'pages/AchievementSets/AchievementSetDetails/AchievementDetails'
 
 const Routes = () => {
-  const contentIsLoading = useSelector(selectContentIsLoading)
-
-  if (contentIsLoading) {
-    return null
-  }
-
   return (
     <Switch>
       <Route path="/games/:gameId/:sessionId">

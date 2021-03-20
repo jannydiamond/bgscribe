@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { TableNames, AddGamePayload, EditGamePayload } from 'types'
 
 import db from 'Database'
-import { base64ToURL } from 'Redux/sideEffects'
+import { base64ToURL } from 'Redux/helpers'
 
 export const addGame = createAsyncThunk(
   `${TableNames.GAMES}/addGame`,

@@ -12,19 +12,21 @@ type Props = {
   achievementSetId: string
 }
 
-const DatePlayed = (props: Props) => {
+const DateAdded = (props: Props) => {
   const achievementSet = useSelector((state: RootState) =>
     selectAchievementSetById(state, {
       achievementSetId: props.achievementSetId,
     })
   )
 
+  const dateAdded = new Date(achievementSet.created)
+
   return (
     <KeyValueListItem>
       <KeyValueListKey>Date added:</KeyValueListKey>{' '}
-      {format(achievementSet.created, 'dd.MM.yyyy')}
+      {format(dateAdded, 'dd.MM.yyyy')}
     </KeyValueListItem>
   )
 }
 
-export default React.memo(DatePlayed)
+export default React.memo(DateAdded)

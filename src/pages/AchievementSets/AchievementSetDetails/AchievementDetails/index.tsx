@@ -9,6 +9,7 @@ import Main from 'components/__styled__/Main'
 import Header from './Header'
 import Details from './Details'
 import Preview from './Preview'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 const AchievementDetails = () => {
   // @ts-ignore
@@ -18,7 +19,9 @@ const AchievementDetails = () => {
     selectAchievementById(state, { achievementId })
   )
 
-  if (!achievement) {
+  const contentIsLoading = useSelector(selectContentIsLoading)
+
+  if (!achievement || contentIsLoading) {
     return null
   }
 
