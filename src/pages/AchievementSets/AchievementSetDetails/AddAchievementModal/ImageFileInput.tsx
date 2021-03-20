@@ -12,7 +12,7 @@ const ImageFileInput = (props: Props) => {
   return (
     <Fieldset>
       <Label htmlFor="gameImage">
-        <LabelText>Image</LabelText>
+        <LabelText>Image (max. 500kB)</LabelText>
         <FileInput
           id="gameImage"
           type="file"
