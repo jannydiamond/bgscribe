@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Achievement, TableNames } from 'types'
 
 import db from 'Database'
-import { base64ToURL } from 'Redux/sideEffects'
+import { base64ToURL } from 'Redux/helpers'
 
 export const editAchievement = createAsyncThunk(
   `${TableNames.ACHIEVEMENTS}/editAchievement`,

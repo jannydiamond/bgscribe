@@ -13,6 +13,7 @@ import Header from './Header'
 import Details from './Details'
 import Sessions from './Sessions'
 import GameAchievements from './GameAchievements'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 const GameDetails = () => {
   // @ts-ignore
@@ -23,8 +24,9 @@ const GameDetails = () => {
   )
 
   const gameDetailsTabbar = useTabbar()
+  const contentIsLoading = useSelector(selectContentIsLoading)
 
-  if (!game) {
+  if (!game || contentIsLoading) {
     return null
   }
 

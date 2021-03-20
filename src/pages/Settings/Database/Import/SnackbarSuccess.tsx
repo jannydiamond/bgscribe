@@ -26,7 +26,7 @@ const SnackbarSuccess = () => {
       type="success"
       closeCallback={handleImportSuccessClose}
     >
-      Importing the new database was successful.
+      Database import successful.
     </importingSuccessSnackbar.RenderSnackbar>
   )
 }
