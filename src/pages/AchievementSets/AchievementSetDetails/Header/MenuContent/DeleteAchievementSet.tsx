@@ -6,7 +6,7 @@ import { selectAchievementSetById } from 'Redux/AchievementSets'
 
 import { useModal } from 'hooks/useModal'
 
-import DeleteAchievementSetModal from 'components/Modals/DeleteAchievementSetModal'
+import DeleteAchievementSetModal from 'pages/AchievementSets/AchievementSetDetails/Header/MenuContent/DeleteAchievementSetModal'
 import Icon from 'components/Icon'
 
 import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'

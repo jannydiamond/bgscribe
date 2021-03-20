@@ -6,7 +6,7 @@ import { selectGameById } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
-import DeleteGameModal from 'components/Modals/DeleteGameModal'
+import DeleteGameModal from 'pages/Games/GameDetails/Header/MenuContent/DeleteGameModal'
 import Icon from 'components/Icon'
 
 import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'
