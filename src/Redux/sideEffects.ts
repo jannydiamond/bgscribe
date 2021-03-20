@@ -7,6 +7,7 @@ import {
   TableNames,
   AchievementId,
 } from 'types'
+import { normalizedGameAchievements } from './GameAchievements/helpers'
 import { RootState } from './store'
 
 const normalize = (entities: Array<{ id: string }>) =>
@@ -63,6 +64,9 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     .table(TableNames.ACHIEVEMENTS)
     .orderBy('title')
     .toArray()
+  const gameAchievements = await db
+    .table(TableNames.GAME_ACHIEVEMENTS)
+    .toArray()
 
   const gamesWithImageURLs = await asyncMapBase64ImagesToURLs(games)
   const achievementsWithImageURLs = await asyncMapBase64ImagesToURLs(
@@ -75,6 +79,7 @@ export const init = createAsyncThunk(`${THUNK_PREFIX}/init`, async () => {
     sessionTemplates: normalize(sessionTemplates),
     achievementSets: normalize(achievementSets),
     achievements: normalize(achievementsWithImageURLs),
+    gameAchievements: normalizedGameAchievements(gameAchievements),
   }
 })
 
