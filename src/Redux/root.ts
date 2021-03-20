@@ -56,5 +56,8 @@ export const selectGamesArrayWithLatestPlayedDateSorted = createSelector(
 export const selectAchievementsByGame = createSelector(
   [selectAchievementsById, selectGameAchievementsByGameId],
   (achievementsById, gameAchievements) =>
-    gameAchievements.map((ga) => achievementsById[ga.achievementId])
+    gameAchievements.map((gameAchievement) => ({
+      ...gameAchievement,
+      ...achievementsById[gameAchievement.achievementId],
+    }))
 )
