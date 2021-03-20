@@ -6,7 +6,7 @@ import { selectSessionTemplateById } from 'Redux/SessionTemplates'
 
 import { useModal } from 'hooks/useModal'
 
-import DeleteSessionTemplateModal from 'components/Modals/DeleteSessionTemplateModal'
+import DeleteSessionTemplateModal from 'pages/Settings/SessionTemplates/SessionTemplateDetails/Header/MenuContent/DeleteSessionTemplateModal'
 import Icon from 'components/Icon'
 
 import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'

@@ -34,14 +34,14 @@ const GameDetails = () => {
         <Details gameId={gameId} />
         <gameDetailsTabbar.RenderTabbar
           tabContents={[
-            { 
-             title: 'Sessions',
-             jsx: <Sessions gameId={gameId} />
+            {
+              title: 'Sessions',
+              jsx: <Sessions gameId={gameId} />,
             },
             {
               title: 'Achievements',
-              jsx: 'Achievements'
-            }
+              jsx: 'Achievements',
+            },
           ]}
         />
       </Main>

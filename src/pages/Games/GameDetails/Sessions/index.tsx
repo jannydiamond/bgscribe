@@ -10,7 +10,7 @@ import { selectSessionsArraySortedByDatePlayed } from 'Redux/Sessions'
 import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
 import FloatingButton from 'components/FloatingButton'
-import AddSessionModal from 'components/Modals/AddSessionModal'
+import AddSessionModal from 'pages/Games/GameDetails/Sessions/AddSessionModal'
 import {useModal} from 'hooks/useModal'
 
 type Props = {
