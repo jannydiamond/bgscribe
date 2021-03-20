@@ -9,11 +9,13 @@ const MenuListButton = styled('button')<Props>`
   border: none;
   padding: 16px;
   cursor: pointer;
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   text-align: left;
   transition: background-color 0.2s ease-in-out;
   outline: none;
+  font-family: 'Open Sans', Arial, sans-serif;
 
   &:hover {
     background-color: ${(props) => props.theme.colors.gray.light};

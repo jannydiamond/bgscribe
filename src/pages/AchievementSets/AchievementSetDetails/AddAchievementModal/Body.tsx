@@ -16,6 +16,7 @@ import DescriptionTextarea from './DescriptionTextarea'
 import LevelSelect from './LevelSelect'
 import ImageFileInput from './ImageFileInput'
 import AchievementAvatar from 'components/AchievementAvatar'
+import Error from 'components/__styled__/Error'
 
 type Props = {
   modal: types.Modal
@@ -39,6 +40,7 @@ const Body = ({ modal, achievementSetId }: Props) => {
   const [description, setDescription] = useState<string>('')
   const [level, setLevel] = useState<OptionTypeBase>(options[0])
   const [image, setImage] = useState<string>('')
+  const [imageError, setImageError] = useState<boolean>(false)
 
   const handleTypeChange = (event: any) =>
     setType({
@@ -50,13 +52,22 @@ const Body = ({ modal, achievementSetId }: Props) => {
     setDescription(event.target.value)
   const handleLevelChange = (option: OptionTypeBase) => setLevel(option)
   const handleImageChange = (event: any) => {
+    const image = event.target.files[0]
+    const isTooLarge = Math.ceil(image.size / 1000) > 500 // Image larger than 500kB
+
     const reader = new FileReader()
 
     reader.onload = async (event: any) => {
-      setImage(event.target.result)
+      if(isTooLarge) {
+        setImageError(true)
+        setImage('')
+      } else {
+        setImageError(false)
+        setImage(event.target.result)
+      }
     }
 
-    reader.readAsDataURL(event.target.files[0])
+    reader.readAsDataURL(image)
   }
 
   const handleSubmit = (event: any) => {
@@ -97,6 +108,7 @@ const Body = ({ modal, achievementSetId }: Props) => {
           value={level}
         />
         <ImageFileInput onChange={handleImageChange} />
+        {imageError ? <Error>The image should not be larger than 500kB.</Error> : null}
       </Form>
       <AchievementPreview>
         <AchievementAvatar src={image} alt="Preview" level={level.value} />
