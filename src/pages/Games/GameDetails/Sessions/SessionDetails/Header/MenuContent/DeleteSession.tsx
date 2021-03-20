@@ -7,7 +7,7 @@ import { selectSessionById } from 'Redux/Sessions'
 
 import { useModal } from 'hooks/useModal'
 
-import DeleteSessionModal from 'components/Modals/DeleteSessionModal'
+import DeleteSessionModal from 'pages/Games/GameDetails/Sessions/SessionDetails/Header/MenuContent/DeleteSessionModal'
 import Icon from 'components/Icon'
 
 import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'

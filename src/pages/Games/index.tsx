@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useModal } from 'hooks/useModal'
 
-import AddGameModal from 'components/Modals/AddGameModal'
+import AddGameModal from 'pages/Games/AddGameModal'
 import FloatingButton from 'components/FloatingButton'
 import Main from 'components/__styled__/Main'
 

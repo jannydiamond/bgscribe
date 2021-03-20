@@ -6,7 +6,7 @@ import { selectGameById } from 'Redux/Games'
 
 import { useModal } from 'hooks/useModal'
 
-import EditGameModal from 'components/Modals/EditGameModal'
+import EditGameModal from 'pages/Games/GameDetails/Header/MenuContent/EditGameModal'
 import Icon from 'components/Icon'
 
 import MenuListItem from 'components/Header/Menu/__styled__/MenuListItem'
