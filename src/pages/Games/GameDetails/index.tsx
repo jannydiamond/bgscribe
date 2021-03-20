@@ -12,7 +12,6 @@ import Main from 'components/__styled__/Main'
 import Header from './Header'
 import Details from './Details'
 import Sessions from './Sessions'
-import Tabpanel from 'components/Tabbar/Tabpanel'
 
 const GameDetails = () => {
   // @ts-ignore
@@ -34,21 +33,17 @@ const GameDetails = () => {
       <Main>
         <Details gameId={gameId} />
         <gameDetailsTabbar.RenderTabbar
-          tabTitles={['Sessions', 'Achievements']}
-        >
-          <Tabpanel
-            tabValue={0}
-            selectedValue={gameDetailsTabbar.selectedTabValue}
-          >
-            <Sessions gameId={gameId} />
-          </Tabpanel>
-          <Tabpanel
-            tabValue={1}
-            selectedValue={gameDetailsTabbar.selectedTabValue}
-          >
-            Achievements
-          </Tabpanel>
-        </gameDetailsTabbar.RenderTabbar>
+          tabContents={[
+            { 
+             title: 'Sessions',
+             jsx: <Sessions gameId={gameId} />
+            },
+            {
+              title: 'Achievements',
+              jsx: 'Achievements'
+            }
+          ]}
+        />
       </Main>
     </>
   )
