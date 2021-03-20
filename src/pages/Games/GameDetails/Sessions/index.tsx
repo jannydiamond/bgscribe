@@ -9,6 +9,9 @@ import { selectSessionsArraySortedByDatePlayed } from 'Redux/Sessions'
 
 import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
+import FloatingButton from 'components/FloatingButton'
+import AddSessionModal from 'components/Modals/AddSessionModal'
+import {useModal} from 'hooks/useModal'
 
 type Props = {
   gameId: string
@@ -18,6 +21,8 @@ const Sessions = (props: Props) => {
   const sessionsArray: Session[] = useSelector((state: RootState) =>
     selectSessionsArraySortedByDatePlayed(state, props.gameId)
   )
+
+  const addSessionModal = useModal()
 
   const renderSessions = (sessions: Session[]) => {
     return sessions.map((session: Session) => {
@@ -39,6 +44,13 @@ const Sessions = (props: Props) => {
       ) : (
         <P>No sessions have been added, yet.</P>
       )}
+      <FloatingButton
+        variant="secondary"
+        onClick={() => addSessionModal.show()}
+      >
+        Add Session
+      </FloatingButton>
+      <AddSessionModal modal={addSessionModal} gameId={props.gameId} />
     </>
   )
 }

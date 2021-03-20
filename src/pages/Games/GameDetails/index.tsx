@@ -5,11 +5,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'Redux/store'
 import { selectGameById } from 'Redux/Games'
 
-import { useModal } from 'hooks/useModal'
 import { useTabbar } from 'hooks/useTabbar'
 
-import AddSessionModal from 'components/Modals/AddSessionModal'
-import FloatingButton from 'components/FloatingButton'
 import Main from 'components/__styled__/Main'
 
 import Header from './Header'
@@ -25,7 +22,6 @@ const GameDetails = () => {
     selectGameById(state, { gameId })
   )
 
-  const addSessionModal = useModal()
   const gameDetailsTabbar = useTabbar()
 
   if (!game) {
@@ -54,13 +50,6 @@ const GameDetails = () => {
           </Tabpanel>
         </gameDetailsTabbar.RenderTabbar>
       </Main>
-      <FloatingButton
-        variant="secondary"
-        onClick={() => addSessionModal.show()}
-      >
-        Add Session
-      </FloatingButton>
-      <AddSessionModal modal={addSessionModal} game={game} />
     </>
   )
 }
