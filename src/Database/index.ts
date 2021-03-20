@@ -42,4 +42,8 @@ db.version(7).stores({
     '[gameId+achievementId], achieved, achievedDate', // add achievedDate
 })
 
+db.version(8).stores({
+  [TableNames.GAME_ACHIEVEMENTS]: '[gameId+achievementId], achieved', // remove achievedDate, because it has to be nullable
+})
+
 export default db

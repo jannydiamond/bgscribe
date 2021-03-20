@@ -12,6 +12,7 @@ import Main from 'components/__styled__/Main'
 import Header from './Header'
 import Details from './Details'
 import Sessions from './Sessions'
+import GameAchievements from './GameAchievements'
 
 const GameDetails = () => {
   // @ts-ignore
@@ -40,7 +41,7 @@ const GameDetails = () => {
             },
             {
               title: 'Achievements',
-              jsx: 'Achievements',
+              jsx: <GameAchievements gameId={gameId} />,
             },
           ]}
         />
