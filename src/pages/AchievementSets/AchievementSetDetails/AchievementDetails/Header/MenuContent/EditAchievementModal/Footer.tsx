@@ -19,7 +19,7 @@ const Footer = ({ modal }: Props) => {
         Cancel
       </Button>
       <Button type="submit" size="small" form="editAchievement">
-        Edit achievement
+        Save
       </Button>
     </>
   )
