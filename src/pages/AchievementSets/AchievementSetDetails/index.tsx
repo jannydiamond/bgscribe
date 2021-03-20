@@ -14,6 +14,7 @@ import Header from './Header'
 import Details from './Details'
 import Achievements from './Achievements'
 import AddAchievementModal from 'pages/AchievementSets/AchievementSetDetails/AddAchievementModal'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 const AchievementSetDetails = () => {
   // @ts-ignore
@@ -24,8 +25,9 @@ const AchievementSetDetails = () => {
   )
 
   const addAchievementModal = useModal()
+  const contentIsLoading = useSelector(selectContentIsLoading)
 
-  if (!achievementSet) {
+  if (!achievementSet || contentIsLoading) {
     return null
   }
 

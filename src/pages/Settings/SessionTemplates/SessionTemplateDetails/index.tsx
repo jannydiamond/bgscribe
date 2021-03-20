@@ -9,6 +9,7 @@ import Main from 'components/__styled__/Main'
 
 import Header from './Header'
 import Notes from './Notes'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 const SessionTemplateDetails = () => {
   // @ts-ignore
@@ -18,7 +19,9 @@ const SessionTemplateDetails = () => {
     selectSessionTemplateById(state, { templateId })
   )
 
-  if (!template) {
+  const contentIsLoading = useSelector(selectContentIsLoading)
+
+  if (!template || contentIsLoading) {
     return null
   }
 
