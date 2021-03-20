@@ -16,3 +16,23 @@ export const addGameAchievements = createAsyncThunk(
     return response
   }
 )
+
+export const setGameAchievementAsAchieved = createAsyncThunk(
+  `${TableNames.GAME_ACHIEVEMENTS}/setGameAchievementAsAchieved`,
+  async (gameAchievement: GameAchievement) => {
+    const response = await db
+      .table(TableNames.GAME_ACHIEVEMENTS)
+      .update([gameAchievement.gameId, gameAchievement.achievementId], {
+        achieved: true,
+      })
+      .then((updated) => {
+        if (updated === 1) {
+          return db
+            .table(TableNames.GAME_ACHIEVEMENTS)
+            .get([gameAchievement.gameId, gameAchievement.achievementId])
+        }
+      })
+
+    return response
+  }
+)
