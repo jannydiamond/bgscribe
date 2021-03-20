@@ -1,22 +1,21 @@
 import React from 'react'
-
-import * as types from 'types'
+import {Modal, GameId} from 'types'
 
 import Body from './Body'
 import Footer from './Footer'
 
 type Props = {
-  modal: types.Modal
-  game: types.Game
+  modal: Modal
+  gameId: GameId
 }
 
-const AddSessionModal = ({ modal, game }: Props) => {
+const AddSessionModal = ({ modal, gameId }: Props) => {
   return (
     <modal.RenderModal
       titleLabel="Add Session"
       footer={<Footer modal={modal} />}
     >
-      <Body modal={modal} gameId={game.id} />
+      <Body modal={modal} gameId={gameId} />
     </modal.RenderModal>
   )
 }
