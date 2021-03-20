@@ -14,7 +14,7 @@ const Wrapper = styled('button')<Props>`
   border: none;
   outline: none;
   transition: color 0.2s ease-in-out;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-family: 'Open Sans', Arial, sans-serif;
 
   &::after {
@@ -58,6 +58,10 @@ const Wrapper = styled('button')<Props>`
             }
           }
         `}
+
+  @media all and (min-width: 480px) {
+    font-size: 1.25rem;
+  }
 `
 
 export default Wrapper

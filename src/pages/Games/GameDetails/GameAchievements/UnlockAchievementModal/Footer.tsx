@@ -18,8 +18,8 @@ const Footer = ({ modal }: Props) => {
       <Button onClick={handleCancel} variant="secondary" size="small">
         Cancel
       </Button>
-      <Button type="submit" size="small" form="addAchievementSet">
-        Add Achievement Set
+      <Button type="submit" size="small" form="unlockAchievement">
+        Unlock
       </Button>
     </>
   )

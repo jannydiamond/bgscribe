@@ -12,7 +12,7 @@ type Props = {
 
 const Link = ({ to, label, icon, isRpg }: Props) => (
   <LinkInner to={to} isActive={(match: any) => (match ? true : false)}>
-    {isRpg ? <i className={`ra ra-lg ${icon}`} /> : <Icon icon={icon} solid />}
+    <Icon icon={icon} solid isRpg={isRpg} />
     <span>{label}</span>
   </LinkInner>
 )

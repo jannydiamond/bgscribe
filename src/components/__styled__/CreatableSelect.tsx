@@ -6,7 +6,7 @@ const CreatableSelect = styled((props) => (
   <ReactSelect classNamePrefix="ReactSelect" {...props} />
 ))`
   .ReactSelect__control {
-    height: 40px;
+    min-height: 40px;
     width: 100%;
     border-radius: 4px;
     border: 1px solid ${(props) => props.theme.colors.gray.main};

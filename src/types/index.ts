@@ -24,6 +24,15 @@ export type Snackbar = {
   hide: () => void
 }
 
+export type ButtonVariants =
+  | 'primary'
+  | 'secondary'
+  | 'danger'
+  | 'ghostPrimary'
+  | 'ghostSecondary'
+  | 'outlinePrimary'
+  | 'outlineSecondary'
+
 ///////////
 // Games //
 ///////////
