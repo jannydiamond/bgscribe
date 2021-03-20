@@ -9,10 +9,10 @@ type Props = {
   gameId: GameId
 }
 
-const AddSessionModal = ({ modal, gameId }: Props) => {
+const AddAchievementsModal = ({ modal, gameId }: Props) => {
   return (
     <modal.RenderModal
-      titleLabel="Add Session"
+      titleLabel="Add Achievements from Sets"
       footer={<Footer modal={modal} />}
     >
       <Body modal={modal} gameId={gameId} />
@@ -20,4 +20,4 @@ const AddSessionModal = ({ modal, gameId }: Props) => {
   )
 }
 
-export default React.memo(AddSessionModal)
+export default React.memo(AddAchievementsModal)

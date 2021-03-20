@@ -7,6 +7,8 @@ import { selectAchievementById } from 'Redux/Achievements'
 
 import Main from 'components/__styled__/Main'
 import Header from './Header'
+import Details from './Details'
+import Preview from './Preview'
 
 const AchievementDetails = () => {
   // @ts-ignore
@@ -23,7 +25,10 @@ const AchievementDetails = () => {
   return (
     <>
       <Header achievementId={achievement.id} />
-      <Main>Achievement</Main>
+      <Main>
+        <Details achievementId={achievement.id} />
+        <Preview achievementId={achievement.id} />
+      </Main>
     </>
   )
 }

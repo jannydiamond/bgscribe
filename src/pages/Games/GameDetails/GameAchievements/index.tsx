@@ -1,34 +1,47 @@
+import AchievementUnlockTile from 'components/AchievementUnlockTile'
 import FloatingButton from 'components/FloatingButton'
-import LinkTile from 'components/LinkTile'
 import P from 'components/__styled__/P'
 import { useModal } from 'hooks/useModal'
 import ListItem from 'pages/Games/__styled__/ListItem'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectAchievementsByGame } from 'Redux/root'
 import { RootState } from 'Redux/store'
-import AddAchievementSetModal from './AddAchievementSetModal'
+import { Achievement, GameAchievement } from 'types'
+import AddAchievementsModal from './AddAchievementsModal'
+import UnlockAchievementModal from './UnlockAchievementModal'
 
 type Props = {
   gameId: string
 }
 
 const GameAchievements = (props: Props) => {
-  const addAchievementSetModal = useModal()
+  const addAchievementsModal = useModal()
+  const unlockAchievementModal = useModal()
+
   const achievements = useSelector((state: RootState) =>
     selectAchievementsByGame(state, { gameId: props.gameId })
   )
+
+  const [achievementToUnlock, setAchievementToUnlock] = useState<GameAchievement & Achievement | null>(null)
+
+  const handleAchievementToUnlockClick = (achievement: GameAchievement & Achievement) => {
+    setAchievementToUnlock(achievement)
+    unlockAchievementModal.show()
+  }
 
   return (
     <>
       {achievements.length > 0 ? (
         achievements.map((achievement) => (
           <ListItem key={achievement.id}>
-            <LinkTile
-              href="#"
+            <AchievementUnlockTile
               imageSrc={achievement.image ? achievement.image : ''}
               title={achievement.title}
               subtitle={achievement.description}
+              level={achievement.level}
+              onClick={() => handleAchievementToUnlockClick(achievement)}
+              unlocked={achievement.achieved}
             />
           </ListItem>
         ))
@@ -37,13 +50,17 @@ const GameAchievements = (props: Props) => {
       )}
       <FloatingButton
         variant="secondary"
-        onClick={() => addAchievementSetModal.show()}
+        onClick={() => addAchievementsModal.show()}
       >
-        Add Achievement Set
+        Add Achievements
       </FloatingButton>
-      <AddAchievementSetModal
-        modal={addAchievementSetModal}
+      <AddAchievementsModal
+        modal={addAchievementsModal}
         gameId={props.gameId}
+      />
+      <UnlockAchievementModal
+        modal={unlockAchievementModal}
+        achievement={achievementToUnlock as GameAchievement & Achievement}
       />
     </>
   )

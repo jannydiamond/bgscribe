@@ -6,7 +6,7 @@ const Wrapper = styled('div')`
   top: 0;
   padding-top: 16px;
   animation: ${fadeIn({
-      topStart: '-100%',
+      topStart: '0',
       topEnd: '0',
     })}
     0.2s ease-in both;
