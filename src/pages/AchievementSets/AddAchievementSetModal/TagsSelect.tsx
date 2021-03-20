@@ -28,10 +28,10 @@ const TagsSelect = (props: Props) => {
 
   const [selected, setSelected] = useState<OptionTypeBase | null>(props.value)
 
-  const handleChange = (option: OptionTypeBase | null) => {
-    setSelected(option)
-    if (option) {
-      props.onChange(option)
+  const handleChange = (options: OptionTypeBase | null) => {
+    setSelected(options)
+    if (options) {
+      props.onChange(options)
     }
   }
 

@@ -1,5 +1,8 @@
 import { RenderModalType, RenderPromptType } from 'hooks/useModal'
 import { RenderSnackbarType } from 'hooks/useSnackbar'
+import { OptionsType } from 'react-select'
+
+export type SelectOptions = OptionsType<{ value: string; label: string }>
 
 export type Modal = {
   RenderModal: RenderModalType
@@ -126,7 +129,7 @@ export type GameAchievement = {
   gameId: GameId
   achievementId: AchievementId
   achieved: boolean
-  achievedDate: Date
+  achievedDate?: Date
 }
 
 //////////
