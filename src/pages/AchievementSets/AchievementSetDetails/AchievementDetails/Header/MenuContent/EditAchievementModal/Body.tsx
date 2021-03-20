@@ -13,7 +13,8 @@ import TitleInput from './TitleInput'
 import DescriptionTextarea from './DescriptionTextarea'
 import LevelSelect from './LevelSelect'
 import ImageFileInput from './ImageFileInput'
-import AchievementPreview from './__styled__/AchievementPreview'
+import AchievementAvatar from 'components/AchievementAvatar'
+import AchievementPreview from 'components/__styled__/AchievementPreview'
 
 type Props = {
   modal: types.Modal
@@ -93,8 +94,8 @@ const Body = ({ modal, achievement }: Props) => {
         />
         <ImageFileInput onChange={handleImageChange} />
       </Form>
-      <AchievementPreview level={level.value} noImage>
-        {image ? <img src={image} alt="preview" /> : 'Achievement preview'}
+      <AchievementPreview>
+        <AchievementAvatar src={image} alt="Preview" level={level.value} />
       </AchievementPreview>
     </ModalBodyWrapper>
   )

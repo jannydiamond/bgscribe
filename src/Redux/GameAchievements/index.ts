@@ -109,6 +109,11 @@ export const GameAchievementSlice = createSlice({
 export const selectGameAchievementsById = (state: RootState) =>
   state.GameAchievements.byGameAchievementId
 
+export const selectGameAchievementById = (
+  state: RootState,
+  ownProps: { gameAchievementId: GameAchievementId }
+) => state.GameAchievements.byGameAchievementId[ownProps.gameAchievementId]
+
 export const selectGameAchievementsByGameId = (
   state: RootState,
   props: { gameId: GameId }
