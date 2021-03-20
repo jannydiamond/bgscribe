@@ -34,6 +34,7 @@ const Routes = () => {
       <Route path="/games">
         <Games />
       </Route>
+
       <Route path="/achievement-sets/:achievementSetId/:achievementId">
         <AchievementDetails />
       </Route>
@@ -43,6 +44,7 @@ const Routes = () => {
       <Route path="/achievement-sets">
         <AchievementSets />
       </Route>
+
       <Route path="/settings/templates/:templateId">
         <SessionTemplateDetails />
       </Route>
@@ -58,6 +60,7 @@ const Routes = () => {
       <Route path="/settings">
         <Settings />
       </Route>
+
       <Route path="*">
         <Redirect to="/games" />
       </Route>

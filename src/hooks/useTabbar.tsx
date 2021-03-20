@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 
 import Tabbar from 'components/Tabbar'
 import Tab from 'components/Tabbar/Tab'
+import Tabpanel from 'components/Tabbar/Tabpanel'
+
+type TabContent = {
+  title: string
+  jsx: React.ReactNode
+}
 
 type TabbarProps = {
   tabbarName?: string
-  tabTitles: string[]
-  children: React.ReactNode
+  tabContents: TabContent[]
 }
 
 export type RenderTabbarType = (props: TabbarProps) => JSX.Element
@@ -18,18 +23,28 @@ export const useTabbar = () => {
     return (
       <>
         <Tabbar>
-          {props.tabTitles.map((title, index) => (
+          {props.tabContents.map((tabContent, index) => (
             <Tab
-              key={title}
+              key={index}
               tabbarName={props.tabbarName}
               tabValue={index}
-              label={title}
+              label={tabContent.title}
               selectedValue={selectedTabValue}
               setSelectedValue={setSelectedTabValue}
             />
           ))}
         </Tabbar>
-        {props.children}
+        {
+          props.tabContents.map((tabContent, index) => (
+            <Tabpanel
+              key={index}
+              tabValue={index}
+              selectedValue={selectedTabValue}
+            >
+              {tabContent.jsx}
+            </Tabpanel>
+          ))
+        }
       </>
     )
   }
