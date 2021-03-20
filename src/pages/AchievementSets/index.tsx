@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useModal } from 'hooks/useModal'
 
-import AddAchievementSetModal from 'components/Modals/AddAchievementSetModal'
+import AddAchievementSetModal from 'pages/AchievementSets/AddAchievementSetModal'
 import FloatingButton from 'components/FloatingButton'
 import Main from 'components/__styled__/Main'
 

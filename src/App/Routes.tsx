@@ -6,7 +6,7 @@ import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 import Games from 'pages/Games'
 import GameDetails from 'pages/Games/GameDetails'
-import SessionDetails from 'pages/Games/GameDetails/SessionDetails'
+import SessionDetails from 'pages/Games/GameDetails/Sessions/SessionDetails'
 import SessionTemplates from 'pages/Settings/SessionTemplates'
 import SessionTemplateDetails from 'pages/Settings/SessionTemplates/SessionTemplateDetails'
 import Settings from 'pages/Settings'

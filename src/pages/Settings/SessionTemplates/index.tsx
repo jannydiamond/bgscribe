@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useModal } from 'hooks/useModal'
 
-import AddSessionTemplateModal from 'components/Modals/AddSessionTemplateModal'
+import AddSessionTemplateModal from 'pages/Settings/SessionTemplates/AddSessionTemplateModal'
 import FloatingButton from 'components/FloatingButton'
 
 import Header from './Header'
