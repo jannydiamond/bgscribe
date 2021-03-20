@@ -11,6 +11,7 @@ import Details from './Details'
 
 import Header from './Header'
 import Notes from './Notes'
+import { selectContentIsLoading } from 'Redux/ContentLoading'
 
 const SessionDetails = () => {
   // @ts-ignore
@@ -20,7 +21,9 @@ const SessionDetails = () => {
     selectSessionById(state, { sessionId })
   )
 
-  if (!session) {
+  const contentIsLoading = useSelector(selectContentIsLoading)
+
+  if (!session || contentIsLoading) {
     return null
   }
 
