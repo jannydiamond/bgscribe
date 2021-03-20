@@ -21,7 +21,6 @@ const Footer = ({ modal, achievement, achievementSetId }: Props) => {
   const handleDeleteSession = () => {
     dispatch(
       removeAchievement({
-        achievementSetId,
         achievementId: achievement.id,
       })
     )

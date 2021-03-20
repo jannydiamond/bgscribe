@@ -9,6 +9,7 @@ import {
   removeAchievement,
 } from 'Redux/sideEffects'
 import { addAchievementSet, editAchievementSet } from './sideEffects'
+import { removeIn, setIn } from 'immutable'
 
 type State = {
   byId: Record<AchievementSetId, AchievementSet>
@@ -34,13 +35,7 @@ export const AchievementSetSlice = createSlice({
     builder.addCase(addAchievementSet.fulfilled, (state, action) => {
       const { id } = action.payload
 
-      return {
-        ...state,
-        byId: {
-          [id]: action.payload,
-          ...state.byId,
-        },
-      }
+      return setIn(state, ['byId', id], action.payload)
     })
     builder.addCase(addAchievementSet.rejected, (_, action) => {
       console.log(action.error)
@@ -49,35 +44,18 @@ export const AchievementSetSlice = createSlice({
     builder.addCase(editAchievementSet.fulfilled, (state, action) => {
       const { id } = action.payload
 
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [id]: action.payload,
-        },
-      }
+      return setIn(state, ['byId', id], action.payload)
     })
     builder.addCase(editAchievementSet.rejected, (_, action) => {
       console.log(action.error)
     })
 
     builder.addCase(deleteAchievementSet.fulfilled, (state, action) => {
-      const newState = Object.values(state.byId).reduce(
-        (acc, achievementSet) => {
-          if (achievementSet.id === action.meta.arg) return acc
+      const { achievementSetId } = action.payload
 
-          return {
-            ...acc,
-            [achievementSet.id]: achievementSet,
-          }
-        },
-        {}
-      )
+      const newState = removeIn(state, ['byId', achievementSetId])
 
-      return {
-        ...state,
-        byId: newState,
-      }
+      return newState
     })
     builder.addCase(deleteAchievementSet.rejected, (_, action) => {
       console.log(action.error)
@@ -86,12 +64,11 @@ export const AchievementSetSlice = createSlice({
     builder.addCase(addAchievement.fulfilled, (state, action) => {
       const { updatedAchievementSet } = action.payload
 
-      return {
-        byId: {
-          ...state.byId,
-          [updatedAchievementSet.id]: updatedAchievementSet,
-        },
-      }
+      return setIn(
+        state,
+        ['byId', updatedAchievementSet.id],
+        updatedAchievementSet
+      )
     })
     // TODO handle inside sideEffect
     builder.addCase(addAchievement.rejected, (_, action) => {
@@ -101,12 +78,15 @@ export const AchievementSetSlice = createSlice({
     builder.addCase(removeAchievement.fulfilled, (state, action) => {
       const { updatedAchievementSet } = action.payload
 
-      return {
-        byId: {
-          ...state.byId,
-          [updatedAchievementSet.id]: updatedAchievementSet,
-        },
+      if (!updatedAchievementSet) {
+        return state
       }
+
+      return setIn(
+        state,
+        ['byId', updatedAchievementSet.id],
+        updatedAchievementSet
+      )
     })
     // TODO handle inside sideEffect
     builder.addCase(removeAchievement.rejected, (_, action) => {

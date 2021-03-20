@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { removeIn, setIn } from 'immutable'
 import {
   addAchievement,
   deleteAchievementSet,
@@ -33,12 +34,7 @@ export const AchievementSlice = createSlice({
     builder.addCase(addAchievement.fulfilled, (state, action) => {
       const { addedAchievement } = action.payload
 
-      return {
-        byId: {
-          [addedAchievement.id]: addedAchievement,
-          ...state.byId,
-        },
-      }
+      return setIn(state, ['byId', addedAchievement.id], addedAchievement)
     })
     // TODO handle inside sideEffect
     builder.addCase(addAchievement.rejected, (_, action) => {
@@ -48,31 +44,17 @@ export const AchievementSlice = createSlice({
     builder.addCase(editAchievement.fulfilled, (state, action) => {
       const { id } = action.payload
 
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [id]: action.payload,
-        },
-      }
+      return setIn(state, ['byId', id], action.payload)
     })
     builder.addCase(editAchievement.rejected, (_, action) => {
       console.log(action.error)
     })
 
+    // TODO remove related unachieved gameAchievements
     builder.addCase(removeAchievement.fulfilled, (state, action) => {
-      const newState = Object.values(state.byId).reduce((acc, achievement) => {
-        if (achievement.id === action.meta.arg.achievementId) return acc
+      const { achievementId } = action.meta.arg
 
-        return {
-          ...acc,
-          [achievement.id]: achievement,
-        }
-      }, {})
-
-      return {
-        byId: newState,
-      }
+      return removeIn(state, ['byId', achievementId])
     })
     // TODO handle inside sideEffect
     builder.addCase(removeAchievement.rejected, (_, action) => {
@@ -80,18 +62,13 @@ export const AchievementSlice = createSlice({
     })
 
     builder.addCase(deleteAchievementSet.fulfilled, (state, action) => {
-      const newState = Object.values(state.byId).reduce((acc, achievement) => {
-        if (achievement.achievementSetId === action.meta.arg) return acc
+      const { achievementIdsToDelete } = action.payload
 
-        return {
-          ...acc,
-          [achievement.id]: achievement,
-        }
-      }, {})
+      const newState = achievementIdsToDelete.reduce((acc, id) => {
+        return removeIn(acc, ['byId', id])
+      }, state)
 
-      return {
-        byId: newState,
-      }
+      return newState
     })
     // TODO handle inside sideEffect
     builder.addCase(deleteAchievementSet.rejected, (_, action) => {
