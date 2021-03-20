@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'Redux/store'
 import { selectGameById } from 'Redux/Games'
 
-import SessionCount from 'pages/GameDetails/Details/SessionCount'
-import LastPlayed from 'pages/GameDetails/Details/LastPlayed'
+import SessionCount from 'pages/Games/GameDetails/Details/SessionCount'
+import LastPlayed from 'pages/Games/GameDetails/Details/LastPlayed'
 
 import KeyValueList from 'components/__styled__/KeyValueList'
 
