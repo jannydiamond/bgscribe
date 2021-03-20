@@ -64,7 +64,7 @@ const Body = ({ modal, gameId }: Props) => {
 
   return (
     <ModalBodyWrapper>
-      <Form id="addAchievementSet" onSubmit={handleSubmit}>
+      <Form id="addAchievements" onSubmit={handleSubmit}>
         <AchievementSetSelect onChange={handleChangeAchievementSets} />
       </Form>
     </ModalBodyWrapper>

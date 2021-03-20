@@ -1,9 +1,10 @@
 import React from 'react'
+import { ButtonVariants } from 'types'
 
 import Wrapper from './__styled__/Wrapper'
 
 type Props = {
-  variant?: 'primary' | 'secondary' | 'danger'
+  variant?: ButtonVariants
   onClick?: () => void
   children: React.ReactNode
 }

@@ -3,12 +3,13 @@ import React from 'react'
 import ScreenReaderOnlyText from 'components/__styled__/ScreenReaderOnlyText'
 import Icon from 'components/Icon'
 import Wrapper from './__styled__/Wrapper'
+import { ButtonVariants } from 'types'
 
 type Props = {
   title: string
   icon: string
   solid?: boolean
-  variant?: 'primary' | 'secondary' | 'danger'
+  variant?: ButtonVariants
   onClick?: () => void
 }
 const FloatingIconButton = ({

@@ -6,7 +6,7 @@ import { Achievement } from 'types'
 import { RootState } from 'Redux/store'
 import { selectAchievementsByAchievementSetId } from 'Redux/Achievements'
 
-import LinkTile from 'components/LinkTile'
+import AchievementLinkTile from 'components/AchievementLinkTile'
 import P from 'components/__styled__/P'
 import H2 from 'components/__styled__/H2'
 import List from './__styled__/List'
@@ -25,11 +25,12 @@ const Achievements = (props: Props) => {
     return achievements.map((achievement: Achievement) => {
       return (
         <ListItem key={achievement.id}>
-          <LinkTile
+          <AchievementLinkTile
             href={`/achievement-sets/${props.achievementSetId}/${achievement.id}`}
             imageSrc={achievement.image ?? '-'}
             title={achievement.title}
             subtitle={achievement.description ?? '-'}
+            level={achievement.level}
           />
         </ListItem>
       )

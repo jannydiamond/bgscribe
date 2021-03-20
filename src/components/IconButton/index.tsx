@@ -3,19 +3,22 @@ import React from 'react'
 import ScreenReaderOnlyText from 'components/__styled__/ScreenReaderOnlyText'
 import Icon from 'components/Icon'
 import Wrapper from './__styled__/Wrapper'
+import { ButtonVariants } from 'types'
 
 type Props = {
   title: string
   icon: string
   solid?: boolean
-  variant?: 'primary' | 'secondary' | 'danger'
+  isRpg?: boolean
+  variant?: ButtonVariants
   onClick?: () => void
 }
-const IconButton = ({ title, icon, solid, variant, onClick }: Props) => {
+
+const IconButton = (props: Props) => {
   return (
-    <Wrapper onClick={onClick} title={title} variant={variant}>
-      <Icon icon={icon} solid={solid} />
-      <ScreenReaderOnlyText>{title}</ScreenReaderOnlyText>
+    <Wrapper onClick={props.onClick} title={props.title} variant={props.variant}>
+      <Icon icon={props.icon} solid={props.solid} isRpg={props.isRpg} />
+      <ScreenReaderOnlyText>{props.title}</ScreenReaderOnlyText>
     </Wrapper>
   )
 }
