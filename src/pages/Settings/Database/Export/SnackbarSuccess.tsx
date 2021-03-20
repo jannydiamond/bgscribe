@@ -26,7 +26,7 @@ const SnackbarSuccess = () => {
       type="success"
       closeCallback={handleExportSuccessClose}
     >
-      Exporting was successful.
+      Database export was successful.
     </exportingSuccessSnackbar.RenderSnackbar>
   )
 }

@@ -6,6 +6,7 @@ import {
   Session,
   TableNames,
   AchievementId,
+  GameAchievement,
 } from 'types'
 import { normalizedGameAchievements } from './GameAchievements/helpers'
 import { RootState } from './store'
@@ -169,16 +170,67 @@ export const removeSession = createAsyncThunk(
 
 export const deleteAchievementSet = createAsyncThunk(
   `${THUNK_PREFIX}/deleteAchievementSet`,
-  async (achievementSetId: string) => {
-    await db.transaction(
+  async (achievementSetId: string, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState
+
+    const achievementSet = state.AchievementSets.byId[achievementSetId]
+    const relatedGameAchievements = achievementSet.achievements.reduce(
+      (acc: GameAchievement[], achievementId) => {
+        const gameAchievementsByAchievementId = Object.values(
+          state.GameAchievements.byGameAchievementId
+        ).filter(
+          (gameAchievement) => gameAchievement.achievementId === achievementId
+        )
+
+        return [...acc, ...gameAchievementsByAchievementId]
+      },
+      []
+    )
+
+    // WHY
+    // Achievements the user has already achieved should not be deleted.
+    // Therefore we get all unachieved gameAchievements of the set as well as the
+    // related achievements
+    const unachievedGameAchievements = relatedGameAchievements.filter(
+      (gameAchievement) => !gameAchievement.achieved
+    )
+    const unachievedAchievementIds = unachievedGameAchievements.map(
+      (gameAchievement) => gameAchievement.achievementId
+    )
+    const unachievedGameAchievementKeys = unachievedGameAchievements.map(
+      (gameAchievement) => [
+        gameAchievement.gameId,
+        gameAchievement.achievementId,
+      ]
+    )
+
+    const response = await db.transaction(
       'rw',
       db.table(TableNames.ACHIEVEMENT_SETS),
       db.table(TableNames.ACHIEVEMENTS),
-      () => {
-        db.table(TableNames.ACHIEVEMENT_SETS).delete(achievementSetId)
-        db.table(TableNames.ACHIEVEMENTS).where({ achievementSetId }).delete()
+      db.table(TableNames.GAME_ACHIEVEMENTS),
+      async () => {
+        await db.table(TableNames.ACHIEVEMENT_SETS).delete(achievementSetId)
+        await db
+          .table(TableNames.ACHIEVEMENTS)
+          .bulkDelete(unachievedAchievementIds)
+
+        // Somehow bulkDelete does not seem to work with compound keys
+        unachievedGameAchievementKeys.forEach(async (gameAchievementKey) => {
+          await db
+            .table(TableNames.GAME_ACHIEVEMENTS)
+            .delete(gameAchievementKey)
+        })
+
+        return {
+          achievementSetId,
+          achievementIdsToDelete: unachievedAchievementIds,
+          unachievedGameAchievements,
+        }
       }
     )
+
+    return response
   }
 )
 
@@ -240,36 +292,88 @@ export const removeAchievement = createAsyncThunk(
   `${THUNK_PREFIX}/removeAchievement`,
   async (
     payload: {
-      achievementSetId: AchievementSetId
       achievementId: AchievementId
     },
     { getState }
   ) => {
-    const { achievementSetId, achievementId } = payload
+    const { achievementId } = payload
     const state = getState() as RootState
 
-    return db.transaction(
+    const achievement = state.Achievements.byId[achievementId]
+
+    const parentAchievementSet = achievement.achievementSetId
+      ? state.AchievementSets.byId[achievement.achievementSetId]
+      : undefined
+
+    const relatedGameAchievements = Object.values(
+      state.GameAchievements.byGameAchievementId
+    ).filter(
+      (gameAchievement) => gameAchievement.achievementId === achievementId
+    )
+
+    const achievedGameAchievements = relatedGameAchievements.filter(
+      (gameAchievement) => gameAchievement.achieved
+    )
+
+    if (achievedGameAchievements.length > 0) {
+      return Promise.reject(
+        "Can't delete Achievement! <Reason: Achievement has already been achieved>"
+      )
+    }
+
+    // WHY
+    // Achievements the user has already achieved should not be deleted.
+    // Therefore we get all unachieved gameAchievements of the set as well as the
+    // related achievements
+    const unachievedGameAchievements = relatedGameAchievements.filter(
+      (gameAchievement) => !gameAchievement.achieved
+    )
+
+    const unachievedGameAchievementKeys = unachievedGameAchievements.map(
+      (gameAchievement) => [
+        gameAchievement.gameId,
+        gameAchievement.achievementId,
+      ]
+    )
+
+    const response = await db.transaction(
       'rw',
       db.table(TableNames.ACHIEVEMENT_SETS),
       db.table(TableNames.ACHIEVEMENTS),
+      db.table(TableNames.GAME_ACHIEVEMENTS),
       async () => {
-        const updatedAchievementSet = await db
-          .table(TableNames.ACHIEVEMENT_SETS)
-          .update(achievementSetId, {
-            achievements: state.AchievementSets.byId[
-              achievementSetId
-            ].achievements.filter((id: string) => id !== achievementId),
-          })
-          .then((updated) => {
-            if (updated === 1) {
-              return db.table(TableNames.ACHIEVEMENT_SETS).get(achievementSetId)
-            }
-          })
+        const updatedAchievementSet = parentAchievementSet
+          ? await db
+              .table(TableNames.ACHIEVEMENT_SETS)
+              .update(parentAchievementSet.id, {
+                achievements: state.AchievementSets.byId[
+                  parentAchievementSet.id
+                ].achievements.filter((id: string) => id !== achievementId),
+              })
+              .then(() => {
+                return db
+                  .table(TableNames.ACHIEVEMENT_SETS)
+                  .get(parentAchievementSet.id)
+              })
+          : undefined
 
         await db.table(TableNames.ACHIEVEMENTS).delete(achievementId)
 
-        return { updatedAchievementSet }
+        // Somehow bulkDelete does not seem to work with compound keys
+        unachievedGameAchievementKeys.forEach(async (gameAchievementKey) => {
+          await db
+            .table(TableNames.GAME_ACHIEVEMENTS)
+            .delete(gameAchievementKey)
+        })
+
+        return {
+          updatedAchievementSet,
+          achievementId,
+          unachievedGameAchievements,
+        }
       }
     )
+
+    return response
   }
 )

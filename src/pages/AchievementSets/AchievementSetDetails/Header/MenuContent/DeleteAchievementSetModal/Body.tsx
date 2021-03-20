@@ -12,8 +12,8 @@ const Body = ({ achievementSet }: Props) => {
   return (
     <ModalBodyWrapper>
       Do you really want to delete the achievement set{' '}
-      <b>{achievementSet.title}</b>? All your achievements of this achievement
-      set will be lost.
+      <b>{achievementSet.title}</b>? All your unachieved achievements of this
+      achievement set will be lost.
     </ModalBodyWrapper>
   )
 }

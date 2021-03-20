@@ -58,12 +58,12 @@ const Body = ({ modal, achievementSet }: Props) => {
 
     dispatch(
       editAchievementSet({
+        ...achievementSet,
         id: achievementSet.id,
         title,
         description,
         tags: tags ? tags.map((tag: OptionTypeBase) => tag.value) : [],
         version,
-        achievements: [],
         author: {
           name: authorName,
           email: authorEmail,
