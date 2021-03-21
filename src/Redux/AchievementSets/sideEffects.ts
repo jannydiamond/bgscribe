@@ -129,11 +129,15 @@ export const importAchievementSet = createAsyncThunk(
     const denormalizedAchievementSet = JSON.parse(file)
 
     const achievementsFromFile = denormalizedAchievementSet.achievements as Achievement[]
+    const achievementsWithSetId = achievementsFromFile.map((achievement) => ({
+      ...achievement,
+      achievementSetId: denormalizedAchievementSet.id,
+    }))
 
     const normalizedAchievementSet = {
       ...denormalizedAchievementSet,
       created: new Date(),
-      achievements: achievementsFromFile.map(
+      achievements: achievementsWithSetId.map(
         (achievement: Achievement) => achievement.id
       ),
     }
@@ -146,7 +150,7 @@ export const importAchievementSet = createAsyncThunk(
         await db
           .table(TableNames.ACHIEVEMENT_SETS)
           .put(normalizedAchievementSet)
-        await db.table(TableNames.ACHIEVEMENTS).bulkPut(achievementsFromFile)
+        await db.table(TableNames.ACHIEVEMENTS).bulkPut(achievementsWithSetId)
       }
     )
 
