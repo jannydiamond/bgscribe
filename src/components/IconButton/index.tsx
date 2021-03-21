@@ -11,7 +11,7 @@ type Props = {
   solid?: boolean
   isRpg?: boolean
   variant?: ButtonVariants
-  onClick?: () => void
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const IconButton = (props: Props) => {

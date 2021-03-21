@@ -99,14 +99,17 @@ export const selectSetAchievementsByIdByGame = createSelector(
         >,
         achievement
       ) => {
-        const achievementSet = achievement.achievementSetId
-          ? achievementSetsById[achievement.achievementSetId]
-          : { id: 'undefined', title: 'Unknown Set' }
+        const achievementSet = (() => {
+          const defaultSet = { id: 'undefined', title: 'Unknown Set' }
 
-        console.log({
-          achievementSet,
-          achievementSetId: achievement.achievementSetId,
-        })
+          if (achievement.achievementSetId) {
+            const maybeAchievementSet =
+              achievementSetsById[achievement.achievementSetId]
+            return maybeAchievementSet ?? defaultSet
+          } else {
+            return defaultSet
+          }
+        })()
 
         const existingSet = acc[achievementSet.id]
         const updatedAchievements = existingSet
