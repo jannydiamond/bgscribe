@@ -19,6 +19,10 @@ const DateAdded = (props: Props) => {
     })
   )
 
+  if (achievementSet.created === undefined) {
+    return null
+  }
+
   const dateAdded = new Date(achievementSet.created)
 
   return (

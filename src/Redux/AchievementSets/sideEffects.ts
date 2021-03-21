@@ -132,6 +132,7 @@ export const importAchievementSet = createAsyncThunk(
 
     const normalizedAchievementSet = {
       ...denormalizedAchievementSet,
+      created: new Date(),
       achievements: achievementsFromFile.map(
         (achievement: Achievement) => achievement.id
       ),
