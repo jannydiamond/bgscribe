@@ -8,6 +8,7 @@ import { ContentLoadingSlice } from './ContentLoading'
 import { GameAchievementSlice } from './GameAchievements'
 import { SessionTemplatesSlice } from './SessionTemplates'
 import { DatabaseSlice } from './Database'
+import { snackbarSlice } from './Snackbars'
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     GameAchievements: GameAchievementSlice.reducer,
     ContentLoading: ContentLoadingSlice.reducer,
     Database: DatabaseSlice.reducer,
+    Snackbar: snackbarSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
