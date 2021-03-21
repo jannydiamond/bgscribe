@@ -44,7 +44,7 @@ export const snackbarSlice = createSlice({
   initialState,
   reducers: {
     dequeue: (state) => {
-      const [_head, ...tail] = state.queue
+      const [_head, ...tail] = state.queue // eslint-disable-line
       return {
         queue: tail,
       }
