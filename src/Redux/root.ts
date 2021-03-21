@@ -1,6 +1,7 @@
 import { closestTo, compareDesc } from 'date-fns'
 import { createSelector } from 'reselect'
 import { selectAchievementsById } from './Achievements'
+import { selectAchievementSetById } from './AchievementSets'
 import { selectGameAchievementsByGameId } from './GameAchievements'
 
 import {
@@ -74,4 +75,13 @@ export const selectAchievementsByGame = createSelector(
           return 0
         }
       })
+)
+
+export const selectAchievementsByAchievementSetId = createSelector(
+  [selectAchievementsById, selectAchievementSetById],
+  (achievementsById, achievementSet) => {
+    return achievementSet.achievements.map((achievementId) => {
+      return achievementsById[achievementId]
+    })
+  }
 )
