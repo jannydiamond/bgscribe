@@ -13,6 +13,7 @@ import Wrapper from './__styled__/Wrapper'
 import DetailsWrapper from './__styled__/DetailsWrapper'
 import ImageWrapper from './__styled__/ImageWrapper'
 import Image from './__styled__/Image'
+import AchievementCount from './AchievementCount'
 
 type Props = {
   gameId: string
@@ -34,6 +35,7 @@ const Details = (props: Props) => {
         <KeyValueList>
           <SessionCount gameId={props.gameId} />
           <LastPlayed gameId={props.gameId} />
+          <AchievementCount gameId={props.gameId} />
         </KeyValueList>
       </DetailsWrapper>
     </Wrapper>
