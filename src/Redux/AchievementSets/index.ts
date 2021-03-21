@@ -32,27 +32,17 @@ export const AchievementSetSlice = createSlice({
           byId: action.payload.achievementSets,
         }
       })
-      // TODO handle inside sideEffect
-      .addCase(init.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(addAchievementSet.fulfilled, (state, action) => {
         const { id } = action.payload
 
         return setIn(state, ['byId', id], action.payload)
       })
-      .addCase(addAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(editAchievementSet.fulfilled, (state, action) => {
         const { id } = action.payload
 
         return setIn(state, ['byId', id], action.payload)
-      })
-      .addCase(editAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(deleteAchievementSet.fulfilled, (state, action) => {
@@ -61,9 +51,6 @@ export const AchievementSetSlice = createSlice({
         const newState = removeIn(state, ['byId', achievementSetId])
 
         return newState
-      })
-      .addCase(deleteAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(addAchievement.fulfilled, (state, action) => {
@@ -74,10 +61,6 @@ export const AchievementSetSlice = createSlice({
           ['byId', updatedAchievementSet.id],
           updatedAchievementSet
         )
-      })
-      // TODO handle inside sideEffect
-      .addCase(addAchievement.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(removeAchievement.fulfilled, (state, action) => {
@@ -93,10 +76,6 @@ export const AchievementSetSlice = createSlice({
           updatedAchievementSet
         )
       })
-      // TODO handle inside sideEffect
-      .addCase(removeAchievement.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(importAchievementSet.fulfilled, (state, action) => {
         const { achievementSet } = action.payload
@@ -106,10 +85,6 @@ export const AchievementSetSlice = createSlice({
         }
 
         return setIn(state, ['byId', achievementSet.id], achievementSet)
-      })
-      // TODO handle inside sideEffect
-      .addCase(importAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
       })
   },
 })

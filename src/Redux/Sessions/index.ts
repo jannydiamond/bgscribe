@@ -19,10 +19,6 @@ export const SessionsSlice = createSlice({
     builder.addCase(init.fulfilled, (_, action) => {
       return action.payload.sessions
     })
-    // TODO handle inside sideEffect and trigger snackbar
-    builder.addCase(init.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(addSession.fulfilled, (state, action) => {
       const { addedSession } = action.payload
@@ -32,10 +28,6 @@ export const SessionsSlice = createSlice({
         ...state,
       }
     })
-    // TODO handle inside sideEffect
-    builder.addCase(addSession.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(editSession.fulfilled, (state, action) => {
       const { id } = action.payload
@@ -44,9 +36,6 @@ export const SessionsSlice = createSlice({
         ...state,
         [id]: action.payload,
       }
-    })
-    builder.addCase(editSession.rejected, (_, action) => {
-      console.log(action.error)
     })
 
     builder.addCase(removeSession.fulfilled, (state, action) => {
@@ -61,10 +50,6 @@ export const SessionsSlice = createSlice({
 
       return newState
     })
-    // TODO handle inside sideEffect
-    builder.addCase(removeSession.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(deleteGame.fulfilled, (state, action) => {
       const newState = Object.values(state).reduce((acc, session) => {
@@ -77,10 +62,6 @@ export const SessionsSlice = createSlice({
       }, {})
 
       return newState
-    })
-    // TODO handle inside sideEffect
-    builder.addCase(deleteGame.rejected, (_, action) => {
-      console.log(action.error)
     })
   },
 })

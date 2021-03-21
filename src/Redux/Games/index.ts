@@ -18,10 +18,6 @@ export const GamesSlice = createSlice({
     builder.addCase(init.fulfilled, (_, action) => {
       return action.payload.games
     })
-    // TODO handle inside sideEffect
-    builder.addCase(init.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(addGame.fulfilled, (state, action) => {
       const { id } = action.payload
@@ -31,9 +27,6 @@ export const GamesSlice = createSlice({
         ...state,
       }
     })
-    builder.addCase(addGame.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(editGame.fulfilled, (state, action) => {
       const { id } = action.payload
@@ -42,9 +35,6 @@ export const GamesSlice = createSlice({
         ...state,
         [id]: action.payload,
       }
-    })
-    builder.addCase(editGame.rejected, (_, action) => {
-      console.log(action.error)
     })
 
     builder.addCase(deleteGame.fulfilled, (state, action) => {
@@ -59,9 +49,6 @@ export const GamesSlice = createSlice({
 
       return newState
     })
-    builder.addCase(deleteGame.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(addSession.fulfilled, (state, action) => {
       const { updatedGame } = action.payload
@@ -71,10 +58,6 @@ export const GamesSlice = createSlice({
         [updatedGame.id]: updatedGame,
       }
     })
-    // TODO handle inside sideEffect
-    builder.addCase(addSession.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(removeSession.fulfilled, (state, action) => {
       const { updatedGame } = action.payload
@@ -83,10 +66,6 @@ export const GamesSlice = createSlice({
         ...state,
         [updatedGame.id]: updatedGame,
       }
-    })
-    // TODO handle inside sideEffect
-    builder.addCase(removeSession.rejected, (_, action) => {
-      console.log(action.error)
     })
   },
 })

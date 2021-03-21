@@ -20,10 +20,6 @@ export const SessionTemplatesSlice = createSlice({
     builder.addCase(init.fulfilled, (_, action) => {
       return action.payload.sessionTemplates
     })
-    // TODO handle inside sideEffect
-    builder.addCase(init.rejected, (_, action) => {
-      console.log(action.error)
-    })
 
     builder.addCase(addSessionTemplate.fulfilled, (state, action) => {
       const template = action.payload
@@ -31,10 +27,6 @@ export const SessionTemplatesSlice = createSlice({
         ...state,
         [template.id]: template,
       }
-    })
-    // TODO handle inside sideEffects and trigger snackbar
-    builder.addCase(addSessionTemplate.rejected, (_, action) => {
-      console.log(action.error)
     })
 
     builder.addCase(editSessionTemplate.fulfilled, (state, action) => {
@@ -44,9 +36,6 @@ export const SessionTemplatesSlice = createSlice({
         ...state,
         [id]: action.payload,
       }
-    })
-    builder.addCase(editSessionTemplate.rejected, (_, action) => {
-      console.log(action.error)
     })
 
     builder.addCase(deleteSessionTemplate.fulfilled, (state, action) => {
@@ -60,9 +49,6 @@ export const SessionTemplatesSlice = createSlice({
       }, {})
 
       return newState
-    })
-    builder.addCase(deleteSessionTemplate.rejected, (_, action) => {
-      console.log(action.error)
     })
   },
 })
