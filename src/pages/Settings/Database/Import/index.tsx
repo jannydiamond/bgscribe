@@ -3,8 +3,6 @@ import React from 'react'
 import H2 from 'components/__styled__/H2'
 import P from 'components/__styled__/P'
 
-import SnackbarSuccess from './SnackbarSuccess'
-import SnackbarError from './SnackbarError'
 import ImportForm from './ImportForm'
 
 import Wrapper from './__styled__/Wrapper'
@@ -18,8 +16,6 @@ const Import = () => {
         will be deleted.
       </P>
       <ImportForm />
-      <SnackbarSuccess />
-      <SnackbarError />
     </Wrapper>
   )
 }

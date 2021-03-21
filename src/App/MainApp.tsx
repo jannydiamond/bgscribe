@@ -1,4 +1,5 @@
 import BottomNavigation from 'components/BottomNavigation'
+import Snackbars from 'components/Snackbars'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -19,8 +20,8 @@ const MainApp = () => {
       <Routes />
       <BottomNavigation />
 
+      <Snackbars />
       <div id="modal-root" />
-      <div id="snackbar-root" />
     </>
   )
 }
