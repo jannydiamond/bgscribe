@@ -6,6 +6,7 @@ import {
   importAchievementSet,
 } from 'Redux/AchievementSets/sideEffects'
 import { importDatabase } from 'Redux/Database/sideEffects'
+import { setGameAchievementAsAchieved } from 'Redux/GameAchievements/sideEffects'
 import { addGame, editGame } from 'Redux/Games/sideEffects'
 import { editSession } from 'Redux/Sessions/sideEffects'
 import {
@@ -498,6 +499,23 @@ export const snackbarSlice = createSlice({
             {
               type: 'error',
               message: 'Could not save achievement. Please try again.',
+            },
+          ],
+        }
+      })
+
+      //////////////////////
+      // GameAchievements //
+      //////////////////////
+
+      .addCase(setGameAchievementAsAchieved.rejected, (state, _action) => {
+        return {
+          ...state,
+          queue: [
+            ...state.queue,
+            {
+              type: 'error',
+              message: 'An error occured. Please try again.',
             },
           ],
         }
