@@ -36,7 +36,7 @@ const AchievementSetSelect = (props: Props) => {
   return (
     <Fieldset>
       <Label>
-        <LabelText>Choose Achievement Sets to add</LabelText>
+        <LabelText>Choose Achievement Sets to add Achievements from</LabelText>
         <Select
           options={options}
           value={selected}
