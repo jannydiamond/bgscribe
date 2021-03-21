@@ -86,12 +86,3 @@ export const selectAchievementById = (
   state: RootState,
   ownProps: { achievementId: string }
 ) => state.Achievements.byId[ownProps.achievementId]
-
-export const selectAchievementsByAchievementSetId = (
-  state: RootState,
-  achievementSetId: string
-) =>
-  Object.values(state.Achievements.byId).filter(
-    (achievement: Achievement) =>
-      achievement.achievementSetId === achievementSetId
-  )
