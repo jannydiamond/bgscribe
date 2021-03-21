@@ -1,16 +1,13 @@
-import AchievementUnlockTile from 'components/AchievementUnlockTile'
 import FloatingButton from 'components/FloatingButton'
 import H2 from 'components/__styled__/H2'
 import P from 'components/__styled__/P'
 import { useModal } from 'hooks/useModal'
-import ListItem from 'pages/Games/__styled__/ListItem'
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectSetAchievementsByIdByGame } from 'Redux/root'
 import { RootState } from 'Redux/store'
-import { Achievement, GameAchievement } from 'types'
 import AddAchievementsModal from './AddAchievementsModal'
-import UnlockAchievementModal from './UnlockAchievementModal'
+import GameAchievement from './GameAchievement'
 
 type Props = {
   gameId: string
@@ -18,24 +15,12 @@ type Props = {
 
 const GameAchievements = (props: Props) => {
   const addAchievementsModal = useModal()
-  const unlockAchievementModal = useModal()
 
   const achievementsBySet = Object.values(
     useSelector((state: RootState) =>
       selectSetAchievementsByIdByGame(state, { gameId: props.gameId })
     )
   )
-
-  const [achievementToUnlock, setAchievementToUnlock] = useState<
-    (GameAchievement & Achievement) | null
-  >(null)
-
-  const handleAchievementToUnlockClick = (
-    achievement: GameAchievement & Achievement
-  ) => {
-    setAchievementToUnlock(achievement)
-    unlockAchievementModal.show()
-  }
 
   return (
     <>
@@ -45,16 +30,10 @@ const GameAchievements = (props: Props) => {
             <div key={set.id}>
               <H2>{set.title}</H2>
               {set.achievements.map((achievement) => (
-                <ListItem key={achievement.id}>
-                  <AchievementUnlockTile
-                    imageSrc={achievement.image ? achievement.image : ''}
-                    title={achievement.title}
-                    subtitle={achievement.description}
-                    level={achievement.level}
-                    onClick={() => handleAchievementToUnlockClick(achievement)}
-                    unlocked={achievement.achieved}
-                  />
-                </ListItem>
+                <GameAchievement
+                  key={achievement.id}
+                  achievement={achievement}
+                />
               ))}
             </div>
           )
@@ -71,10 +50,6 @@ const GameAchievements = (props: Props) => {
       <AddAchievementsModal
         modal={addAchievementsModal}
         gameId={props.gameId}
-      />
-      <UnlockAchievementModal
-        modal={unlockAchievementModal}
-        achievement={achievementToUnlock as GameAchievement & Achievement}
       />
     </>
   )
