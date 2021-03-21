@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from 'Redux/store'
 import { exportDatabase, importDatabase } from './sideEffects'
 
-type Status = 'idle' | 'pending' | 'error' | 'success'
+type Status = 'idle' | 'pending'
 
 type State = {
   exportingStatus: Status
@@ -42,13 +42,13 @@ export const DatabaseSlice = createSlice({
     builder.addCase(exportDatabase.fulfilled, (state, _action) => {
       return {
         ...state,
-        exportingStatus: 'success',
+        exportingStatus: 'idle',
       }
     })
     builder.addCase(exportDatabase.rejected, (state, _action) => {
       return {
         ...state,
-        exportingStatus: 'error',
+        exportingStatus: 'idle',
       }
     })
 
@@ -61,21 +61,19 @@ export const DatabaseSlice = createSlice({
     builder.addCase(importDatabase.fulfilled, (state, _action) => {
       return {
         ...state,
-        importingStatus: 'success',
+        importingStatus: 'idle',
       }
     })
     builder.addCase(importDatabase.rejected, (state, _action) => {
       return {
         ...state,
-        importingStatus: 'error',
+        importingStatus: 'idle',
       }
     })
   },
 })
 
 export const { resetExportStatus, resetImportStatus } = DatabaseSlice.actions
-
-export const selectDatabase = (state: RootState) => state.Database
 
 export const selectExportingStatus = (state: RootState) =>
   state.Database.exportingStatus
