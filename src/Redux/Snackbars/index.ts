@@ -412,7 +412,7 @@ export const snackbarSlice = createSlice({
           ],
         }
       })
-      .addCase(editAchievementSet.rejected, (state, _action) => {
+      .addCase(importAchievementSet.rejected, (state, _action) => {
         return {
           ...state,
           queue: [
