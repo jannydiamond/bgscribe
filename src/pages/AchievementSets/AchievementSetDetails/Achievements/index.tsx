@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux'
 import { Achievement } from 'types'
 
 import { RootState } from 'Redux/store'
-import { selectAchievementsByAchievementSetId } from 'Redux/Achievements'
 
 import AchievementLinkTile from 'components/AchievementLinkTile'
 import P from 'components/__styled__/P'
 import H2 from 'components/__styled__/H2'
 import List from './__styled__/List'
 import ListItem from './__styled__/ListItem'
+import { selectAchievementsByAchievementSetId } from 'Redux/root'
 
 type Props = {
   achievementSetId: string
@@ -18,7 +18,7 @@ type Props = {
 
 const Achievements = (props: Props) => {
   const achievementsArray: Achievement[] = useSelector((state: RootState) =>
-    selectAchievementsByAchievementSetId(state, props.achievementSetId)
+    selectAchievementsByAchievementSetId(state, { achievementSetId: props.achievementSetId })
   )
 
   const renderAchievements = (achievements: Achievement[]) => {
