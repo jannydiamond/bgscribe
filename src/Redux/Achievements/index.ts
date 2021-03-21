@@ -28,19 +28,11 @@ export const AchievementSlice = createSlice({
           byId: action.payload.achievements,
         }
       })
-      // TODO handle inside sideEffect and trigger snackbar
-      .addCase(init.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(addAchievement.fulfilled, (state, action) => {
         const { addedAchievement } = action.payload
 
         return setIn(state, ['byId', addedAchievement.id], addedAchievement)
-      })
-      // TODO handle inside sideEffect
-      .addCase(addAchievement.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(editAchievement.fulfilled, (state, action) => {
@@ -48,19 +40,12 @@ export const AchievementSlice = createSlice({
 
         return setIn(state, ['byId', id], action.payload)
       })
-      .addCase(editAchievement.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       // TODO remove related unachieved gameAchievements
       .addCase(removeAchievement.fulfilled, (state, action) => {
         const { achievementId } = action.meta.arg
 
         return removeIn(state, ['byId', achievementId])
-      })
-      // TODO handle inside sideEffect
-      .addCase(removeAchievement.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(deleteAchievementSet.fulfilled, (state, action) => {
@@ -71,10 +56,6 @@ export const AchievementSlice = createSlice({
         }, state)
 
         return newState
-      })
-      // TODO handle inside sideEffect
-      .addCase(deleteAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(importAchievementSet.fulfilled, (state, action) => {
@@ -91,10 +72,6 @@ export const AchievementSlice = createSlice({
             ...achievements,
           },
         }
-      })
-      // TODO handle inside sideEffect
-      .addCase(importAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
       })
   },
 })

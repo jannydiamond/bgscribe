@@ -34,10 +34,6 @@ export const GameAchievementSlice = createSlice({
       .addCase(init.fulfilled, (_, action) => {
         return action.payload.gameAchievements
       })
-      // TODO handle inside sideEffect
-      .addCase(init.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(addGameAchievements.fulfilled, (state, action) => {
         return {
@@ -47,9 +43,6 @@ export const GameAchievementSlice = createSlice({
             ...action.payload.byGameAchievementId,
           },
         }
-      })
-      .addCase(addGameAchievements.rejected, (_, action) => {
-        console.log(action.error)
       })
 
       .addCase(setGameAchievementAsAchieved.fulfilled, (state, action) => {
@@ -80,10 +73,6 @@ export const GameAchievementSlice = createSlice({
 
         return newState
       })
-      // TODO handle inside sideEffect
-      .addCase(deleteAchievementSet.rejected, (_, action) => {
-        console.log(action.error)
-      })
 
       .addCase(removeAchievement.fulfilled, (state, action) => {
         const { unachievedGameAchievements } = action.payload
@@ -98,10 +87,6 @@ export const GameAchievementSlice = createSlice({
         )
 
         return newState
-      })
-      // TODO handle inside sideEffect
-      .addCase(removeAchievement.rejected, (_, action) => {
-        console.log(action.error)
       })
   },
 })
