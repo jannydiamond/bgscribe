@@ -42,7 +42,7 @@ const GameAchievements = (props: Props) => {
       {achievementsBySet.length > 0 ? (
         achievementsBySet.map((set) => {
           return (
-            <>
+            <div key={set.id}>
               <H2>{set.title}</H2>
               {set.achievements.map((achievement) => (
                 <ListItem key={achievement.id}>
@@ -56,7 +56,7 @@ const GameAchievements = (props: Props) => {
                   />
                 </ListItem>
               ))}
-            </>
+            </div>
           )
         })
       ) : (
