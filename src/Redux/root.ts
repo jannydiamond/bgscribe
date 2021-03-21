@@ -1,7 +1,11 @@
 import { closestTo, compareDesc } from 'date-fns'
 import { createSelector } from 'reselect'
+import { AchievementSetId } from 'types'
 import { selectAchievementsById } from './Achievements'
-import { selectAchievementSetById } from './AchievementSets'
+import {
+  selectAchievementSetById,
+  selectAchievementSetsById,
+} from './AchievementSets'
 import { selectGameAchievementsByGameId } from './GameAchievements'
 
 import {
@@ -54,27 +58,70 @@ export const selectGamesArrayWithLatestPlayedDateSorted = createSelector(
   }
 )
 
-export const selectAchievementsByGame = createSelector(
-  [selectAchievementsById, selectGameAchievementsByGameId],
-  (achievementsById, gameAchievements) =>
-    gameAchievements
-      .map((gameAchievement) => ({
-        ...gameAchievement,
-        ...achievementsById[gameAchievement.achievementId],
-      }))
-      .sort((a, b) => {
-        if (a.achieved && !b.achieved) {
-          return -1
-        } else if (!a.achieved && b.achieved) {
-          return 1
-        } else if (a.title < b.title) {
-          return -1
-        } else if (a.title > b.title) {
-          return 1
-        } else {
-          return 0
+const sortGameAchievements = <T extends { achieved: boolean; title: string }>(
+  a: T,
+  b: T
+) => {
+  if (a.achieved && !b.achieved) {
+    return -1
+  } else if (!a.achieved && b.achieved) {
+    return 1
+  } else if (a.title < b.title) {
+    return -1
+  } else if (a.title > b.title) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
+export const selectSetAchievementsByIdByGame = createSelector(
+  [
+    selectAchievementsById,
+    selectGameAchievementsByGameId,
+    selectAchievementSetsById,
+  ],
+  (achievementsById, gameAchievements, achievementSetsById) => {
+    const achievements = gameAchievements.map((gameAchievement) => ({
+      ...gameAchievement,
+      ...achievementsById[gameAchievement.achievementId],
+    }))
+
+    return achievements.reduce(
+      (
+        acc: Record<
+          AchievementSetId,
+          {
+            id: AchievementSetId
+            title: string
+            achievements: typeof achievements
+          }
+        >,
+        achievement
+      ) => {
+        const achievementSet = achievement.achievementSetId
+          ? achievementSetsById[achievement.achievementSetId]
+          : { id: 'undefined', title: 'Unknown Set' }
+
+        const existingSet = acc[achievementSet.id]
+        const updatedAchievements = existingSet
+          ? [...existingSet.achievements, achievement]
+          : [achievement]
+        const sortedAchievements = updatedAchievements.sort(
+          sortGameAchievements
+        )
+
+        return {
+          ...acc,
+          [achievementSet.id]: {
+            ...achievementSet,
+            achievements: sortedAchievements,
+          },
         }
-      })
+      },
+      {}
+    )
+  }
 )
 
 export const selectAchievementsByAchievementSetId = createSelector(
