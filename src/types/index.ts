@@ -1,5 +1,4 @@
 import { RenderModalType, RenderPromptType } from 'hooks/useModal'
-import { RenderSnackbarType } from 'hooks/useSnackbar'
 import { OptionsType } from 'react-select'
 
 export type SelectOptions = OptionsType<{ value: string; label: string }>
@@ -12,14 +11,6 @@ export type Modal = {
 
 export type Prompt = {
   RenderPrompt: RenderPromptType
-  show: () => void
-  hide: () => void
-}
-
-export type SnackbarType = 'default' | 'error' | 'success'
-
-export type Snackbar = {
-  RenderSnackbar: RenderSnackbarType
   show: () => void
   hide: () => void
 }

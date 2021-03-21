@@ -4,8 +4,6 @@ import H2 from 'components/__styled__/H2'
 import P from 'components/__styled__/P'
 
 import ExportForm from './ExportForm'
-import SnackbarSuccess from './SnackbarSuccess'
-import SnackbarError from './SnackbarError'
 
 const Export = () => {
   return (
@@ -16,8 +14,6 @@ const Export = () => {
         will be downloaded.
       </P>
       <ExportForm />
-      <SnackbarSuccess />
-      <SnackbarError />
     </>
   )
 }

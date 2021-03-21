@@ -1,15 +1,10 @@
-import styled, { css } from 'styled-components/macro'
+import { SnackbarType } from 'Redux/Snackbars'
+import styled from 'styled-components/macro'
 import { fadeIn } from 'themes/helpers/animations'
-import { SnackbarType } from 'types'
 
 type Props = {
   type: SnackbarType
-  isVisible: boolean
 }
-
-const snackbarIn = css`
-  animation: ${fadeIn({ bottomEnd: '24px' })} 1s ease-in both;
-`
 
 const Wrapper = styled('div')<Props>`
   display: flex;
@@ -31,7 +26,7 @@ const Wrapper = styled('div')<Props>`
   color: ${(props) => props.theme.snackbar[props.type].color};
   background: ${(props) => props.theme.snackbar[props.type].bg};
 
-  ${(props) => (props.isVisible ? snackbarIn : null)};
+  animation: ${fadeIn({ bottomEnd: '24px' })} 1s ease-in both;
 `
 
 export default Wrapper
