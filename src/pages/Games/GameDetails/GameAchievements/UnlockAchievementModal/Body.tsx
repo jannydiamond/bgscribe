@@ -19,7 +19,11 @@ type Props = {
 const Body = ({ modal, achievement }: Props) => {
   const dispatch = useDispatch()
 
-  const gameAchievement = useSelector((state: RootState) => selectGameAchievementById(state, { gameAchievementId: createGameAchievementId(achievement)}))
+  const gameAchievement = useSelector((state: RootState) =>
+    selectGameAchievementById(state, {
+      gameAchievementId: createGameAchievementId(achievement),
+    })
+  )
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
@@ -34,8 +38,12 @@ const Body = ({ modal, achievement }: Props) => {
       <Form id="unlockAchievement" onSubmit={handleSubmit}>
         Do you really want to unlock achievement {achievement.title}?
       </Form>
-      <AchievementPreview>
-        <AchievementAvatar src={achievement.image ?? ''} alt="Preview" level={achievement.level} />
+      <AchievementPreview level={achievement.level}>
+        <AchievementAvatar
+          src={achievement.image ?? ''}
+          alt="Preview"
+          level={achievement.level}
+        />
       </AchievementPreview>
     </ModalBodyWrapper>
   )

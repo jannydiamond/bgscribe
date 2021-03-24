@@ -48,23 +48,43 @@ const mainTheme = {
     level: {
       regular: {
         locked: '#aaeaff',
-        unlocked: '#00BFFF',
+        unlocked: '#00485A',
+        lockedGradient:
+          'linear-gradient(180deg, #21ABCD 0%, #0286A7 49%, #00485A 51%, #0286A7 100%)',
+        unlockedGradient:
+          'linear-gradient(180deg, #21ABCD 0%, #0286A7 49%, #00485A 51%, #0286A7 100%)',
       },
       bronze: {
         locked: '#eed4bb',
-        unlocked: '#cd7f32',
+        unlocked: '#804000',
+        lockedGradient:
+          'linear-gradient(210deg, #CD7F32 0%, #A75B10 49%, #804000 51%, #A75B10 100%)',
+        unlockedGradient:
+          'linear-gradient(210deg, #CD7F32 0%, #A75B10 49%, #804000 51%, #A75B10 100%)',
       },
       silver: {
         locked: '#eaeaea',
-        unlocked: '#c0c0c0',
+        unlocked: '#70706F',
+        lockedGradient:
+          'linear-gradient(210deg, #C0C0C0 0%, #A1A2A3 49%, #70706F 51%, #A1A2A3 100%)',
+        unlockedGradient:
+          'linear-gradient(210deg, #C0C0C0 0%, #A1A2A3 49%, #70706F 51%, #A1A2A3 100%)',
       },
       gold: {
-        locked: '#fff2aa',
-        unlocked: '#ffd700',
+        locked: '#dc8',
+        unlocked: '#a95',
+        lockedGradient:
+          'linear-gradient(210deg, #fea 0%, #dc8 49%, #a95 51%, #dc8 100%)',
+        unlockedGradient:
+          'linear-gradient(210deg, #fea 0%, #dc8 49%, #a95 51%, #dc8 100%)',
       },
       emerald: {
         locked: '#c5edd2',
-        unlocked: '#50c878',
+        unlocked: '#1A4C39',
+        lockedGradient:
+          'linear-gradient(210deg, #50c878 0%, #319B72 49%, #1A4C39 51%, #319B72 100%)',
+        unlockedGradient:
+          'linear-gradient(210deg, #50c878 0%, #319B72 49%, #1A4C39 51%, #319B72 100%)',
       },
     },
   },

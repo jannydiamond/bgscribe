@@ -58,7 +58,7 @@ const Body = ({ modal, achievementSetId }: Props) => {
     const reader = new FileReader()
 
     reader.onload = async (event: any) => {
-      if(isTooLarge) {
+      if (isTooLarge) {
         setImageError(true)
         setImage('')
       } else {
@@ -108,9 +108,11 @@ const Body = ({ modal, achievementSetId }: Props) => {
           value={level}
         />
         <ImageFileInput onChange={handleImageChange} />
-        {imageError ? <Error>The image should not be larger than 500kB.</Error> : null}
+        {imageError ? (
+          <Error>The image should not be larger than 500kB.</Error>
+        ) : null}
       </Form>
-      <AchievementPreview>
+      <AchievementPreview level={level.value}>
         <AchievementAvatar src={image} alt="Preview" level={level.value} />
       </AchievementPreview>
     </ModalBodyWrapper>

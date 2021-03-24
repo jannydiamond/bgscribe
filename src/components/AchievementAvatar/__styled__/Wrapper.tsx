@@ -12,7 +12,9 @@ const Wrapper = styled('div')<Props>`
   flex: 0 0 auto;
   overflow: hidden;
   border-radius: 4px;
-  border: 4px solid ${props => props.unlocked ? props.theme.achievement.level[props.level].unlocked : props.theme.achievement.level[props.level].locked};
+  //border: 4px solid ${props => props.unlocked ? props.theme.achievement.level[props.level].unlocked : props.theme.achievement.level[props.level].locked};
+  background: ${props => props.unlocked ? props.theme.achievement.level[props.level].unlockedGradient : props.theme.achievement.level[props.level].lockedGradient};
+  padding: 4px;
 
   + * {
     padding-left: 16px;

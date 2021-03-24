@@ -16,7 +16,7 @@ const DetailsModal = (props: Props) => {
   return (
     <ModalBodyWrapper>
       <P>{props.subtitle}</P>
-      <AchievementPreview>
+      <AchievementPreview level={props.level} unlocked={props.unlocked}>
         <AchievementAvatar
           src={props.imageSrc ?? ''}
           alt="Preview"
