@@ -1,5 +1,12 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/eaba7138-3985-4f6c-b556-ab6feeb2dc2a/deploy-status)](https://app.netlify.com/sites/jannydiamonds-boardgame-tracker/deploys)
 
+## Achievement sets
+
+You can find some predefined achievement sets or even create some by yourself with the following repository of on3iro:
+https://github.com/on3iro/bgscribe-achievements
+
+# CRA
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
