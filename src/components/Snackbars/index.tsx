@@ -12,10 +12,12 @@ const Snackbars = () => {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(snackbarSlice.actions.dequeue())
-    }, 5000)
-    return () => clearTimeout(timer)
+    if(currentSnackbar) {
+      const timer = setTimeout(() => {
+        dispatch(snackbarSlice.actions.dequeue())
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
   }, [currentSnackbar, dispatch])
 
   if (!currentSnackbar) {
