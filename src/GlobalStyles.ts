@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
   ::before {
     box-sizing: border-box;
   }
+
   body {
     font-family: 'Open Sans', Arial, sans-serif;
     -moz-osx-font-smoothing: grayscale;
